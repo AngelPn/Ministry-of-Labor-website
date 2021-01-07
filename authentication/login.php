@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-  header("location: index.php");
+  header("location: ../index.php");
   exit;
 }
  
@@ -42,23 +42,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($afm_err) && empty($password_err)){
         // Perform query
         if ($result = mysqli_query($link, "SELECT * FROM users WHERE afm = '$afm' and password = '$password'")) {
-            echo "Returned rows are: " . mysqli_num_rows($result);
 
             $row = mysqli_fetch_array($result);
-            if ($row['afm']==$afm && $row['password']==$password){
+            if (mysqli_num_rows($result)== 1 && $row['afm']==$afm && $row['password']==$password){
                 // Password is correct, so start a new session
                 session_start();
-                print("pass");
+
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
                 $_SESSION["afm"] = $afm;                            
                 
                 // Redirect user to welcome page
-                header("location: index.php");
+                header("location: ../index.php");
             }
             else{
                 // Display an error message if password is not valid
-                $password_err = "Ο κωδικός που πληκτρολογήσατε δεν είναι έγκυρος.";
+                $password_err = "To ΑΦΜ ή ο κωδικός που πληκτρολογήσατε δεν είναι έγκυρα.";
             }
             // Free result set
             mysqli_free_result($result);
@@ -134,13 +133,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Σύνδεση</title>
-    <link href="layout/styles/login.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../layout/styles/login.css" rel="stylesheet" type="text/css" media="all">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
 </head>
 <body>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <div class="imgcontainer">
-        <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        <img src="../images/img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">

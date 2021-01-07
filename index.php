@@ -28,9 +28,9 @@ Licence URI: https://www.os-templates.com/template-terms
       <ul class="nospace">
         <li><a href="#" title="English">English</a></li>
         <li><a href="epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
-        <li><a href="login.php" title="Σύνδεση">Σύνδεση</a></li>
+        <li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>
         <li><a href="eggrafi.html" title="Εγγραφή">Εγγραφή</a></li>
-        <li><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></li>
+        <li><a href="authentication/logout.php" class="btn btn-danger">Sign Out of Your Account</a></li>
         <li id="searchform">
           <div>
             <form action="#" method="post">
@@ -54,7 +54,7 @@ Licence URI: https://www.os-templates.com/template-terms
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left"> 
       <!-- ################################################################################################ -->
-      <a href="index.html"><img src="logo.png" alt="logo" style="height:75px;" ></a>
+      <a href="index.html"><img src="images/logo.png" alt="logo" style="height:75px;" ></a>
       <!-- ################################################################################################ -->
     </div>
     <nav id="mainav" class="fl_right"> 
