@@ -29,7 +29,7 @@ Licence URI: https://www.os-templates.com/template-terms
         <li><a href="#" title="English">English</a></li>
         <li><a href="epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
         <li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>
-        <li><a href="eggrafi.html" title="Εγγραφή">Εγγραφή</a></li>
+        <li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>
         <li><a href="authentication/logout.php" class="btn btn-danger">Sign Out of Your Account</a></li>
         <li id="searchform">
           <div>

@@ -12,17 +12,17 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$afm = $password = "";
-$afm_err = $password_err = "";
+$id = $password = "";
+$id_err = $password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if afm is empty
-    if(empty(trim($_POST["afm"]))){
-        $afm_err = "Παρακαλώ εισάγετε το ΑΦΜ σας.";
+    // Check if id is empty
+    if(empty(trim($_POST["id"]))){
+        $id_err = "Παρακαλώ εισάγετε το ΑΦΜ σας.";
     } else{
-        $afm = trim($_POST["afm"]);
+        $id = trim($_POST["id"]);
     }
     
     // Check if password is empty
@@ -33,24 +33,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // to prevent mysql injection
-    $afm = stripcslashes($afm);
+    $id = stripcslashes($id);
     $password = stripcslashes($password);
-    $afm = mysqli_real_escape_string($link, $afm);
+    $id = mysqli_real_escape_string($link, $id);
     $password = mysqli_real_escape_string($link, $password);
 
     mysqli_select_db($link, "users");
-    if(empty($afm_err) && empty($password_err)){
+    if(empty($id_err) && empty($password_err)){
         // Perform query
-        if ($result = mysqli_query($link, "SELECT * FROM users WHERE afm = '$afm' and password = '$password'")) {
+        if ($result = mysqli_query($link, "SELECT * FROM users WHERE id = '$id' and password = '$password'")) {
 
             $row = mysqli_fetch_array($result);
-            if (mysqli_num_rows($result)== 1 && $row['afm']==$afm && $row['password']==$password){
+            if (mysqli_num_rows($result)== 1 && $row['id']==$id && $row['password']==$password){
                 // Password is correct, so start a new session
                 session_start();
 
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
-                $_SESSION["afm"] = $afm;                            
+                $_SESSION["id"] = $id;                            
                 
                 // Redirect user to welcome page
                 header("location: ../index.php");
@@ -63,65 +63,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_free_result($result);
         }        
     }
-
-    // // Validate credentials
-    // if(empty($afm_err) && empty($password_err)){
-    //     // Prepare a select statement
-    //     $sql = "SELECT afm, password FROM users WHERE afm = ?";
-        
-    //     if($stmt = mysqli_prepare($link, $sql)){
-    //         // Bind variables to the prepared statement as parameters
-    //         mysqli_stmt_bind_param($stmt, "s", $param_afm);
-            
-    //         // Set parameters
-    //         $param_afm = $afm;
-            
-    //         // Attempt to execute the prepared statement
-    //         if(mysqli_stmt_execute($stmt)){
-    //             // Store result
-    //             mysqli_stmt_store_result($stmt);
-                
-    //             // Check if afm exists, if yes then verify password
-    //             if(mysqli_stmt_num_rows($stmt) == 1){     
-    //                 print("here");
-    //                 echo "on the command line";
-    //                 // Set parameters
-    //                 $hashed_password = $password;               
-    //                 // Bind result variables
-    //                 mysqli_stmt_bind_result($stmt, $afm, $hashed_password);
-    //                 print("out ofpass");
-    //                 if(mysqli_stmt_fetch($stmt)){
-    //                     print("fetch");
-    //                     $hashed_password = $password; 
-    //                     if(password_verify($password, $hashed_password)){
-    //                         // Password is correct, so start a new session
-    //                         session_start();
-    //                         print("pass");
-    //                         // Store data in session variables
-    //                         $_SESSION["loggedin"] = true;
-    //                         $_SESSION["afm"] = $afm;                            
-                            
-    //                         // Redirect user to welcome page
-    //                         header("location: index.php");
-    //                     }
-    //                     else{
-    //                         // Display an error message if password is not valid
-    //                         $password_err = "Ο κωδικός που πληκτρολογήσατε δεν είναι έγκυρος.";
-    //                     }
-    //                 }
-    //             } 
-    //             else{
-    //                 // Display an error message if afm doesn't exist
-    //                 $afm_err = "Δεν βρέθηκε χρήστης με αυτό το ΑΦΜ.";
-    //             }
-    //         } else{
-    //             echo "Oops! Something went wrong. Please try again later.";
-    //         }
-
-    //         // Close statement
-    //         mysqli_stmt_close($stmt);
-    //     }
-    // }
 
     // Close connection
     mysqli_close($link);
@@ -143,10 +84,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <div class="container">
-        <div class="form-group <?php echo (!empty($afm_err)) ? 'has-error' : ''; ?>">
+        <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>">
                 <label>ΑΦΜ</label>
-                <input type="text" name="afm" class="form-control" value="<?php echo $afm; ?>">
-                <span class="help-block"><?php echo $afm_err; ?></span>
+                <input type="text" name="id" class="form-control" value="<?php echo $id; ?>">
+                <span class="help-block"><?php echo $id_err; ?></span>
         </div> 
         <!-- <label for="uname"><b>ΑΦΜ</b></label>
         <input type="text" placeholder="Enter Username" name="uname" required> -->
