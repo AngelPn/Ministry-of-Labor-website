@@ -36,7 +36,7 @@ Licence URI: https://www.os-templates.com/template-terms
       <!-- ################################################################################################ -->
       <ul class="nospace">
         <li><i class="fa fa-globe"></i><a href="#" title="English"> English</a></li>
-        <li><a href="epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
+        <li><a href="../epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
         <li class="active"><a href="epixirisi.html" title="Η επιχείρησή μου">Η επιχείρησή μου</a></li>
         <li id="searchform">
           <div>

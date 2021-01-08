@@ -29,10 +29,24 @@ Licence URI: https://www.os-templates.com/template-terms
     <div class="fl_right"> 
       <!-- ################################################################################################ -->
       <ul class="nospace">
-        <li><a href="#" title="English">English</a></li>
+        <li><i class="fa fa-globe"></i><a href="#" title="English"> English</a></li>
         <li class="active"><a href="epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
-        <li><a href="sindesi.html" title="Σύνδεση">Σύνδεση</a></li>
-        <li><a href="eggrafi.html" title="Εγγραφή">Εγγραφή</a></li>
+        <?php
+        session_start();
+        // Check if the user is logged in, if not then redirect him to login page
+        if(!isset($_SESSION["loggedin"])){
+          echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+          echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+        }
+        elseif($_SESSION["role_id"] == 1){
+          echo '<li><a href="#" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+          echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+        }
+        else{
+          echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+          echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+        }
+        ?>
         <li id="searchform">
           <div>
             <form action="#" method="post">
