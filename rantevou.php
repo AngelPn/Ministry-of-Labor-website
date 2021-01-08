@@ -1,3 +1,78 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Include config file
+require_once "authentication/config.php";
+ 
+// Define variables and initialize with empty values
+$datetime = $text = $name = $surname = $phone = $mail = "";
+$datetime_err = $text_err = $name_err = $surname_err = $phone_err = $mail = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if datetime is empty
+    if(empty(trim($_POST["datetime"]))){
+        $datetime_err = "Παρακαλώ επιλέξτε ημερομηνία.";
+    } else{
+        $datetime = trim($_POST["datetime"]);
+    }
+
+    // Check if name is empty
+    if(empty(trim($_POST["name"]))){
+        $name_err = "Παρακαλώ εισάγετε το όνομά σας.";
+    } else{
+        $name = trim($_POST["name"]);
+    }
+
+    // Check if surname is empty
+    if(empty(trim($_POST["surname"]))){
+      $surname_err = "Παρακαλώ εισάγετε το ονοματεπώνυμό σας.";
+    } else{
+      $surname = trim($_POST["surname"]);
+    }
+
+    // Check if text is empty
+    if(empty(trim($_POST["text"]))){
+      $text_err = "Παρακαλώ εισάγετε τον λόγο που κλείνετε ραντεβού.";
+    } else{
+      $text = trim($_POST["text"]);
+    }
+
+    // Check if phone is empty
+    if(empty(trim($_POST["phone"]))){
+        $phone_err = "Παρακαλώ εισάγετε το τηλέφωνό σας.";
+    } else{
+        $phone = trim($_POST["phone"]);
+    }
+
+    // Check if mail is empty
+    if(empty(trim($_POST["mail"]))){
+        $mail_err = "Παρακαλώ εισάγετε το email σας.";
+    } else{
+        $mail = trim($_POST["mail"]);
+    }
+
+    mysqli_select_db($link, "rantevou");
+    if(empty($datetime_err) && empty($text_err) && empty($name_err) && empty($surname_err) && empty($phone_err) && empty($mail_err)){
+        // Perform query
+        $sql = "INSERT INTO rantevou VALUES ('$datetime', '$text', '$name', '$surname', '$phone', '$mail')";
+        if (mysqli_query($link, $sql)) {                           
+          echo "Η καταχώρυση του ραντεβού ολοκληρώθηκε με επιτυχία";
+          // Redirect user to welcome page
+          header("location: ../index.php");
+        }
+        else{
+          echo "Κάτι πήγε στραβά! Προσπαθήστε ξανά αργότερα";
+        }
+    }        
+    // Close connection
+    mysqli_close($link);
+}
+?>
+
+
 <!DOCTYPE html>
 <!--
 Template Name: Trealop
@@ -30,9 +105,8 @@ Licence URI: https://www.os-templates.com/template-terms
       <!-- ################################################################################################ -->
       <ul class="nospace">
         <li><i class="fa fa-globe"></i><a href="#" title="English"> English</a></li>
-        <li class="active"><a href="epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
+        <li class="active"><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνία</a></li>
         <?php
-        session_start();
         // Check if the user is logged in, if not then redirect him to login page
         if(!isset($_SESSION["loggedin"])){
           echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
@@ -70,13 +144,13 @@ Licence URI: https://www.os-templates.com/template-terms
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left"> 
       <!-- ################################################################################################ -->
-      <a href="index.html"><img src="logo.png" alt="logo" style="height:75px;" ></a>
+      <a href="index.php"><img src="logo.png" alt="logo" style="height:75px;" ></a>
       <!-- ################################################################################################ -->
     </div>
     <nav id="mainav" class="fl_right"> 
       <!-- ################################################################################################ -->
       <ul class="clear">
-        <li><a href="index.html">Αρχική</a></li>
+        <li><a href="index.php">Αρχική</a></li>
         <li><a class="drop" href="ergazomenoi.html">Εργαζόμενοι</a>
           <ul>
             <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
@@ -124,82 +198,101 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper-row2">
-  <section id="cta" class="hoc container clear"> 
-    <!-- ################################################################################################ -->
-    <ul class="nospace clear">
-      <li class="one_quarter first">
-        <div class="block clear"><a href="#"><i class="fas fa-calendar"></i></a> <span><strong>Επιλέξτε ημερομηνία:</strong><input type="text" name="test-1" data-datepicker/></span></div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong>Επιλέξτε ώρα:</strong>
-          <select class="form-control" id="sel1">
-            <option>7:00</option>
-            <option>8:00</option>
-            <option>9:00</option>
-            <option>10:00</option>
-            <option>11:00</option>
-            <option>12:00</option>
-            <option>13:00</option>
-            <option>17:00</option>
-            <option>18:00</option>
-          </select></span>
-        </div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fa fa-align-left"></i></a> <span><strong>Κείμενο:</strong>
-          <form>
-              <textarea class="form-control" rows="4" cols="50" id="comment"></textarea>
-          </form>
-        </div>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </section>
+<div class="wrapper row2">
+  <main class="hoc container clear"> 
+  <!-- main body -->
+  <div id="comments">
+        <h2>Φόρμα καταχώρησης ραντεβού</h2>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <?php
+          // Check if the user is logged in, if not then redirect him to login page
+          if(!isset($_SESSION["loggedin"])){
+            echo '<div class="one_third first">
+                  <label for="name"><strong>Όνομα <span>*</span></label>
+                  <input type="text" name="name" id="name" value="" size="22" required>
+                </div>
+                <div class="one_third">
+                  <label for="surname">Επώνυμο<span>*</span></label>
+                  <input type="text" name="surname" id="surname" value="" size="22" required>
+                </div>
+                <div class="one_third">
+                  <label for="phone">Τηλέφωνο<span>*</span></label>
+                  <input type="phone" name="phone" id="phone" value="" size="22">
+                </div>
+                <div class="one_third first">
+                  <label for="date"><strong>Ημερομηνία και ώρα<span>*</span></label>
+                  <input type="datetime-local" name="datetime" id="datetime" value="" size="22" required>
+                </div>
+                <div class="one_third">
+                  <label for="mail"><strong>Ηλεκτρονικό ταχυδρομείο</label>
+                  <input type="mail" name="mail" id="mail" value="" size="22" required>
+                </div>
+                <div class="block clear">
+                  <label for="text">Λόγοι κλεισίματος ραντεβού</label>
+                  <textarea name="text" id="text" cols="25" rows="10"></textarea>
+                </div>
+                <div style="float: right;">
+                  <input type="reset" name="reset" value="Εκκαθάριση">
+                  &nbsp;
+                  <input type="submit" name="submit" value="Υποβολή" style="background-color: #53D3DE; color: #FFFFFF;">
+                </div>';    
+          }
+          else{
+            $name = $surname = $email = $phone = "";
 
-  <section id="cta" class="hoc container clear">
-    <ul class="nospace clear">
-      <li class="one_quarter first">
-        <div class="block clear"><a href="#"><i class="fas fa-user"></i></a> <span><strong>Ονοματεπώνυμο:</strong><input type="text" class="form-control" id="usr"></span></div>
-      </li>
-      <li class="one_quarter">
-        <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Τηλέφωνο:</strong><input type="text" class="form-control" id="usr"></span></div>
-      </li>
-      <li class="one_third last">
-        <div id="comments">
-          <input type="submit" name="submit" value="Υποβολή">
-        </div>
-      </li>
-    </ul>
-  </section>
+            // Create connection
+            mysqli_select_db($link, "users");
+            $id = $_SESSION["id"];
+            $sql = "SELECT name, surname, email, phone FROM users where id = '$id'";
+            $result = mysqli_query($link, $sql);
 
-
-  <!-- Επιλέξτε ημερομηνία<br> -->
-  
-  <!-- <input type="text"
-       name="test-1"
-       data-datepicker/>
-  <br>
-  
-  Example 2 :
-  <input type="text"
-       name="test-2"
-       value="05/01/2019"
-       data-datepicker
-       data-class="classic-theme meterial-theme"/>
-  <br>
-
-  Example 3 :
-  <input type="text"
-       name="test-3"
-       data-datepicker
-       data-min="01/01/2019"
-       data-max="31/01/2019"
-       data-date="05/01/2019"
-       data-navigation="no"
-       data-class="classic-theme micro-theme"/>
-  <br> -->
-
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                // output data of each row
+                echo " <div class='one_third first'>
+                <label for='name'><strong>Όνομα <span>*</span></label>
+                <input type='text' name='name' id='name' value=' ".$row["name"]."' size='22' required>
+              </div>
+              <div class='one_third'>
+                <label for='surname'>Επώνυμο<span>*</span></label>
+                <input type='text' name='surname' id='surname' value='".$row["surname"]."' size='22' required>
+              </div>
+              <div class='one_third'>
+                <label for='phone'>Τηλέφωνο<span>*</span></label>";
+                if ($row["phone"] != NULL){
+                  $phone = $row["phone"];
+                }
+                else{
+                  $phone = '';
+                }
+                echo "<input type='phone' name='phone' id='phone' value='".$phone."' size='22'>
+              </div>
+              <div class='one_third first'>
+                <label for='date'><strong>Ημερομηνία και ώρα<span>*</span></label>
+                <input type='datetime-local' name='datetime' id='datetime' value='' size='22' required>
+              </div>
+              <div class='one_third'>
+                <label for='mail'><strong>Ηλεκτρονικό ταχυδρομείο</label>
+                <input type='mail' name='mail' id='mail' value='".$row["email"]."' size='22' required>
+              </div>
+              <div class='block clear'>
+                <label for='text'>Λόγοι κλεισίματος ραντεβού</label>
+                <textarea name='text' id='text' cols='25' rows='10'></textarea>
+              </div>
+              <div style='float: right;'>
+                <input type='reset' name='reset' value='Εκκαθάριση'>
+                &nbsp;
+                <input type='submit' name='submit' value='Υποβολή' style='background-color: #53D3DE; color: #FFFFFF;'>
+              </div>";
+            } else {
+                echo "0 results";
+            }
+            mysqli_close($link);
+          }
+          ?>        
+        </form>
+      </div>
+  </main>
 </div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
