@@ -50,8 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["role_id"] = $row['role_id'];                           
+                $_SESSION["id"] = $id;                            
                 
                 // Redirect user to welcome page
                 header("location: ../index.php");
