@@ -53,8 +53,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["id"] = $id;
                 $_SESSION["role_id"] = $row['role_id'];                           
                 
-                // Redirect user to welcome page
-                header("location: ../index.php");
+                // Redirect user to previous link
+                if(isset($_SESSION['redirect_to'])){
+                    $url = $_SESSION['redirect_to'];
+                    unset($_SESSION['redirect_to']);
+                    header('location:' . $url);
+                }
+                else{
+                    header("location: ../index.php");
+                }
             }
             else{
                 // Display an error message if password is not valid

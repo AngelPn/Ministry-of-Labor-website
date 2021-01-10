@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <!--
 Template Name: Trealop
@@ -10,10 +13,10 @@ Licence URI: https://www.os-templates.com/template-terms
 <html lang="el">
 <!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Επικοινωνία</title>
+<title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -26,8 +29,9 @@ Licence URI: https://www.os-templates.com/template-terms
 	      <!-- ################################################################################################ -->
 	      <ul class="nospace">
 	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-	        <li class = "active"><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
+	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
+          session_start();
           // Check if the user is logged in, if not then redirect him to login page
           if(!isset($_SESSION["loggedin"])){
             echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
@@ -62,14 +66,14 @@ Licence URI: https://www.os-templates.com/template-terms
 	<div class="wrapper row1">
 	  <header id="header" class="hoc clear">
 	  	<div id="logo" class="fl_left"> 
-      		<a href="index.php"><img src="images/logo.png" style="height: 65px;"></a>
+      		<a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
     	</div>
 
 	    <nav id="mainav" class="fl_right"> 
 
 	      <ul class="clear">
 
-	        <li><a class="nodrop" href="index.html" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
 	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
 	          <ul>
@@ -80,7 +84,7 @@ Licence URI: https://www.os-templates.com/template-terms
 	            <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
 	          </ul>
 	        </li>
-	        <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
+	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
 	          <ul>
 	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
 	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
@@ -116,81 +120,123 @@ Licence URI: https://www.os-templates.com/template-terms
 	  </header>
 	</div>
 </div>
+
 <!-- ################################################################################################ -->
-<div style="padding-bottom: 115px;"></div>
+<div style="padding-bottom: 130px;"></div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
-        <li><a href="index.php"><i class="fa fa-home"></i></a></li>
-        <li>ΕΠΙΚΟΙΝΩΝΙΑ</li>
+        <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
+        <li><a href="epixirisi.php">ΣΤΟΙΧΕΙΑ ΕΠΙΧΕΙΡΗΣΗΣ</a></li>
+        <li>ΕΡΓΑΖΟΜΕΝΟΙ</li>
       </ul>
     </div>
 </div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row2">
-    <section id="cta" class="hoc container clear"> 
-      <!-- ################################################################################################ -->
-      <ul class="nospace clear">
-        <li class="one_quarter first">
-          <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Τηλεφωνήστε μας:</strong> +30 123 456 7890</span></div>
-        </li>
-        <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Στείλτε μας mail:</strong>support@domain.com</span></div>
-        </li>
-        <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong>Δευτέρα - Σάββατο:</strong> 08.00πμ - 18.00μμ</span></div>
-        </li>
-        <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Επισκεφθείτε μας:</strong>Λόγω covid-19 θα χρειαστεί να <a href="rantevou.php">κλείσετε ραντεβού</a></span></div>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </section>
-</div>
-
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row3">
     <main class="hoc container clear"> 
-        <div class="content three_quarter"> 
-            <div id="comments">
-                <h2>Ηλεκτρονική επικοινωνία</h2>
-                <form action="#" method="post">
-                <div class="one_third first">
-                    <label for="name">Ονοματεπώνυμο <span>*</span></label>
-                    <input type="text" name="name" id="name" value="" size="22" required>
-                </div>
-                <div class="one_third">
-                    <label for="email">Mail <span>*</span></label>
-                    <input type="email" name="email" id="email" value="" size="22" required>
-                </div>
-                <div class="one_third">
-                    <label for="url">Τηλέφωνο</label>
-                    <input type="url" name="url" id="url" value="" size="22">
-                </div>
-                <div class="block clear">
-                    <label for="comment">Κείμενο</label>
-                    <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-                </div>
-                <div>
-                    <input type="reset" name="reset" value="Εκκαθάριση">
-                    &nbsp;
-                    <input type="submit" name="submit" value="Αποστολή">
-                </div>
-                </form>
-            </div>
+    <!-- main body -->
+        <!-- ################################################################################################ -->
+        <div class="sidebar one_quarter first"> 
+            <!-- ################################################################################################ -->
+            <h6>Η επιχείρησή μου</h6>
+            <nav class="sdb_holder">
+            <ul>
+                <li><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
+                <li class="active"><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
+                <li><a href="#">Οικονομική διαχείρηση</a>
+                <ul>
+                    <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
+                    <li><a href="#">Μηνιαία έσοδα κι έξοδα</a></li>
+                </ul>
+                </li>
+                <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
+            </ul>
+            </nav>
         </div>
+        <!-- ################################################################################################ -->
+        <div class="content three_quarter"> 
+            <h1>Εργαζόμενοι</h1>
+            <div class="scrollable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ονοματεπώνυμο</th>
+                            <th>ΑΦΜ</th>
+                            <th>Αρχείο Σύμβασης Εργασίας</th>
+                            <th>Κατάσταση</th>
+                            <th>Ισχύ μέχρι</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                      
+                      // Include config file
+                      require_once "../authentication/config.php";
+                      
+                      // Define variables and initialize with empty values
+                      $employee_id = $status = $period = "";
+                      $id = $_SESSION["id"];
+
+                      // Create connection to get the name
+                      mysqli_select_db($link, "users");
+                      $sql = "SELECT name FROM users where id = '$id'";
+                      $result = mysqli_query($link, $sql);
+                      if (mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        $name = $row["name"];
+                      }
+                      else {
+                        echo "0 results";
+                      }
+
+                      // Create connection to get business employees
+                      mysqli_select_db($link, "business_employees");
+
+                      $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
+                      $result = mysqli_query($link, $sql);
+
+                      // Create connection to get name of employees
+                      mysqli_select_db($link, "users");
+
+
+                      if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)){
+                          $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
+                          $result2 = mysqli_query($link, $sql);
+                          $row2 = mysqli_fetch_assoc($result2);
+                          echo "<tr>
+                                    <td>".$row2["name"]."</td>
+                                    <td>".$row["employee_id"]."</td>
+                                    <td><a href='#'>Σύμβαση εργασίας</a></td>
+                                    <td>".$row["status"]."</td>
+                                    <td>".$row["period"]."</td>
+                                </tr>";
+                        }
+                      }
+                      else {
+                        echo "0 results";
+                      }
+                      mysqli_close($link);
+                      ?>
+                    </tbody>
+                </table>
+              </div>
+        </div>
+    <!-- / main body -->
         <div class="clear"></div>
-    </main>
+  </main>
 </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div class="wrapper row4">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row5">
     <div id="copyright" class="hoc clear"> 
       <!-- ################################################################################################ -->
       <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
@@ -203,8 +249,8 @@ Licence URI: https://www.os-templates.com/template-terms
   <!-- ################################################################################################ -->
   <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
   <!-- JAVASCRIPTS -->
-  <script src="../layout/scripts/jquery.min.js"></script>
-  <script src="../layout/scripts/jquery.backtotop.js"></script>
-  <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+  <script src="layout/scripts/jquery.min.js"></script>
+  <script src="layout/scripts/jquery.backtotop.js"></script>
+  <script src="layout/scripts/jquery.mobilemenu.js"></script>
   </body>
   </html>

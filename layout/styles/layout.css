@@ -26,6 +26,11 @@ File: Layout CSS
 .row4, .row4 a{}
 .row5, .row5 a{}
 
+.row2{z-index: 0;}
+.row3{z-index: 0;}
+.row5{z-index: 0;}
+
+#top{z-index: -1;}
 
 /* Top Bar
 --------------------------------------------------------------------------------------------------------------- */
@@ -36,7 +41,7 @@ File: Layout CSS
 #topbar i{line-height:normal;}
 
 /* Search Form */
-#topbar #searchform{position:relative; line-height:1; z-index:9999;}
+#topbar #searchform{position:relative; line-height:1;}
 #topbar #searchform::after{display:block; height:18px; line-height:18px; padding:0; font-family:"Font Awesome\ 5 Free"; font-weight:900; content:"\f002"/* fa-search */;}
 #topbar #searchform:hover::after, #topbar #searchform button{cursor:pointer;}
 #topbar #searchform > div{position:absolute; top:18px; right:0; width:280px; visibility:hidden; opacity:0/* Required for transition effect */;}
@@ -52,7 +57,7 @@ File: Layout CSS
 --------------------------------------------------------------------------------------------------------------- */
 #header{}
 
-#header #logo{margin:30px 0 0 0;}
+#header #logo{margin: 5px 0 0 0;}
 #header #logo h1{margin:0; padding:0; font-size:40px; text-transform:uppercase;}
 
 
@@ -146,7 +151,7 @@ File: Layout CSS
     padding-right: 30px;
     width: 160px;
     left: 0px;
-    z-index: 2000;
+    z-index: 1;
 }
 
 .calendar .dropdown .dropdown-item
@@ -351,8 +356,8 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"Font Awesome\ 5 Free"; font-weight:900; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
-#mainav{position:relative; margin-bottom:-2px; z-index:999;}
-#mainav ul{text-transform:uppercase; font-size: 15px;}
+#mainav{position:relative; margin-bottom:-2px; z-index:1;}
+#mainav ul{text-transform:uppercase; font-size: 15px; padding: 0 auto;}
 #mainav ul ul{position:absolute; width:180px; text-transform:none;}
 #mainav ul ul ul{left:180px; top:0;}
 #mainav li{display:block; position:relative; float:left; margin:0; padding:0;}
@@ -367,13 +372,18 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav .drop::after{top:45px; left:10px;}
 
 #mainav li li .drop::after{top:15px; left:5px;}
-#mainav ul ul{visibility:hidden; opacity:0;}
+#mainav ul ul{visibility:hidden; opacity:0; width:100%;}
 #mainav ul li:hover > ul{visibility:visible; opacity:1;}
 
 #mainav form{display:none; width:100%; margin:0; padding:0;}
 #mainav form select, #mainav form select option{display:block; cursor:pointer; outline:none;}
 #mainav form select{width:100%; padding:5px; border:none;}
 #mainav form select option{margin:5px; padding:0; border:none;}
+
+#mainav .nodrop{
+    padding-top: 32px;
+    padding-bottom: 30px;
+}
 
 /* Breadcrumb */
 #breadcrumb{padding:15px 30px;}
@@ -402,7 +412,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 .pagination a, .pagination strong{display:block; padding:8px 11px; border:1px solid; background-clip:padding-box; font-weight:normal;}
 
 /* Back to Top */
-#backtotop{z-index:999; display:inline-block; position:fixed; visibility:hidden; bottom:20px; right:20px; width:36px; height:36px; line-height:36px; font-size:16px; text-align:center; opacity:1;}
+#backtotop{z-index:1; display:inline-block; position:fixed; visibility:hidden; bottom:20px; right:20px; width:36px; height:36px; line-height:36px; font-size:16px; text-align:center; opacity:1;}
 #backtotop i{display:block; width:100%; height:100%; line-height:inherit;}
 #backtotop.visible{visibility:visible; opacity:1;}
 #backtotop:hover{opacity:1;}
@@ -571,10 +581,10 @@ table a, #comments a{background-color:inherit;}
 /* Max Wrapper Width - Laptop, Desktop etc.
 --------------------------------------------------------------------------------------------------------------- */
 @media screen and (min-width:1140px){
-	.hoc{max-width:1140px;}
+	.hoc{max-width:1400px;}
 }
 
-@media screen and (min-width:978px) and (max-width:1140px){
+@media screen and (min-width:978px) and (max-width:1400px){
 	.hoc{max-width:95%;}
 }
 
@@ -651,6 +661,7 @@ table a, #comments a{background-color:inherit;}
     position: fixed;
     top: 0;
     width: 100%;
+    z-index:2;
 }
 
 .stack_container{
@@ -663,5 +674,37 @@ table a, #comments a{background-color:inherit;}
 
 .right_stack{
     width: 30%;
+}
+
+.main_article{
+    text-align: center;
+    background-color: white;
+    border: 1px solid #FFFFFF;
+    margin-bottom: 40px;
+}
+
+.main_article:hover{
+    transform: scale(1.015);
+    /*border: 1px solid #813DAA;*/
+}
+
+.main_list{
+    padding-left: 0px;
+    list-style: none;
+}
+
+.flex_row{
+    display: flex;
+}
+
+.flex_row li h3{
+    font-family: 'Ubuntu';
+    margin: 0;
+    padding: 0 25px 25px 25px;
+    text-transform: none;
+}
+
+.article_pic{
+    padding: 25px 25px 25px 25px;
 }
 

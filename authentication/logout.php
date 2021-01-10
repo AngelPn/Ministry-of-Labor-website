@@ -8,7 +8,16 @@ $_SESSION = array();
 // Destroy the session.
 session_destroy();
  
-// Redirect to index page
-header("location: ../index.php");
+// Redirect user to previous link
+if(isset($_SESSION['redirect_to'])){
+    echo "set";
+    $url = $_SESSION['redirect_to'];
+    unset($_SESSION['redirect_to']);
+    header('location:' . $url);
+}
+else{
+    echo "not set";
+    header("location: ../index.php");
+}
 exit;
 ?>

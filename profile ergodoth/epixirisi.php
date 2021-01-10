@@ -2,11 +2,44 @@
 // Initialize the session
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
+// Include config file
+require_once "../authentication/config.php";
+ 
+// Define variables and initialize with empty values
+$name = $year = $status = $office = $region = $end_mng = "";
+$id = $_SESSION["id"];
+
+// Create connection to get the name
+mysqli_select_db($link, "users");
+$sql = "SELECT name FROM users where id = '$id'";
+$result = mysqli_query($link, $sql);
+if (mysqli_num_rows($result) > 0) {
+  $row = mysqli_fetch_assoc($result);
+  $name = $row["name"];
 }
+else {
+  echo "0 results";
+}
+
+// Create connection to get business data
+mysqli_select_db($link, "business_data");
+
+$sql = "SELECT year, status, office, region, end_mng FROM business_data where id = '$id'";
+$result = mysqli_query($link, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  $row = mysqli_fetch_assoc($result);
+
+  $year = $row["year"];
+  $status = $row["status"];
+  $office = $row["office"];
+  $region = $row["region"];
+  $end_mng = $row["end_mng"];
+}
+else {
+  echo "0 results";
+}
+mysqli_close($link);
 ?>
 
 <!DOCTYPE html>
@@ -30,100 +63,118 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear">
-    <div class="fl_right"> 
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><i class="fa fa-globe"></i><a href="#" title="English"> English</a></li>
-        <li><a href="../epikinonia.html" title="Επικοινωνία">Επικοινωνία</a></li>
-        <li class="active"><a href="epixirisi.html" title="Η επιχείρησή μου">Η επιχείρησή μου</a></li>
-        <li id="searchform">
-          <div>
-            <form action="#" method="post">
-              <fieldset>
-                <legend>Quick Search:</legend>
-                <input type="text" placeholder="Αναζήτηση&hellip;">
-                <button type="submit"><i class="fas fa-search"></i></button>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-  </div>
+<div id="fixed">
+	<div class="wrapper row0">
+	  <div id="topbar" class="hoc clear" >
+	    <div class="fl_right"> 
+	      <!-- ################################################################################################ -->
+	      <ul class="nospace">
+	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <?php
+          // Check if the user is logged in, if not then redirect him to login page
+          if(!isset($_SESSION["loggedin"])){
+            echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+            echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+          }
+          elseif($_SESSION["role_id"] == 1){
+            echo '<li><a href="#" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+          }
+          else{
+            echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+          }
+          ?>
+	        <li id="searchform">
+	          <div>
+	            <form action="#" method="post">
+	              <fieldset>
+	                <legend>Quick Search:</legend>
+	                <input type="text" placeholder="Αναζήτηση&hellip;">
+	                <button type="submit"><i class="fas fa-search"></i></button>
+	              </fieldset>
+	            </form>
+	          </div>
+	        </li>
+	      </ul>
+	      <!-- ################################################################################################ -->
+	    </div>
+	  </div>
+	</div>
+
+	<div class="wrapper row1">
+	  <header id="header" class="hoc clear">
+	  	<div id="logo" class="fl_left"> 
+      		<a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
+    	</div>
+
+	    <nav id="mainav" class="fl_right"> 
+
+	      <ul class="clear">
+
+	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+
+	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
+	          <ul>
+	            <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
+	            <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
+	            <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
+	            <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
+	            <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
+	          </ul>
+	        </li>
+	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
+	          <ul>
+	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
+	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+	            <li><a href="#">Ρύθμιση οφειλών</a></li>
+	          </ul>
+	        </li>
+	        <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+	          <ul>
+	            <li><a href="#">Δικαιώματα</a></li>
+	            <li><a href="#">Προϋποθέσεις</a></li>
+	            <li><a href="#">Δικαιολογητικά</a></li>
+	          </ul>
+	        </li>
+	        <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+	          <ul>
+	            <li><a href="#">Κριτήρια</a></li>
+	            <li><a href="#">Δικαιολογητικά</a></li>
+	          </ul>
+	        </li>     
+	        <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+	        <ul>
+	          <li><a href="#">Νέα και αλλαγές</a></li>
+	          <li><a href="#">Εργαζόμενοι</a></li>
+	          <li><a href="#">Εργοδότες</a></li>
+	          <li><a href="#">Άνεργοι</a></li>
+	          <li><a href="#">Συνταξιούχοι</a></li>
+	        </ul>
+	        </li>             
+	        <li><a class="nodrop" href="#">Βοηθεια</a></li>
+	      </ul>
+	      <!-- ################################################################################################ -->
+	    </nav>
+	  </header>
+	</div>
 </div>
+
+<!-- ################################################################################################ -->
+<div style="padding-bottom: 130px;"></div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row1">
-  <header id="header" class="hoc clear">
-    <div id="logo" class="fl_left"> 
-      <!-- ################################################################################################ -->
-      <a href="index.html"><img src="../logo.png" alt="logo" style="height:75px;" ></a>
-      <!-- ################################################################################################ -->
-    </div>
-    <nav id="mainav" class="fl_right"> 
-      <!-- ################################################################################################ -->
-      <ul class="clear">
-        <li><a href="index.html">Αρχική</a></li>
-        <li><a class="drop" href="ergazomenoi.html">Εργαζόμενοι</a>
-          <ul>
-            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-            <li><a href="ergazomenoi/symvaseis.html">Συμβάσεις</a></li>
-            <li><a href="ergazomenoi/adeies.html">Άδειες</a></li>
-            <li><a href="ergazomenoi/epidomata.html">Επιδόματα</a></li>
-            <li><a href="ergazomenoi/apoliseis.html">Απολύσεις</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="ergodotes.html">Εργοδότες</a>
-          <ul>
-            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
-            <li><a href="#">Ρύθμιση οφειλών</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">Άνεργοι</a>
-          <ul>
-            <li><a href="#">Δικαιώματα</a></li>
-            <li><a href="#">Προϋποθέσεις</a></li>
-            <li><a href="#">Δικαιολογητικά</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">Συνταξιούχοι</a>
-          <ul>
-            <li><a href="#">Κριτήρια</a></li>
-            <li><a href="#">Δικαιολογητικά</a></li>
-          </ul>
-        </li>     
-        <li><a class="drop" href="#">Νομοθεσία</a>
-        <ul>
-          <li><a href="#">Νέα και αλλαγές</a></li>
-          <li><a href="#">Εργαζόμενοι</a></li>
-          <li><a href="#">Εργοδότες</a></li>
-          <li><a href="#">Άνεργοι</a></li>
-          <li><a href="#">Συνταξιούχοι</a></li>
-        </ul>
-        </li>             
-        <li><a href="#">Βοήθεια</a></li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </nav>
-  </header>
-</div>
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay gradient" style="background-color:rgb(0, 0, 0);">
+<div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
-        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-        <li>Η επιχείρησή μου</li>
+        <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
+        <li>ΣΤΟΙΧΕΙΑ ΕΠΙΧΕΙΡΗΣΗΣ</li>
       </ul>
-      <!-- ################################################################################################ -->
     </div>
-  </div>
+</div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -136,8 +187,8 @@ Licence URI: https://www.os-templates.com/template-terms
             <h6>Η επιχείρησή μου</h6>
             <nav class="sdb_holder">
             <ul>
-                <li class="active"><a href="epixirisi.html">Στοιχεία επιχείρησης</a></li>
-                <li><a href="arxeio_ergazomenwn.html">Εργαζόμενοι</a></li>
+                <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
+                <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
                 <li><a href="#">Οικονομική διαχείρηση</a>
                 <ul>
                     <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
@@ -155,40 +206,46 @@ Licence URI: https://www.os-templates.com/template-terms
                 <table>
                   <tbody>
                     <tr>
-                        <td>Επωνυμία/ΑΦΜ</td>
-                        <td>Value 1</td>
+                        <td>Επωνυμία</td>
+                        <?php
+                        echo "<td>$name</td>";
+                        ?>
+                    </tr>
+                    <tr>
+                        <td>ΑΦΜ επιχείρησης</td>
+                        <?php
+                        echo "<td>$id</td>";
+                        ?>
                     </tr>
                     <tr>
                         <td>Έτος ίδρυσης</td>
-                        <td>Value 1</td>
+                        <?php
+                        echo "<td>$year</td>";
+                        ?>
                     </tr>
                     <tr>
                         <td>Κατάσταση επιχείρησης</td>
-                        <td>Value 2</td>
+                        <?php
+                        echo "<td>$status</td>";
+                        ?>
                     </tr>
                     <tr>
                         <td>Έδρα επιχείρησης</td>
-                        <td>Value 3</td>
+                        <?php
+                        echo "<td>$office</td>";
+                        ?>
                     </tr>
                     <tr>
                         <td>Νομός - Περιφέρεια</td>
-                        <td>Value 3</td>
-                    </tr>
-                    <tr>
-                        <td>Κωδικός Δραστηριότητας (ΚΑΔ)</td>
-                        <td>Value 3</td>
-                    </tr>
-                    <tr>
-                        <td>Κατηγορία βιβλίων</td>
-                        <td>Value 4</td>
+                        <?php
+                        echo "<td>$region</td>";
+                        ?>
                     </tr>
                     <tr>
                         <td>Λήξη διαχειριστικής περιόδου</td>
-                        <td>Value 5</td>
-                    </tr>
-                    <tr>
-                        <td>Υπαγωγή ΦΠΑ</td>
-                        <td>Value 7</td>
+                        <?php
+                        echo "<td>$end_mng</td>";
+                        ?>
                     </tr>
                   </tbody>
                 </table>
