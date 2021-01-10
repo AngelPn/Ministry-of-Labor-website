@@ -1,4 +1,10 @@
-
+<?php
+session_start();
+if(isset($_SESSION['status_success'])){
+  unset($_SESSION['status_success']);
+  echo "Η κατοχύρωση του ραντεβού ολοκληρώθηκε με επιτυχία";
+}
+?>
 
 <!DOCTYPE html>
 <!--
@@ -33,19 +39,18 @@ Licence URI: https://www.os-templates.com/template-terms
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
           <li><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-          session_start();
           // Check if the user is logged in, if not then redirect him to login page
           if(!isset($_SESSION["loggedin"])){
             echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
             echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
           }
           elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="#" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+            echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
           }
           else{
             echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
           }
           ?>
           <li id="searchform">
@@ -131,230 +136,127 @@ Licence URI: https://www.os-templates.com/template-terms
 <div class="wrapper row2">
   <main class="hoc container clear"> 
 
-    <div class="content three_quarter first">
-
+    <div class="content three_fifth first">
       <ul class="main_list">
-
         <div class="flex_row">
           <li class="main_article one_half first">
-            <img class="article_pic" src="images/spiti.jpg">
-            <h3> Ότι χρειάζεται να ξέρετε για τον COVID-19 </h3>
+            <a href="#">
+              <img class="article_pic" src="images/spiti.jpg">
+              <h3> Ότι χρειάζεται να ξέρετε για τον COVID-19 </h3></a>
           </li>
 
           <li class="main_article one_half">
+            <a href="#">
             <img class="article_pic" src="images/espaeshop.jpg">
-            <h3> Επιδότηση σε επιχειρήσεις για δημιουργία eshop </h3>
+            <h3> Επιδότηση σε επιχειρήσεις για δημιουργία eshop </h3></a>
           </li>
         </div>
 
         <div class="flex_row">
           <li class="main_article one_half first">
+            <a href="#">
             <img class="article_pic" src="images/img1.webp">
             <h3> Υπάρχει πιθανότητα να έχω έρθει σε επαφή με φορέα του COVID-19.
-            Τι να προσέχω; </h3>
+            Τι να προσέχω; </h3></a>
           </li>
 
           <li class="main_article one_half">
+            <a href="#">
             <img class="article_pic" src="images/covid1.jpg">
-            <h3> Οδηγείες και μέτρα πρόληψης </h3>
+            <h3> Οδηγείες και μέτρα πρόληψης </h3></a>
           </li>
         </div>
         
         <div class="flex_row">
           <li class="main_article one_half first">
+            <a href="#">
             <img class="article_pic" src="images/notes.jpg">
-            <h3> Πώς να υποβάλετε αίτηση για ασφάλιση ανέργου</h3>
+            <h3> Πώς να υποβάλετε αίτηση για ασφάλιση ανέργου</h3></a>
           </li>
 
           <li class="main_article one_half">
+            <a href="#">
             <img class="article_pic" src="images/hands.jpg">
-            <h3> Mέτρα πρόληψης κατά του COVID σε εργασιακό περιβάλλον </h3>
+            <h3> Mέτρα πρόληψης κατά του COVID σε εργασιακό περιβάλλον </h3></a>
           </li>
         </div>
 
+        <div class="flex_row">
+          <li class="main_article one_half first">
+            <a href="#">
+            <img class="article_pic" src="images/shop.jpg">
+            <h3> Μέχρι 4 άτομα ανά 100 τετραγωνικά μέτρα σε καταστήματα</h3></a>
+          </li>
+
+          <li class="main_article one_half">
+            <a href="#">
+            <img class="article_pic" src="images/New_office.jpg">
+            <h3> Τι να κάνετε σε περίπτωση κρούσματος στο περιβάλλον εργασίας σας </h3></a>
+          </li>
+        </div>
       </ul>
-
-      <!-- <section class="hoc container clear" style="padding-top: 0px;"> 
-          <ul class="group prices">
-            <li class="one_half">
-              <article><i class="fas fa-exclamation"></i>
-                <h6 class="heading">Οδηγίες Πρόληψης</h6>
-                <ul>
-                  <li>4 άτομα ανά 100 τετραγωνικά μέτρα σε καταστήματα...</li>
-                </ul>
-                <footer><a class="btn" href="pages/odigies.html">Περισσότερα</a></footer>
-              </article>
-            </li>
-            <li class="one_half" style="margin-left: 0px; padding-top: 30px;">
-              <article><i class="fas fa-building"></i>
-                <h6 class="heading">Κρούσμα σε εργασιακό περιβάλλον</h6>
-                <p>Τι να κάνετε σε περίπτωση κρούσματος στο περιβάλλον εργασίας σας (για εργοδότες και εργαζόμενους)</p>
-                <footer><a class="btn" href="pages/krousma.html">Περισσότερα</a></footer>
-              </article>
-            </li>
-          </ul>
-        </section> -->
-
+      <div class="more">
+          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer;/*color: white;*/"><b>Φορτώστε περισσότερα άρθρα</b></a>
+        </div>
     </div>
 
-    <div class="sidebar one_quarter"> 
+    <div class="sidebar two_fifth"> 
       <!-- ################################################################################################ -->
-      <h6>Lorem ipsum dolor</h6>
+      <h6 style="padding-top: 10px;">Τελευταία Νέα</h6>
       <nav class="sdb_holder">
         <ul>
-          <li><a href="#">Navigation - Level 1</a></li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a>
-                <ul>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a></li>
+          <li><a href="#"> 10/01/21 - <b>Επέκταση του Lockdown στα καταστήματα και την εστίαση κατά 22 εβδομάδες</b></a></li>
+          <li><a href="#"> 08/01/21 - <b>Ξεκίνησαν οι εγγραφές για τον 2ο κύκλο του Δωρεάν Webinar Διαδικτυακής επιχειρηματικότητας του ΥΠΑΚΠ</b></a></li>
+          <li><a href="#"> 08/01/21 - <b>Ετήσιος Διαγωνισμός προσλήψεων του ΥΠΑΚΠ για το 2021</b> </a></li>
+          <li><a href="#"> 07/01/21 - <b>Νέα προγράμματα χρηματοδότησης επιχειρήσεων μέσω του ΕΣΠΑ και της ΕΕ</b></a></li>
+          <li><a href="#"> 05/01/21 - <b>Αναθεώρηση εργασιακών δικαιωμάτων εργαζομένων που τηλεργάζονται για καλύτερη προστασία των εργαζομένων</b></a></li>
+          <li><a href="#"> 02/01/21 - <b>Νέο Δωρεάν Webinar από το ΥΠΑΚΠ με στόχο την καταπολέμηση του ηλεκτρονικού αναλφαβητισμού στην αγορά εργασίας</b></a></li>
+          <li><a href="#"> 02/01/21 - <b>Αλλαγές στην Νομοθεσία με στόχο την ενίσχυση Ανέργων και Ηλικιωμένων</b></a></li>
+          <li><a href="#"> 01/01/21 - <b>To Υπουργείο Εργασίας και Κοινωνικών Υποθέσεων, μαζί με όλο του το προσωπικό σας εύχεται Καλή και Παραγωγική Χρονιά!</b></a></li>
+          <li><a href="#"> 31/12/20 - <b>Ετήσιος Απολογισμός της πορείας και της δράσης του ΥΠΑΚΠ για το 2020</b></a></li>
         </ul>
+        <div class="more">
+          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer; /*color: white;*/"><b>Παλαιότερα Νέα</b></a>
+        </div>
+        
       </nav>
-      <div class="sdb_holder">
-        <h6>Lorem ipsum dolor</h6>
-        <address>
-        Full Name<br>
-        Address Line 1<br>
-        Address Line 2<br>
-        Town/City<br>
-        Postcode/Zip<br>
-        <br>
-        Tel: xxxx xxxx xxxxxx<br>
-        Email: <a href="#">contact@domain.com</a>
-        </address>
+      
+
+      <div class="sdb_holder" style="text-align: center;">
+        <a href="#"> <img src="./images/menoume_asfaleis.png">
+          <p style="font-size: 16.5px;">Μείνετε ενήμεροι για το πώς επηρεάζεται ο χώρος της Εργασίας στην Ελλάδα από τον COVID-19</p></a>
       </div>
-      <div class="sdb_holder">
-        <article>
-          <h6>Lorem ipsum dolor</h6>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-          <ul>
-            <li><a href="#">Lorem ipsum dolor sit</a></li>
-            <li>Etiam vel sapien et</li>
-            <li><a href="#">Etiam vel sapien et</a></li>
-          </ul>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed. Condimentumsantincidunt dui mattis magna intesque purus orci augue lor nibh.</p>
-          <p class="more"><a href="#">Continue Reading &raquo;</a></p>
-        </article>
-      </div>
-      <!-- ################################################################################################ -->
     </div>
 
   </main>
 </div>
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
-  <main class="hoc container clear"> 
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter first">
-      <section class="hoc container clear"> 
-        <!-- ################################################################################################ -->
-        <div class="content three_quarter first">
-          <ul class="nospace group prices">
-            <li class="one_third">
-              <article><i class="far fa-newspaper"></i>
-                <h6 class="heading">Τελευταία Νέα</h6>
-                <ul>
-                  <li>(11/12) Πειραματική λειτουργία clickaway - Ανοίγουν βιβλιοπωλεία και κομμωτήρια</li>
-                </ul>
-                <footer ><a class="btn" href="#">Περισσότερα</a></footer>
-              </article>
-            </li>
-            <li class="one_third">
-              <article><i class="fas fa-exclamation"></i>
-                <h6 class="heading">Οδηγίες Πρόληψης</h6>
-                <ul>
-                  <li>4 άτομα ανά 100 τετραγωνικά μέτρα σε καταστήματα...</li>
-                </ul>
-                <footer><a class="btn" href="pages/odigies.html">Περισσότερα</a></footer>
-              </article>
-            </li>
-            <li class="one_third">
-              <article><i class="fas fa-building"></i>
-                <h6 class="heading">Κρούσμα σε εργασιακό περιβάλλον</h6>
-                <p>Τι να κάνετε σε περίπτωση κρούσματος στο περιβάλλον εργασίας σας (για εργοδότες και εργαζόμενους)</p>
-                <footer><a class="btn" href="pages/krousma.html">Περισσότερα</a></footer>
-              </article>
-            </li>
-          </ul>
-          <!-- ################################################################################################ -->
-        </section>
-      <!-- ################################################################################################ -->
-      <!-- / main body -->
-      <div class="clear"></div>
-    </div>
-    <div class="sidebar one_quarter"> 
-      <!-- ################################################################################################ -->
-      <h6>Lorem ipsum dolor</h6>
-      <nav class="sdb_holder">
+  <main class="hoc clear"> 
+
+    <div class="content three_quarter first min_info">
+      <div class="flex_row">
+        <img class="single_logo" src="./images/logo_big.png">
+        <p class="yp_name"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
         <ul>
-          <li><a href="#">Navigation - Level 1</a></li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a>
-            <ul>
-              <li><a href="#">Navigation - Level 2</a></li>
-              <li><a href="#">Navigation - Level 2</a>
-                <ul>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                  <li><a href="#">Navigation - Level 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Navigation - Level 1</a></li>
+          <li><a href="#"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="#"> Πολιτική Ηγεσία </a></li>
+          <li><a href="#"> Οργανωτική Δομή </a></li>
         </ul>
-      </nav>
-      <div class="sdb_holder">
-        <h6>Lorem ipsum dolor</h6>
-        <address>
-        Full Name<br>
-        Address Line 1<br>
-        Address Line 2<br>
-        Town/City<br>
-        Postcode/Zip<br>
-        <br>
-        Tel: xxxx xxxx xxxxxx<br>
-        Email: <a href="#">contact@domain.com</a>
-        </address>
+
+        <ul>
+          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
+        </ul>
       </div>
-      <div class="sdb_holder">
-        <article>
-          <h6>Lorem ipsum dolor</h6>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-          <ul>
-            <li><a href="#">Lorem ipsum dolor sit</a></li>
-            <li>Etiam vel sapien et</li>
-            <li><a href="#">Etiam vel sapien et</a></li>
-          </ul>
-          <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed. Condimentumsantincidunt dui mattis magna intesque purus orci augue lor nibh.</p>
-          <p class="more"><a href="#">Continue Reading &raquo;</a></p>
-        </article>
-      </div>
-      <!-- ################################################################################################ -->
+      
+      
+      <div class="clear"></div>
     </div>
 
   </main>
 </div>
-<!-- ################################################################################################ -->
-
 
 <!-- ################################################################################################ -->
 <div class="wrapper row5">

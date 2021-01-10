@@ -32,18 +32,14 @@ Licence URI: https://www.os-templates.com/template-terms
 	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
           session_start();
-          // Check if the user is logged in, if not then redirect him to login page
+          // Check if the user is logged in
           if(!isset($_SESSION["loggedin"])){
             echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
             echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
           }
-          elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="#" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
-          else{
-            echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+          elseif($_SESSION["role_id"] == 2){
+            echo '<li><a href="epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+            echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
           }
           ?>
 	        <li id="searchform">
@@ -164,6 +160,7 @@ Licence URI: https://www.os-templates.com/template-terms
         <div class="content three_quarter"> 
             <h1>Εργαζόμενοι</h1>
             <div class="scrollable">
+              <form action="insert_data.php" method="post">
                 <table>
                     <thead>
                         <tr>
@@ -175,26 +172,14 @@ Licence URI: https://www.os-templates.com/template-terms
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                      
-                      // Include config file
-                      require_once "../authentication/config.php";
+                      <?php
                       
                       // Define variables and initialize with empty values
                       $employee_id = $status = $period = "";
                       $id = $_SESSION["id"];
 
-                      // Create connection to get the name
-                      mysqli_select_db($link, "users");
-                      $sql = "SELECT name FROM users where id = '$id'";
-                      $result = mysqli_query($link, $sql);
-                      if (mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-                        $name = $row["name"];
-                      }
-                      else {
-                        echo "0 results";
-                      }
+                      // Include config file
+                      require_once "../authentication/config.php";
 
                       // Create connection to get business employees
                       mysqli_select_db($link, "business_employees");
@@ -215,8 +200,14 @@ Licence URI: https://www.os-templates.com/template-terms
                                     <td>".$row2["name"]."</td>
                                     <td>".$row["employee_id"]."</td>
                                     <td><a href='#'>Σύμβαση εργασίας</a></td>
-                                    <td>".$row["status"]."</td>
-                                    <td>".$row["period"]."</td>
+                                    <td> <select id='status' name='status'>
+                                      <option value='".$row["status"]."'>'".$row["status"]."'</option>
+                                      <option value='active'>Ενεργή</option>
+                                      <option value='postponement'>Αναβολή</option>
+                                      <option value='teleworking'>Τηλεργασία</option>
+                                      </select>
+                                    </td>
+                                    <td><input type = 'date' name='period' id='period' value='".$row["period"]."'</td>
                                 </tr>";
                         }
                       }
@@ -227,6 +218,10 @@ Licence URI: https://www.os-templates.com/template-terms
                       ?>
                     </tbody>
                 </table>
+                <div style='float: right;'>
+                      <input type='submit' name='submit' value='Υποβολή τροποποιήσεων' style='background-color: #813DAA; color: #FFFFFF;'>
+                </div>
+              </form>          
               </div>
         </div>
     <!-- / main body -->

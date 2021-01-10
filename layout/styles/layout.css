@@ -41,7 +41,7 @@ File: Layout CSS
 #topbar i{line-height:normal;}
 
 /* Search Form */
-#topbar #searchform{position:relative; line-height:1;}
+#topbar #searchform{position:relative; line-height:1; z-index: 3;}
 #topbar #searchform::after{display:block; height:18px; line-height:18px; padding:0; font-family:"Font Awesome\ 5 Free"; font-weight:900; content:"\f002"/* fa-search */;}
 #topbar #searchform:hover::after, #topbar #searchform button{cursor:pointer;}
 #topbar #searchform > div{position:absolute; top:18px; right:0; width:280px; visibility:hidden; opacity:0/* Required for transition effect */;}
@@ -356,7 +356,7 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"Font Awesome\ 5 Free"; font-weight:900; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
-#mainav{position:relative; margin-bottom:-2px; z-index:1;}
+#mainav{position:relative; margin-bottom:-3px; z-index:3;}
 #mainav ul{text-transform:uppercase; font-size: 15px; padding: 0 auto;}
 #mainav ul ul{position:absolute; width:180px; text-transform:none;}
 #mainav ul ul ul{left:180px; top:0;}
@@ -548,8 +548,8 @@ input:focus, textarea:focus, *:required:focus{border-color:#813DAA;}
 #breadcrumb a{color:inherit; background-color:inherit;}
 #breadcrumb li:last-child a{color:#813DAA;}
 
-.container .sidebar nav a{color:inherit; border-color:#D7D7D7;}
-.container .sidebar nav a:hover{color:#813DAA;}
+.container .sidebar nav a{color:#813DAA; border-color:#D7D7D7;}
+.container .sidebar nav a:hover{color:#1d8b94;}
 
 .pagination a, .pagination strong{border-color:#D7D7D7;}
 .pagination .current *{color:#FFFFFF; background-color:#813DAA;}
@@ -669,11 +669,11 @@ table a, #comments a{background-color:inherit;}
 }
 
 .left_stack{
-    width: 50%;
+    /*width: 50%;*/
 }
 
 .right_stack{
-    width: 30%;
+    /*width: 30%;*/
 }
 
 .main_article{
@@ -708,3 +708,29 @@ table a, #comments a{background-color:inherit;}
     padding: 25px 25px 25px 25px;
 }
 
+.more{
+    /*background-color: #813DAA;*/
+    margin: 10px 30% 0 30%;
+    padding: 5px;
+    text-align: center;
+}
+
+.active_link{
+    color: #FFFFFF;
+}
+
+.single_logo{
+    height: 95px;
+}
+
+.min_info{
+    padding: 40px 0;
+}
+
+.yp_name{
+    color:#507DA9;
+    padding-top: 5px;
+    padding-left: 35px;
+    padding-right: 120px;
+    font-size: 18px;
+}
