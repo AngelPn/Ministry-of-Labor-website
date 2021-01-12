@@ -158,123 +158,142 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
-    <main class="hoc container clear"> 
+  <main class="hoc container clear"> 
     <!-- main body -->
-        <!-- ################################################################################################ -->
-        <div class="sidebar one_quarter first"> 
-            <!-- ################################################################################################ -->
-            <h6>Η εργασία μου</h6>
-            <nav class="sdb_holder">
-            <ul>
-                <li class="active"><a href="ergasia.php">Εργασιακή κατάσταση</a></li>
-                <li><a href="#">Τα στοιχεία μου</a></li>
-                <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
-                <li><a href="#">Άδειες</a>
-                <ul>
-                    <li><a href="#">που έχω λάβει</a></li>
-                    <li><a href="#">που δικαιούμαι</a></li>
-                </ul>
-                </li>
-                <li><a href="#">Ιστορικό αιτήσεων</a></li>  
-            </ul>
-            </nav>
+    <!-- ################################################################################################ -->
+    <div class="sidebar one_quarter first"> 
+      <!-- ################################################################################################ -->
+      <h6>Η εργασία μου</h6>
+      <nav class="sdb_holder">
+      <ul>
+          <li class="active"><a href="ergasia.php">Εργασιακή κατάσταση</a></li>
+          <li><a href="#">Τα στοιχεία μου</a></li>
+          <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
+          <li><a href="#">Άδειες</a>
+          <ul>
+              <li><a href="#">που έχω λάβει</a></li>
+              <li><a href="#">που δικαιούμαι</a></li>
+          </ul>
+          </li>
+          <li><a href="#">Ιστορικό αιτήσεων</a></li>  
+      </ul>
+      </nav>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="content three_quarter"> 
+      <h1>Εργασιακή κατάσταση</h1>
+      <div class="scrollable">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Επιχείρηση</th>
+                      <th>Αρχείο Σύμβασης Εργασίας</th>
+                      <th>Κατάσταση</th>
+                      <th>Ισχύ μέχρι</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <?php
+                
+                // Define variables and initialize with empty values
+                $business_id = $status = $period = "";
+                $employee_id = $_SESSION["id"];
+
+                // Include config file
+              //   require_once "../authentication/config.php";
+
+                // Create connection to get business employees
+                mysqli_select_db($link, "business_employees");
+
+                $sql = "SELECT business_id, status, period FROM business_employees where employee_id = '$employee_id'";
+                $result = mysqli_query($link, $sql);
+
+                // Create connection to get name of business
+                mysqli_select_db($link, "users");
+
+                if (mysqli_num_rows($result) > 0) {
+                  while($row = mysqli_fetch_assoc($result)){
+                    $sql = "SELECT name FROM users where id = ".$row["business_id"]."";
+                    $result2 = mysqli_query($link, $sql);
+                    $row2 = mysqli_fetch_assoc($result2);
+                    echo "<tr>
+                              <td>".$row2["name"]."</td>
+                              <td><a href='#'>Σύμβαση εργασίας</a></td>
+                              <td>".$row["status"]."</td>
+                              <td>".$row["period"]."</td>
+                          </tr>";
+                  }
+                }
+                else {
+                  echo "0 results";
+                }
+                mysqli_close($link);
+                ?>
+              </tbody>
+          </table>    
+      </div>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="content three_quarter">
+      <h1>Τα στοιχεία μου</h1>
+      <div class="scrollable">
+        <table>
+          <tbody>
+            <tr>
+                <td>Ονοματεπώνυμο</td>
+                <?php
+                echo "<td>$name</td>";
+                ?>
+            </tr>
+            <tr>
+                <td>ΑΦΜ</td>
+                <?php
+                echo "<td>$id</td>";
+                ?>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <?php
+                echo "<td>$email</td>";
+                ?>
+            </tr>
+            <tr>
+                <td>Τηλέφωνο</td>
+                <?php
+                echo "<td>$phone</td>";
+                ?>
+            </tr>
+          </tbody>
+        </table>
+        <div style='float: right;'>
+            <a href="#">Τροποποίηση στοιχείων</a>
         </div>
-        <!-- ################################################################################################ -->
-        <div class="content three_quarter"> 
-            <h1>Εργασιακή κατάσταση</h1>
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Επιχείρηση</th>
-                            <th>Αρχείο Σύμβασης Εργασίας</th>
-                            <th>Κατάσταση</th>
-                            <th>Ισχύ μέχρι</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      
-                      // Define variables and initialize with empty values
-                      $business_id = $status = $period = "";
-                      $employee_id = $_SESSION["id"];
-
-                      // Include config file
-                    //   require_once "../authentication/config.php";
-
-                      // Create connection to get business employees
-                      mysqli_select_db($link, "business_employees");
-
-                      $sql = "SELECT business_id, status, period FROM business_employees where employee_id = '$employee_id'";
-                      $result = mysqli_query($link, $sql);
-
-                      // Create connection to get name of business
-                      mysqli_select_db($link, "users");
-
-                      if (mysqli_num_rows($result) > 0) {
-                        while($row = mysqli_fetch_assoc($result)){
-                          $sql = "SELECT name FROM users where id = ".$row["business_id"]."";
-                          $result2 = mysqli_query($link, $sql);
-                          $row2 = mysqli_fetch_assoc($result2);
-                          echo "<tr>
-                                    <td>".$row2["name"]."</td>
-                                    <td><a href='#'>Σύμβαση εργασίας</a></td>
-                                    <td>".$row["status"]."</td>
-                                    <td>".$row["period"]."</td>
-                                </tr>";
-                        }
-                      }
-                      else {
-                        echo "0 results";
-                      }
-                      mysqli_close($link);
-                      ?>
-                    </tbody>
-                </table>    
-              </div>
-        </div>
-        <div class="content three_quarter">
-            <h1>Τα στοιχεία μου</h1>
-            <div class="scrollable">
-                <table>
-                  <tbody>
-                    <tr>
-                        <td>Ονοματεπώνυμο</td>
-                        <?php
-                        echo "<td>$name</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>ΑΦΜ</td>
-                        <?php
-                        echo "<td>$id</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <?php
-                        echo "<td>$email</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Τηλέφωνο</td>
-                        <?php
-                        echo "<td>$phone</td>";
-                        ?>
-                    </tr>
-                  </tbody>
-                </table>
-                <div style='float: right;'>
-                    <a href="#">Τροποποίηση στοιχείων</a>
-                </div>
-            </div>
-        </div>
-        <!-- ################################################################################################ -->
-        <div class="content three_quarter">
-            <h1>Ηλεκτρονικές υπηρεσίες</h1>
-        </div>
-        <!-- / main body -->
-        <div class="clear"></div>
+      </div>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="content three_quarter">
+      <h1>Ηλεκτρονικές υπηρεσίες</h1>
+      <ul class="clear">
+        <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
+        <li><a href="#">Αίτηση για επίδομα</a></li>
+        <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
+        <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
+        <li><a href="#">Αίτηση για σύνταξη</a></li>
+      </ul>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="content three_quarter">
+      <h1>Άδειες που έχω λάβει</h1>
+      <ul class="clear">
+        <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
+        <li><a href="#">Αίτηση για επίδομα</a></li>
+        <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
+        <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
+        <li><a href="#">Αίτηση για σύνταξη</a></li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+    <!-- / main body -->
   </main>
 </div>
 <!-- ################################################################################################ -->

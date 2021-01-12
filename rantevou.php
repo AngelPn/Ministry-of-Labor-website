@@ -1,13 +1,13 @@
 <?php
 // Initialize the session
 session_start();
- 
+
 // Include config file
 require_once "authentication/config.php";
  
 // Define variables and initialize with empty values
 $datetime = $text = $name = $phone = $mail = "";
-$datetime_err = $text_err = $name_err = $phone_err = $mail = "";
+$datetime_err = $text_err = $name_err = $phone_err = $mail_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -45,11 +45,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail_err = "Παρακαλώ εισάγετε το email σας.";
     } else{
         $mail = trim($_POST["mail"]);
-    }
+    }   
 
     mysqli_select_db($link, "rantevou");
     if(empty($datetime_err) && empty($text_err) && empty($name_err) && empty($phone_err) && empty($mail_err)){
         // Perform query
+        /* check if server is alive */
+        if (mysqli_ping($link)) {
+          printf ("Our connection is ok!\n");
+        } else {
+          printf ("Error: %s\n", mysqli_error($link));
+        }
         $sql = "INSERT INTO rantevou VALUES ('$datetime', '$text', '$name', '$phone', '$mail')";
         if (mysqli_query($link, $sql)) {                           
           // Redirect user to welcome page
@@ -58,10 +64,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         else{
           echo "Κάτι πήγε στραβά! Προσπαθήστε ξανά αργότερα";
+          header("location: ../index.php");
         }
     }        
     // Close connection
-    mysqli_close($link);
+    //mysqli_close($link);
 }
 ?>
 
@@ -216,10 +223,10 @@ Licence URI: https://www.os-templates.com/template-terms
           Παρακαλώ συμπληρώστε την παρακάτω φόρμα.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <?php
-          // Set your SESSION before redirecting to the login page
+          // After submission, redirect to current page so set SESSION to current page
           $current_page = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
           $_SESSION['redirect_to'] = $current_page;
-          // Check if the user is logged in, if not then redirect him to login page
+          // Check if the user is logged in
           if(!isset($_SESSION["loggedin"])){
             echo '<p>Αν έχετε λογαριασμό, μπορείτε να
                   <link><a href="authentication/login.php">συνδεδείτε</a></link>
@@ -252,6 +259,9 @@ Licence URI: https://www.os-templates.com/template-terms
           }
           else{
             $name = $email = $phone = "";
+
+            // Include config file
+            // require_once "authentication/config.php";
 
             // Create connection
             mysqli_select_db($link, "users");

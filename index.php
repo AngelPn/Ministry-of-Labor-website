@@ -1,8 +1,12 @@
 <?php
 session_start();
-if(isset($_SESSION['status_success'])){
+if(isset($_SESSION['status_rantevou'])){
   unset($_SESSION['status_success']);
   echo "Η κατοχύρωση του ραντεβού ολοκληρώθηκε με επιτυχία";
+}
+if(isset($_SESSION['status_rantevou'])){
+  unset($_SESSION['status_adeies']);
+  echo "Η αίτηση της άδειας ολοκληρώθηκε με επιτυχία";
 }
 ?>
 
@@ -82,13 +86,13 @@ Licence URI: https://www.os-templates.com/template-terms
 
           <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-          <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
+          <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
             <ul>
               <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-              <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
-              <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
-              <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
-              <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
+              <li><a href="#">Συμβασεις</a></li>
+              <li><a href="ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
+              <li><a href="#">Επιδοματα</a></li>
+              <li><a href="#">Απολυσεις</a></li>
             </ul>
           </li>
           <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
