@@ -1,23 +1,14 @@
-
 <!DOCTYPE html>
-<!--
-Template Name: Trealop
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Copyright: OS-Templates.com
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
--->
 <html lang="el">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Άδειεσ</title>
-<style>.not-allowed {cursor: not-allowed;}</style>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+<title>Άδειες</title>
+	<style>.not-allowed {cursor: not-allowed;}</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+	<link rel="icon" href="../logo.ico">
 </head>
 
 <body id="top">
@@ -31,20 +22,20 @@ Licence URI: https://www.os-templates.com/template-terms
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
 		  <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
 		  <?php
-		  session_start();
-          // Check if the user is logged in, if not then redirect him to login page
-          if(!isset($_SESSION["loggedin"])){
-            echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-            echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-          }
-          elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="../profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-            echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
-          else{
-            echo '<li><a href="../profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
+			session_start();
+			// Check if the user is logged in, if not then redirect him to login page
+			if(!isset($_SESSION["loggedin"])){
+				echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+				echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+			}
+			elseif($_SESSION["role_id"] == 1){
+				echo '<li><a href="../profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+				echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+			}
+			else{
+				echo '<li><a href="../profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+				echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+			}
           ?>
           <li id="searchform">
             <div>
@@ -75,7 +66,7 @@ Licence URI: https://www.os-templates.com/template-terms
 
           <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-          <li class="active"><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
+          <li class="active"><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
             <ul>
               <li><a href="../covid.php">Μετρα λογω πανδημιας</a></li>
               <li><a href="#">Συμβασεις</a></li>
@@ -123,7 +114,6 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <div style="padding-bottom: 115px;"></div>
 <!-- ################################################################################################ -->
-
 
 <div class="wrapper bgded overlay gradient" style="background-color: black; ">
   <div id="breadcrumb" class="clear" style="margin-left: 160px; "> 
@@ -268,7 +258,7 @@ Licence URI: https://www.os-templates.com/template-terms
 	</div>
 	<!-- ################################################################################################ -->
 	<div class="right_stack" style="margin-left: 5%;">
-	  <main class="container clear"> 
+	  <main class="clear file_form"> 
 	    <!-- main body -->
 	    <!-- ################################################################################################ -->
 	    <div class="content"> 
@@ -416,18 +406,40 @@ Licence URI: https://www.os-templates.com/template-terms
 	</div>
 </div>
 
+<div class="wrapper row2">
+  <main class="hoc clear"> 
+
+    <div class="content three_quarter first min_info">
+      <div class="flex_row">
+        <img class="single_logo" src="../images/logo_big.png">
+        <p class="yp_name"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
+        <ul>
+          <li><a href="#"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="#"> Πολιτική Ηγεσία </a></li>
+          <li><a href="#"> Οργανωτική Δομή </a></li>
+        </ul>
+
+        <ul>
+          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
+        </ul>
+      </div>
+      
+      
+      <div class="clear"></div>
+    </div>
+
+  </main>
+</div>
 <!-- ################################################################################################ -->
 
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
-    <!-- ################################################################################################ -->
-    <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
-    <p class="fl_right">Based on Trealop from OS Templates</a></p>
-    <!-- ################################################################################################ -->
+    <p class="fl_left unbold" >Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
+    <a href="#" ><p class="fl_right unbold">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->

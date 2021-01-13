@@ -7,6 +7,7 @@
   <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.ico">
 </head>
 
 <body id="top">
@@ -55,7 +56,7 @@
   <div class="wrapper row1">
     <header id="header" class="hoc clear">
       <div id="logo" class="fl_left"> 
-          <a href="#"><img src="images/logo.png" style="height: 65px;"></a>
+          <a href="index.php"><img src="images/logo.png" style="height: 65px;"></a>
       </div>
 
       <nav id="mainav" class="fl_right"> 
@@ -112,12 +113,8 @@
 <!-- ################################################################################################ -->
 <div style="padding-bottom: 115px;"></div>
 <!-- ################################################################################################ -->
-
-
-<!-- ################################################################################################ -->
 <div class="wrapper row2">
   <main class="hoc container clear"> 
-
     <div class="content three_fifth first">
       <ul class="main_list">
         <div class="flex_row">
@@ -128,7 +125,7 @@
           </li>
 
           <li class="main_article one_half">
-            <a href="#">
+            <a href="under_construction.html">
             <img class="article_pic" src="images/espaeshop.jpg">
             <h3> Επιδότηση σε επιχειρήσεις για δημιουργία eshop </h3></a>
           </li>
@@ -177,9 +174,9 @@
           </li>
         </div>
       </ul>
-      <div class="more">
-          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer;/*color: white;*/"><b>Φορτώστε περισσότερα άρθρα</b></a>
-        </div>
+      <div class="more_articles">
+        <a href="#" class="more_link"><b>Φορτώστε περισσότερα άρθρα</b></a>
+      </div>
     </div>
 
     <div class="sidebar two_fifth"> 
@@ -197,12 +194,10 @@
           <li><a href="#"> 01/01/21 - <b>To Υπουργείο Εργασίας και Κοινωνικών Υποθέσεων, μαζί με όλο του το προσωπικό σας εύχεται Καλή και Παραγωγική Χρονιά!</b></a></li>
           <li><a href="#"> 31/12/20 - <b>Ετήσιος Απολογισμός της πορείας και της δράσης του ΥΠΑΚΠ για το 2020</b></a></li>
         </ul>
-        <div class="more">
-          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer; /*color: white;*/"><b>Παλαιότερα Νέα</b></a>
-        </div>
-        
-      </nav>
-      
+      </nav>  
+        <div class="more_news">
+        <a href="#" class="more_link" ><b>Παλαιότερα Νέα</b></a>
+      </div>
 
       <div class="sdb_holder" style="text-align: center;">
         <a href="#"> <img src="./images/menoume_asfaleis.png">
@@ -233,7 +228,6 @@
         </ul>
       </div>
       
-      
       <div class="clear"></div>
     </div>
 
@@ -244,7 +238,7 @@
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
     <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
-    <p class="fl_right">Based on Trealop from OS Templates</a></p>
+    <a href="#" ><p class="fl_right">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
 </div>
 <!-- ################################################################################################ -->
