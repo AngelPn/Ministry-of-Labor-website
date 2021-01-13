@@ -158,73 +158,72 @@ Licence URI: https://www.os-templates.com/template-terms
         </div>
         <!-- ################################################################################################ -->
         <div class="content three_quarter"> 
-            <h1>Εργαζόμενοι</h1>
-            <div class="scrollable">
-              <form action="insert_data.php" method="post">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ονοματεπώνυμο</th>
-                            <th>ΑΦΜ</th>
-                            <th>Αρχείο Σύμβασης Εργασίας</th>
-                            <th>Κατάσταση</th>
-                            <th>Ισχύ μέχρι</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      
-                      // Define variables and initialize with empty values
-                      $employee_id = $status = $period = "";
-                      $id = $_SESSION["id"];
+          <h1>Εργαζόμενοι</h1>
+          <div class="scrollable">
+            <form action="insert_data.php" method="post">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Ονοματεπώνυμο</th>
+                          <th>ΑΦΜ</th>
+                          <th>Αρχείο Σύμβασης Εργασίας</th>
+                          <th>Κατάσταση</th>
+                          <th>Ισχύ μέχρι</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    
+                    // Define variables and initialize with empty values
+                    $employee_id = $status = $period = "";
+                    $id = $_SESSION["id"];
 
-                      // Include config file
-                      require_once "../authentication/config.php";
+                    // Include config file
+                    require_once "../authentication/config.php";
 
-                      // Create connection to get business employees
-                      mysqli_select_db($link, "business_employees");
+                    // Create connection to get business employees
+                    mysqli_select_db($link, "business_employees");
 
-                      $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
-                      $result = mysqli_query($link, $sql);
+                    $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
+                    $result = mysqli_query($link, $sql);
 
-                      // Create connection to get name of employees
-                      mysqli_select_db($link, "users");
+                    // Create connection to get name of employees
+                    mysqli_select_db($link, "users");
 
 
-                      if (mysqli_num_rows($result) > 0) {
-                        while($row = mysqli_fetch_assoc($result)){
-                          $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
-                          $result2 = mysqli_query($link, $sql);
-                          $row2 = mysqli_fetch_assoc($result2);
-                          echo "<tr>
-                                    <td>".$row2["name"]."</td>
-                                    <td>".$row["employee_id"]."</td>
-                                    <td><a href='#'>Σύμβαση εργασίας</a></td>
-                                    <td> <select id='status' name='status'>
-                                      <option value='".$row["status"]."'>'".$row["status"]."'</option>
-                                      <option value='active'>Ενεργή</option>
-                                      <option value='postponement'>Αναβολή</option>
-                                      <option value='teleworking'>Τηλεργασία</option>
-                                      </select>
-                                    </td>
-                                    <td><input type = 'date' name='period' id='period' value='".$row["period"]."'</td>
-                                </tr>";
-                        }
+                    if (mysqli_num_rows($result) > 0) {
+                      while($row = mysqli_fetch_assoc($result)){
+                        $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
+                        $result2 = mysqli_query($link, $sql);
+                        $row2 = mysqli_fetch_assoc($result2);
+                        echo "<tr>
+                                  <td>".$row2["name"]."</td>
+                                  <td>".$row["employee_id"]."</td>
+                                  <td><a href='#'>Σύμβαση εργασίας</a></td>
+                                  <td> <select id='status' name='status'>
+                                    <option value='".$row["status"]."'>'".$row["status"]."'</option>
+                                    <option value='active'>Ενεργή</option>
+                                    <option value='postponement'>Αναβολή</option>
+                                    <option value='teleworking'>Τηλεργασία</option>
+                                    </select>
+                                  </td>
+                                  <td><input type = 'date' name='period' id='period' value='".$row["period"]."'</td>
+                              </tr>";
                       }
-                      else {
-                        echo "0 results";
-                      }
-                      mysqli_close($link);
-                      ?>
-                    </tbody>
-                </table>
-                <div style='float: right;'>
-                      <input type='submit' name='submit' value='Υποβολή τροποποιήσεων' style='background-color: #813DAA; color: #FFFFFF;'>
-                </div>
-              </form>          
+                    }
+                    else {
+                      echo "0 results";
+                    }
+                    mysqli_close($link);
+                    ?>
+                  </tbody>
+              </table>
+              <div style='float: right;'>
+                    <input type='submit' name='submit' value='Υποβολή τροποποιήσεων' style='background-color: #813DAA; color: #FFFFFF;'>
               </div>
+            </form>          
+          </div>
         </div>
-    <!-- / main body -->
         <div class="clear"></div>
   </main>
 </div>

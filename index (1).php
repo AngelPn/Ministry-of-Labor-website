@@ -1,15 +1,29 @@
+
+
 <!DOCTYPE html>
+<!--
+Template Name: Trealop
+Author: <a href="https://www.os-templates.com/">OS Templates</a>
+Author URI: https://www.os-templates.com/
+Copyright: OS-Templates.com
+Licence: Free to use under our free template licence terms
+Licence URI: https://www.os-templates.com/template-terms
+-->
 <html lang="el">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
 <title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.ico">
 </head>
 
 <body id="top">
+
+
 <!-- ################################################################################################ -->
 <div id="fixed">
   <div class="wrapper row0">
@@ -20,20 +34,20 @@
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
           <li><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-            session_start();
-            // Check if the user is logged in, if not then redirect him to login page
-            if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-            }
-            elseif($_SESSION["role_id"] == 1){
-              echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-              echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-            }
-            else{
-              echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-              echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-            }
+          session_start();
+          // Check if the user is logged in, if not then redirect him to login page
+          if(!isset($_SESSION["loggedin"])){
+            echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+            echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+          }
+          elseif($_SESSION["role_id"] == 1){
+            echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+          }
+          else{
+            echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+            echo '<li><a href="authentication/logout.php"><i class="fa fa-sign-out-alt"></i></a></li>';
+          }
           ?>
           <li id="searchform">
             <div>
@@ -55,7 +69,7 @@
   <div class="wrapper row1">
     <header id="header" class="hoc clear">
       <div id="logo" class="fl_left"> 
-          <a href="#"><img src="images/logo.png" style="height: 65px;"></a>
+          <a href="index.php"><img src="images/logo.png" style="height: 65px;"></a>
       </div>
 
       <nav id="mainav" class="fl_right"> 
@@ -64,13 +78,13 @@
 
           <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-          <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
+          <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
             <ul>
               <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-              <li><a href="#">Συμβασεις</a></li>
-              <li><a href="ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
-              <li><a href="#">Επιδοματα</a></li>
-              <li><a href="#">Απολυσεις</a></li>
+              <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
+              <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
+              <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
+              <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
             </ul>
           </li>
           <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
@@ -112,9 +126,6 @@
 <!-- ################################################################################################ -->
 <div style="padding-bottom: 115px;"></div>
 <!-- ################################################################################################ -->
-
-
-<!-- ################################################################################################ -->
 <div class="wrapper row2">
   <main class="hoc container clear"> 
 
@@ -128,7 +139,7 @@
           </li>
 
           <li class="main_article one_half">
-            <a href="#">
+            <a href="under_construction.html">
             <img class="article_pic" src="images/espaeshop.jpg">
             <h3> Επιδότηση σε επιχειρήσεις για δημιουργία eshop </h3></a>
           </li>
@@ -145,7 +156,7 @@
           <li class="main_article one_half">
             <a href="#">
             <img class="article_pic" src="images/covid1.jpg">
-            <h3> Οδηγείες και μέτρα πρόληψης </h3></a>
+            <h3> Οδηγίες και μέτρα πρόληψης </h3></a>
           </li>
         </div>
         
@@ -177,8 +188,8 @@
           </li>
         </div>
       </ul>
-      <div class="more">
-          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer;/*color: white;*/"><b>Φορτώστε περισσότερα άρθρα</b></a>
+      <div class="more_articles">
+          <a href="#" class="more_link"><b>Φορτώστε περισσότερα άρθρα</b></a>
         </div>
     </div>
 
@@ -197,11 +208,10 @@
           <li><a href="#"> 01/01/21 - <b>To Υπουργείο Εργασίας και Κοινωνικών Υποθέσεων, μαζί με όλο του το προσωπικό σας εύχεται Καλή και Παραγωγική Χρονιά!</b></a></li>
           <li><a href="#"> 31/12/20 - <b>Ετήσιος Απολογισμός της πορείας και της δράσης του ΥΠΑΚΠ για το 2020</b></a></li>
         </ul>
-        <div class="more">
-          <a href="#" style="all:initial; font-family:'Ubuntu'; font-size:18px; cursor:pointer; /*color: white;*/"><b>Παλαιότερα Νέα</b></a>
-        </div>
-        
       </nav>
+      <div class="more_news">
+        <a href="#" class="more_link" ><b>Παλαιότερα Νέα</b></a>
+      </div>
       
 
       <div class="sdb_holder" style="text-align: center;">
@@ -244,7 +254,7 @@
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
     <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
-    <p class="fl_right">Based on Trealop from OS Templates</a></p>
+    <a href="#" ><p class="fl_right">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
 </div>
 <!-- ################################################################################################ -->

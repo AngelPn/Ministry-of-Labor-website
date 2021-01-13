@@ -20,14 +20,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if id is empty
     if(empty(trim($_POST["id"]))){
-        $id_err = "Παρακαλώ εισάγετε το ΑΦΜ σας.";
+        $id_err = "<b style='color:red;'>Παρακαλώ εισάγετε το ΑΦΜ σας.</b>";
     } else{
         $id = trim($_POST["id"]);
     }
     
     // Check if password is empty
     if(empty(trim($_POST["password"]))){
-        $password_err = "Παρακαλώ εισάγετε τον κωδικό σας.";
+        $password_err = "<b style='color:red;'>Παρακαλώ εισάγετε τον κωδικό σας.</b>";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -84,15 +84,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Σύνδεση</title>
     <link href="../layout/styles/login.css" rel="stylesheet" type="text/css" media="all">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+    <link rel="icon" href="../logo.ico">
 </head>
-<body>
+
+<body style="margin-top: 95px;">
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <div class="imgcontainer">
-        <img src="../images/img_avatar2.png" alt="Avatar" class="avatar">
+        <img src="../images/logo_big.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
         <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>">
+                <h3 class="login_title"> Σύνδεση Χρήστη:</h3>
                 <label>ΑΦΜ</label>
                 <input type="text" name="id" class="form-control" value="<?php echo $id; ?>">
                 <span class="help-block"><?php echo $id_err; ?></span>

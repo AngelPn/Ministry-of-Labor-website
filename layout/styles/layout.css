@@ -665,15 +665,16 @@ table a, #comments a{background-color:inherit;}
 }
 
 .stack_container{
+    width: 100%;
     display: flex;
 }
 
 .left_stack{
-    /*width: 50%;*/
+    width: 45%;
 }
 
 .right_stack{
-    /*width: 30%;*/
+    width: 25%;
 }
 
 .main_article{
@@ -708,11 +709,25 @@ table a, #comments a{background-color:inherit;}
     padding: 25px 25px 25px 25px;
 }
 
-.more{
-    /*background-color: #813DAA;*/
-    margin: 10px 30% 0 30%;
+.more_news{
+    margin-top: -45px;
     padding: 5px;
     text-align: center;
+    margin-bottom: 45px;
+}
+
+.more_articles{
+    padding: 5px;
+    text-align: center;
+}
+
+.more_link{
+    font-size: 16px;
+    color:#813DAA;
+}
+
+.more_link:hover{
+    color:#1d8b94;
 }
 
 .active_link{
@@ -727,6 +742,10 @@ table a, #comments a{background-color:inherit;}
     padding: 40px 0;
 }
 
+.unbold{
+    font-weight: normal;
+}
+
 .yp_name{
     color:#507DA9;
     padding-top: 5px;
@@ -734,3 +753,52 @@ table a, #comments a{background-color:inherit;}
     padding-right: 120px;
     font-size: 18px;
 }
+
+.file_form{
+    padding-bottom: 80px;
+}
+
+.form_title{
+    font-family: Arial;
+}
+/*--------------------------------------------------------------------*/
+.static_sidebar{
+    display: fixed;
+    width: 40%;
+    z-index:4;
+}
+
+.scrol_content{
+    width: 60%;
+}
+
+.side{
+    position: fixed;
+    top:120px;
+    width: 250px;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    /*background: #eee;*/
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+
+.side a{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+}
+
+.side a:hover {
+    color: #064579;
+}
+
+.main_content{
+    font-size: 30px;
+    margin-left: 260px; /* Same width as the sidebar + left position in px */
+    padding: 0px 10px;
+}
+/*--------------------------------------------------------------------*/
+

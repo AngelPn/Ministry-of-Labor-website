@@ -11,7 +11,7 @@ Licence URI: https://www.os-templates.com/template-terms
 <html lang="el">
 <!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
+<title>Άδειεσ</title>
 <style>.not-allowed {cursor: not-allowed;}</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -277,7 +277,7 @@ Licence URI: https://www.os-templates.com/template-terms
 	      <div id="comments" >
 	        
 			<h2>Φόρμα ηλεκτρονικής αίτησης άδειας</h2>
-			<form action=action="set_adeia.php" method="post">
+			<form action="insert_adeies.php" method="post">
 				<?php
 				// Check if the user is logged in
 				if(!isset($_SESSION["loggedin"]) || (isset($_SESSION["loggedin"]) && $_SESSION["role_id"]==2)){
@@ -358,12 +358,12 @@ Licence URI: https://www.os-templates.com/template-terms
 						echo '
 							<div class="one_half first">
 								<label for="url">Επιχείρηση<span>*</span></label>
-								<select type="custom-select" name="custom-select" id="business_name" value="" style="width: 100%; height: 40px;">
+								<select type="custom-select" name="business_name" id="business_name" value="" style="width: 100%; height: 40px;">
 						';
 
 						while($row2 = mysqli_fetch_assoc($result2)){
 							echo '
-								<option value="">'.$row2["business_name"].'</option>
+								<option value="'.$row2["business_name"].'">'.$row2["business_name"].'</option>
 							';
 						}
 
@@ -380,21 +380,18 @@ Licence URI: https://www.os-templates.com/template-terms
 			
 						<div class="first">
 							<label for="custom-select">Επιλέξτε τύπο άδειας<span>*</span></label>
-								<select type="custom-select" name="custom-select" id="type" value="" style="width: 100%; height: 40px;">
+								<select type="custom-select" name="type" id="type" value="" style="width: 100%; height: 40px;">
 									<option value="0">Τύπος άδειας:</option>
-									<option value="7">Άδεια λόγω ασθένειας</option>
-									<option value="1">Άδεια μητρότητας</option>
-									<option value="2">Άδεια στράτευσης</option>
-									<option value="3">Άδεια γάμου</option>
-									<option value="4">Άδεια γέννησης τέκνου</option>
-									<option value="5">Άδεια γονικής φροντίδας</option>
-									<option value="6">Άδεια λόγω θανάτου συγγενούς</option>
+									<option value="Άδεια λόγω ασθένειας">Άδεια λόγω ασθένειας</option>
+									<option value="Άδεια μητρότητας">Άδεια μητρότητας</option>
+									<option value="Άδεια στράτευσης">Άδεια στράτευσης</option>
+									<option value="Άδεια γάμου">Άδεια γάμου</option>
+									<option value="Άδεια γέννησης τέκνου">Άδεια γέννησης τέκνου</option>
+									<option value="Άδεια γονικής φροντίδας">Άδεια γονικής φροντίδας</option>
+									<option value="Άδεια λόγω θανάτου συγγενούς">Άδεια λόγω θανάτου συγγενούς</option>
 									<!-- Μπορούμε να έχουμε 2 πεδια επιλογής αδειών, ένα με τις γενικές κατηγορίες άδειας και ένα άλλο με τις πιο συγκεκριμένες? ) -->
 								</select>
 						</div>
-			
-						
-			
 			
 						<div style="float: right;">
 							<input type="reset" name="reset" value="Εκκαθάριση">
@@ -414,74 +411,6 @@ Licence URI: https://www.os-templates.com/template-terms
 	      <!-- ################################################################################################ -->
 	    </div>
 	    <!-- ################################################################################################ -->
-	    
-	    <!-- old Form backup
-		<div class="content three_quarter first"> 
-	      
-	      <div id="comments">
-			  <div class="first">
-							<label for="file">Ανεβάστε τα απαραίτητα δικαιολογητικά<span>*</span>&nbsp;
-							<input type="file" name="file" id="file" value="" size="22" multiple>
-						</div>
-	        
-	        <h2>Φόρμα ηλεκτρονικής αίτησης άδειας</h2>
-	        <form action="#" method="post">
-	          <div class="one_third first">
-	            <label for="name">Όνομα Εργαζόμενου</label>
-	            <input type="text" name="name" id="name" value="" size="22" required>
-	          </div>
-	          <div class="one_third">
-	            <label for="email">Επώνυμο Εργαζόμενου</label>
-	            <input type="email" name="email" id="email" value="" size="22" required>
-	          </div>
-	          <div class="one_third">
-	            <label for="url">ΑΦΜ Εργαζόμενου<span>*</span></label>
-	            <input type="url" name="url" id="url" value="" size="22">
-	          </div>
-
-	          <div class="one_third first">
-	            <label for="url">ΑΦΜ Επιχείρησης<span>*</span></label>
-	            <input type="url" name="url" id="url" value="" size="22">
-	          </div>
-
-	          <div class="one_third">
-	            <label for="url">Χρονικό διάστημα άδειας<span>*</span></label>
-	            <input type="url" name="url" id="url" value="" size="22">
-	          </div>
-
-	          <div class="one_third">
-	            <label for="custom-select">Επιλέξτε τύπο άδειας<span>*</span></label>
-	            	<select type="custom-select" name="custom-select" id="custom-select" value="" style="width: 100%; height: 40px;">
-					    <option value="0">Τύπος άδειας:</option>
-					    <option value="7">Άδεια λόγω ασθένειας</option>
-					    <option value="1">Άδεια μητρότητας</option>
-					    <option value="2">Άδεια στράτευσης</option>
-					    <option value="3">Άδεια γάμου</option>
-					    <option value="4">Άδεια γέννησης τέκνου</option>
-					    <option value="5">Άδεια γονικής φροντίδας</option>
-					    <option value="6">Άδεια λόγω θανάτου συγγενούς</option>
-					    
-				  	</select>
-	          </div>
-
-	          <div class="three_third first">
-	            <label for="file">Ανεβάστε τα απαραίτητα δικαιολογητικά<span>*</span>&nbsp;
-	            <input type="file" name="file" id="file" value="" size="22" multiple>
-	          </div>
-
-
-	          <div style="float: right;">
-	            <input type="reset" name="reset" value="Καθαρισμός">
-	            &nbsp;
-	            <input type="submit" name="submit" value="Συνέχεια" style="background-color: #53D3DE; color: #FFFFFF;">
-	          </div>
-	        </form>
-	      </div>
-	    </div>
-	     -->
-	    
-	    <!-- ################################################################################################ -->
-	    <!-- / main body -->
 	    <div class="clear"></div>
 	  </main>
 	</div>

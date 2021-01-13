@@ -1,63 +1,10 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Include config file
-require_once "../authentication/config.php";
- 
-// Define variables and initialize with empty values
-$name = $year = $status = $office = $region = $end_mng = "";
-$id = $_SESSION["id"];
-
-// Create connection to get the name
-mysqli_select_db($link, "users");
-$sql = "SELECT name FROM users where id = '$id'";
-$result = mysqli_query($link, $sql);
-if (mysqli_num_rows($result) > 0) {
-  $row = mysqli_fetch_assoc($result);
-  $name = $row["name"];
-}
-else {
-  echo "0 results";
-}
-
-// Create connection to get business data
-mysqli_select_db($link, "business_data");
-
-$sql = "SELECT year, status, office, region, end_mng FROM business_data where id = '$id'";
-$result = mysqli_query($link, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-  $row = mysqli_fetch_assoc($result);
-
-  $year = $row["year"];
-  $status = $row["status"];
-  $office = $row["office"];
-  $region = $row["region"];
-  $end_mng = $row["end_mng"];
-}
-else {
-  echo "0 results";
-}
-mysqli_close($link);
-?>
-
 <!DOCTYPE html>
-<!--
-Template Name: Trealop
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Copyright: OS-Templates.com
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
--->
 <html lang="el">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -72,15 +19,16 @@ Licence URI: https://www.os-templates.com/template-terms
 	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
 	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-          // Check if the user is logged in
-          if(!isset($_SESSION["loggedin"])){
-            echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-            echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-          }
-          elseif($_SESSION["role_id"] == 2){
-            echo '<li><a href="epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
+            session_start();
+            // Check if the user is logged in
+            if(!isset($_SESSION["loggedin"])){
+              echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+              echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+            }
+            elseif($_SESSION["role_id"] == 2){
+              echo '<li><a href="epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
           ?>
 	        <li id="searchform">
 	          <div>
@@ -162,12 +110,11 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-        <li>ΣΤΟΙΧΕΙΑ ΕΠΙΧΕΙΡΗΣΗΣ</li>
+        <li>Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</li>
       </ul>
     </div>
 </div>
@@ -175,80 +122,176 @@ Licence URI: https://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
-    <main class="hoc container clear"> 
-    <!-- main body -->
-        <!-- ################################################################################################ -->
-        <div class="sidebar one_quarter first"> 
-            <!-- ################################################################################################ -->
-            <h6>Η επιχείρησή μου</h6>
-            <nav class="sdb_holder">
-            <ul>
-                <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
-                <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
-                <li><a href="#">Οικονομική διαχείρηση</a>
-                <ul>
-                    <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
-                    <li><a href="#">Μηνιαία έσοδα κι έξοδα</a></li>
-                </ul>
-                </li>
-                <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
-            </ul>
-            </nav>
+  <main class="hoc container clear"> 
+    <div class="sidebar one_quarter first"> 
+      <h6>Η επιχείρησή μου</h6>
+      <nav class="sdb_holder">
+      <ul>
+        <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
+        <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
+        <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
+        <li><a href="#">Οικονομική διαχείρηση</a>
+        <ul>
+          <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
+          <li><a href="#">Μηνιαία έσοδα κι έξοδα</a></li>
+        </ul>
+        </li> 
+      </ul>
+      </nav>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="content three_quarter"> 
+      <h1>Στοιχεία επιχείρησης</h1>
+      <?php        
+        // Include config file
+        require_once "../authentication/config.php";
+        
+        // Define variables and initialize with empty values
+        $name = $year = $status = $office = $region = $end_mng = "";
+        $id = $_SESSION["id"];
+
+        // Create connection to get the name
+        mysqli_select_db($link, "users");
+        $sql = "SELECT name FROM users where id = '$id'";
+        $result = mysqli_query($link, $sql);
+        if (mysqli_num_rows($result) > 0) {
+          $row = mysqli_fetch_assoc($result);
+          $name = $row["name"];
+        }
+        else {
+          echo "0 results";
+        }
+
+        // Create connection to get business data
+        mysqli_select_db($link, "business_data");
+
+        $sql = "SELECT year, status, office, region, end_mng FROM business_data where id = '$id'";
+        $result = mysqli_query($link, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+          $row = mysqli_fetch_assoc($result);
+
+          $year = $row["year"];
+          $status = $row["status"];
+          $office = $row["office"];
+          $region = $row["region"];
+          $end_mng = $row["end_mng"];
+        }
+        else {
+          echo "0 results";
+        }
+      ?>
+      <div class="scrollable">
+        <table>
+          <tbody>
+            <tr>
+                <td>Επωνυμία</td>
+                <?php echo "<td>$name</td>"; ?>
+            </tr>
+            <tr>
+                <td>ΑΦΜ επιχείρησης</td>
+                <?php echo "<td>$id</td>"; ?>
+            </tr>
+            <tr>
+                <td>Έτος ίδρυσης</td>
+                <?php echo "<td>$year</td>"; ?>
+            </tr>
+            <tr>
+                <td>Κατάσταση επιχείρησης</td>
+                <?php echo "<td>$status</td>"; ?>
+            </tr>
+            <tr>
+                <td>Έδρα επιχείρησης</td>
+                <?php echo "<td>$office</td>"; ?>
+            </tr>
+            <tr>
+                <td>Νομός - Περιφέρεια</td>
+                <?php echo "<td>$region</td>"; ?>
+            </tr>
+            <tr>
+                <td>Λήξη διαχειριστικής περιόδου</td>
+                <?php echo "<td>$end_mng</td>"; ?>
+            </tr>
+          </tbody>
+        </table>
+        <div style='float: right;'>
+            <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
         </div>
-        <!-- ################################################################################################ -->
-        <div class="content three_quarter"> 
-            <h1>Στοιχεία επιχείρησης</h1>
-            <div class="scrollable">
-                <table>
-                  <tbody>
-                    <tr>
-                        <td>Επωνυμία</td>
-                        <?php
-                        echo "<td>$name</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>ΑΦΜ επιχείρησης</td>
-                        <?php
-                        echo "<td>$id</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Έτος ίδρυσης</td>
-                        <?php
-                        echo "<td>$year</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Κατάσταση επιχείρησης</td>
-                        <?php
-                        echo "<td>$status</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Έδρα επιχείρησης</td>
-                        <?php
-                        echo "<td>$office</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Νομός - Περιφέρεια</td>
-                        <?php
-                        echo "<td>$region</td>";
-                        ?>
-                    </tr>
-                    <tr>
-                        <td>Λήξη διαχειριστικής περιόδου</td>
-                        <?php
-                        echo "<td>$end_mng</td>";
-                        ?>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-        </div>
-    <!-- / main body -->
-        <div class="clear"></div>
+      </div>
+      <!-- ################################################################################################ -->
+      <h1>Εργαζόμενοι</h1>
+      <div class="scrollable">
+        <form action="insert_data.php" method="post">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Ονοματεπώνυμο</th>
+                      <th>ΑΦΜ</th>
+                      <th>Αρχείο Σύμβασης Εργασίας</th>
+                      <th>Κατάσταση</th>
+                      <th>Ισχύ μέχρι</th>
+                  </tr>
+              </thead>
+              <tbody>
+              <?php
+                // Define variables and initialize with empty values
+                $employee_id = $status = $period = "";
+                $id = $_SESSION["id"];
+
+                // Create connection to get business employees
+                mysqli_select_db($link, "business_employees");
+
+                $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
+                $result = mysqli_query($link, $sql);
+
+                // Create connection to get name of employees
+                mysqli_select_db($link, "users");
+
+                if (mysqli_num_rows($result) > 0) {
+                  while($row = mysqli_fetch_assoc($result)){
+                    $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
+                    $result2 = mysqli_query($link, $sql);
+                    $row2 = mysqli_fetch_assoc($result2);
+                    echo "<tr>
+                          <td>".$row2["name"]."</td>
+                          <td>".$row["employee_id"]."</td>
+                          <td><a href='#'>Σύμβαση εργασίας</a></td>
+                          <td> <select id='status' name='status'>
+                            <option value='".$row["status"]."'>'".$row["status"]."'</option>
+                            <option value='active'>Ενεργή</option>
+                            <option value='postponement'>Αναβολή</option>
+                            <option value='teleworking'>Τηλεργασία</option>
+                            </select>
+                          </td>
+                          <td><input type = 'date' name='period' id='period' value='".$row["period"]."'</td>
+                          </tr>";
+                  }
+                }
+                else {
+                  echo "0 results";
+                }
+                mysqli_close($link);
+              ?>
+              </tbody>
+          </table>
+          <div style='float: right;'>
+            <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
+          </div>
+        </form>          
+      </div>
+      <div class="scrollable">
+        <h1>Ηλεκτρονικές υπηρεσίες</h1>
+        <ul class="clear">
+          <li><a href="#">Πιστοποίηση εργοδοτών</a></li>
+          <li><a href="#">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
+          <li><a href="#">Ασφαλιστική ενημερότητα</a></li>
+          <li><a href="#">Ρύθμιση οφειλών</a></li>
+				  <li><a href="#">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- ################################################################################################ -->
+    <div class="clear"></div>
   </main>
 </div>
 <!-- ################################################################################################ -->
