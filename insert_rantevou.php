@@ -48,18 +48,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_select_db($link, "rantevou");
     if(empty($datetime_err) && empty($text_err) && empty($name_err) && empty($phone_err) && empty($mail_err)){
         // Perform query
-        /* check if server is alive */
         $sql = "INSERT INTO rantevou (datetime, text, name, phone, mail) VALUES ('$datetime', '$text', '$name', '$phone', '$mail')";
+        
+        // Redirect user to status message
         if (mysqli_query($link, $sql)) {                           
-          // Redirect user to welcome page
-          $_SESSION['status_rantevou'] = true;
-          header("location: success_rantevou.php");
+            $_SESSION['status_rantevou'] = true;
+            header("location: status_message.php");
         }
         else{
             $_SESSION['status_rantevou'] = false;
-            header("location: success_rantevou.php");
+            header("location: status_message.php");
         }
-    }        
+    }
+
     // Close connection
     mysqli_close($link);
 }

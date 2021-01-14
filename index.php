@@ -121,7 +121,7 @@
           <li class="main_article one_half first">
             <a href="#">
               <img class="article_pic" src="images/spiti.jpg">
-              <h3> Ότι χρειάζεται να ξέρετε για τον COVID-19 </h3></a>
+              <h3> Ό,τι χρειάζεται να ξέρετε για τον COVID-19 </h3></a>
           </li>
 
           <li class="main_article one_half">
@@ -142,7 +142,7 @@
           <li class="main_article one_half">
             <a href="#">
             <img class="article_pic" src="images/covid1.jpg">
-            <h3> Οδηγείες και μέτρα πρόληψης </h3></a>
+            <h3> Οδηγίες και μέτρα πρόληψης </h3></a>
           </li>
         </div>
         
@@ -156,7 +156,7 @@
           <li class="main_article one_half">
             <a href="#">
             <img class="article_pic" src="images/hands.jpg">
-            <h3> Mέτρα πρόληψης κατά του COVID σε εργασιακό περιβάλλον </h3></a>
+            <h3> Mέτρα πρόληψης κατά του COVID-19 σε εργασιακό περιβάλλον </h3></a>
           </li>
         </div>
 
@@ -210,7 +210,6 @@
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc clear"> 
-
     <div class="content three_quarter first min_info">
       <div class="flex_row">
         <img class="single_logo" src="./images/logo_big.png">
@@ -227,13 +226,10 @@
           <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
         </ul>
       </div>
-      
       <div class="clear"></div>
     </div>
-
   </main>
 </div>
-
 <!-- ################################################################################################ -->
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
@@ -242,7 +238,6 @@
   </div>
 </div>
 <!-- ################################################################################################ -->
-
 
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>

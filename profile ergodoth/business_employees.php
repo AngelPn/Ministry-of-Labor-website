@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <title>Η Επιχείρησή μου</title>
+  <title>Εργαζόμενοι επιχείρησης</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
@@ -43,7 +43,6 @@
 	          </div>
 	        </li>
 	      </ul>
-	      <!-- ################################################################################################ -->
 	    </div>
 	  </div>
 	</div>
@@ -109,13 +108,12 @@
 <!-- ################################################################################################ -->
 <div style="padding-bottom: 130px;"></div>
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-        <li>Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</li>
+        <li><a href="epixirisi.php">Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</a></li>
+        <li>ΑΛΛΑΓΗ ΚΑΤΑΣΤΑΣΗΣ ΕΡΓΑΖΟΜΕΝΩΝ</li>
       </ul>
     </div>
 </div>
@@ -123,186 +121,72 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row2">
-  <main class="hoc container clear"> 
-    <div class="sidebar one_quarter first"> 
-      <h6>Η επιχείρησή μου</h6>
-      <nav class="sdb_holder">
-      <ul>
-        <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
-        <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
-        <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
-        <li><a href="#">Οικονομική διαχείρηση</a>
-        <ul>
-          <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
-          <li><a href="#">Μηνιαία έσοδα κι έξοδα</a></li>
-        </ul>
-        </li> 
-      </ul>
-      </nav>
-    </div>
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter"> 
-      <h1>Στοιχεία επιχείρησης</h1>
-      <?php        
-        // Include config file
-        require_once "../authentication/config.php";
-        
-        // Define variables and initialize with empty values
-        $name = $year = $status = $office = $region = $end_mng = "";
-        $id = $_SESSION["id"];
+  <main class="hoc container clear">
+    <div class="content three_quarter">
+        <h1>Εργαζόμενοι</h1>
+        <form action="update_business_employees.php" method="post">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Ονοματεπώνυμο</th>
+                      <th>ΑΦΜ</th>
+                      <th>Αρχείο Σύμβασης Εργασίας</th>
+                      <th>Κατάσταση</th>
+                      <th>Ισχύ μέχρι</th>
+                  </tr>
+              </thead>
+              <tbody>
+              <?php
+                // Define variables and initialize with empty values
+                $employee_id = $status = $period = "";
+                $id = $_SESSION["id"];
 
-        // Create connection to get business data
-        mysqli_select_db($link, "business_data");
+                // Create connection to get business employees
+                mysqli_select_db($link, "business_employees");
 
-        $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = '$id'";
-        $result = mysqli_query($link, $sql);
+                $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
+                $result = mysqli_query($link, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
-          $row = mysqli_fetch_assoc($result);
+                // Create connection to get name of employees
+                mysqli_select_db($link, "users");
 
-          $name = $row["business_name"];
-          $year = $row["year"];
-          $status = $row["status"];
-          $office = $row["office"];
-          $region = $row["region"];
-          $end_mng = $row["end_mng"];
-        }
-        else {
-          echo "0 results";
-        }
-      ?>
-      <div class="scrollable">
-        <table>
-          <tbody>
-            <tr>
-                <td>Επωνυμία</td>
-                <?php echo "<td>$name</td>"; ?>
-            </tr>
-            <tr>
-                <td>ΑΦΜ επιχείρησης</td>
-                <?php echo "<td>$id</td>"; ?>
-            </tr>
-            <tr>
-                <td>Έτος ίδρυσης</td>
-                <?php echo "<td>$year</td>"; ?>
-            </tr>
-            <tr>
-                <td>Κατάσταση επιχείρησης</td>
-                <?php echo "<td>$status</td>"; ?>
-            </tr>
-            <tr>
-                <td>Έδρα επιχείρησης</td>
-                <?php echo "<td>$office</td>"; ?>
-            </tr>
-            <tr>
-                <td>Νομός - Περιφέρεια</td>
-                <?php echo "<td>$region</td>"; ?>
-            </tr>
-            <tr>
-                <td>Λήξη διαχειριστικής περιόδου</td>
-                <?php echo "<td>$end_mng</td>"; ?>
-            </tr>
-          </tbody>
-        </table>
-        <div id="comments">
-          <div style='float: right;'>
-            <form action="business_data.php">
-              <input type='submit' name='submit' value='Τροποποίηση στοιχείων' style='background-color: #813DAA; color: #FFFFFF;'>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- ################################################################################################ -->
-      <h1><br><br><br>Εργαζόμενοι</h1>
-      <div class="scrollable">
-        <table>
-          <thead>
-            <tr>
-              <th>Ονοματεπώνυμο</th>
-              <th>ΑΦΜ</th>
-              <th>Αρχείο Σύμβασης Εργασίας</th>
-              <th>Κατάσταση</th>
-              <th>Ισχύ μέχρι</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php
-            // Define variables and initialize with empty values
-            $employee_id = $status = $period = "";
-            $id = $_SESSION["id"];
-
-            // Create connection to get business employees
-            mysqli_select_db($link, "business_employees");
-
-            $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
-            $result = mysqli_query($link, $sql);
-
-            // Create connection to get name of employees
-            mysqli_select_db($link, "users");
-
-            if (mysqli_num_rows($result) > 0) {
-              while($row = mysqli_fetch_assoc($result)){
-                $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
-                $result2 = mysqli_query($link, $sql);
-                $row2 = mysqli_fetch_assoc($result2);
-                echo "<tr id = '".$row["employee_id"]."'>
-                      <td>".$row2["name"]."</td>
-                      <td>".$row["employee_id"]."</td>
-                      <td><a href='#'>Σύμβαση εργασίας</a></td>
-                      <td>".$row["status"]."</td>
-                      <td>".$row["period"]."</td>
-                      <td>
-                        <div id='comments'>
-                          <form action='business_employees.php'>
-                            <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
-                          </form>
+                if (mysqli_num_rows($result) > 0) {
+                  while($row = mysqli_fetch_assoc($result)){
+                    $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
+                    $result2 = mysqli_query($link, $sql);
+                    $row2 = mysqli_fetch_assoc($result2);
+                    echo "<tr>
+                          <td>".$row2["name"]."</td>
+                          <td>".$row["employee_id"]."</td>
+                          <td><a href='#'>Σύμβαση εργασίας</a></td>
+                          <td> <select id='status' name='status'>
+                            <option value='".$row["status"]."'>'".$row["status"]."'</option>
+                            <option value='active'>Ενεργή</option>
+                            <option value='postponement'>Αναβολή</option>
+                            <option value='teleworking'>Τηλεργασία</option>
+                            </select>
+                          </td>
+                          <td><input type = 'date' name='period' id='period' value='".$row["period"]."'></td>
+                          <td><div id='comments'>
+                          <div style='float: right;'>
+                            <form action='business_employees.php'>
+                              <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
+                            </form>
+                          </div>
                         </div>
-                      </td>
-                      <td><button onclick='submitRowAsForm(".$row["employee_id"].")'>SUBMIT ROW1</button></td>
-                      </tr>";
-              }
-            }
-            else {
-              echo "0 results";
-            }
-            mysqli_close($link);
-          ?>
-<script>
-function submitRowAsForm(idRow) {
-  form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
-  form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
-  form.action = "business_employees.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
-  $("#"+idRow+" td").children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
-        if(this.type.substring(0,6) == "select") { // JQUERY DOESN'T CLONE <SELECT> ELEMENTS PROPERLY, SO HANDLE THAT
-            input = document.createElement("input"); // CREATE AN ELEMENT TO COPY VALUES TO
-            input.type = "hidden";
-            input.name = this.name; // GIVE ELEMENT SAME NAME AS THE <SELECT>
-            input.value = this.value; // ASSIGN THE VALUE FROM THE <SELECT>
-            form.appendChild(input);
-        } else { // IF IT'S NOT A SELECT ELEMENT, JUST CLONE IT.
-            $(this).clone().appendTo(form);
-        }
-
-    });
-  form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
-}
-</script>
-          </tbody>
-        </table>         
-      </div>
-      <div class="scrollable">
-        <h1><br><br><br>Ηλεκτρονικές υπηρεσίες</h1>
-        <ul class="clear">
-          <li><a href="#">Πιστοποίηση εργοδοτών</a></li>
-          <li><a href="#">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
-          <li><a href="#">Ασφαλιστική ενημερότητα</a></li>
-          <li><a href="#">Ρύθμιση οφειλών</a></li>
-				  <li><a href="#">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
-        </ul>
-      </div>
+                          </td>
+                          </tr>";
+                  }
+                }
+                else {
+                  echo "0 results";
+                }
+                mysqli_close($link);
+              ?>
+              </tbody>
+          </table>
+        </form>
     </div>
-    <!-- ################################################################################################ -->
-    <div class="clear"></div>
   </main>
 </div>
 <!-- ################################################################################################ -->

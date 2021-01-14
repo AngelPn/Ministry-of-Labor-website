@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="logo.ico">
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -153,12 +154,12 @@
                   </div>
                   <div class="block clear">
                     <label for="text">Λόγοι κλεισίματος ραντεβού</label>
-                    <textarea name="text" id="text" cols="25" rows="10"></textarea>
+                    <textarea name="text" id="text" cols="10" rows="10"></textarea>
                   </div>
                   <div style="float: right;">
                     <input type="reset" name="reset" value="Εκκαθάριση">
                     &nbsp;
-                    <input type="submit" name="submit" value="Υποβολή" style="background-color: #53D3DE; color: #FFFFFF;">
+                    <input type="submit" name="submit" value="Υποβολή" style="background-color: #813DAA; color: #FFFFFF;">
                   </div>';    
             }
             else{
@@ -203,7 +204,7 @@
                     <div style='float: right;'>
                       <input type='reset' name='reset' value='Εκκαθάριση'>
                       &nbsp;
-                      <input type='submit' name='submit' value='Υποβολή' style='background-color: #53D3DE; color: #FFFFFF;'>
+                      <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
                     </div>";
               } else {
                   echo "0 results";
@@ -218,21 +219,41 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row5">
-    <div id="copyright" class="hoc clear"> 
-      <!-- ################################################################################################ -->
-      <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
-      <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-      <!-- ################################################################################################ -->
+<div class="wrapper row2">
+  <main class="hoc clear"> 
+    <div class="content three_quarter first min_info">
+      <div class="flex_row">
+        <img class="single_logo" src="./images/logo_big.png">
+        <p class="yp_name unbold"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
+        <ul class="unbold">
+          <li><a  href="#"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="#"> Πολιτική Ηγεσία </a></li>
+          <li><a href="#"> Οργανωτική Δομή </a></li>
+        </ul>
+
+        <ul class="unbold">
+          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
+        </ul>
+      </div>
+      <div class="clear"></div>
     </div>
+
+  </main>
+</div>
+<!-- ################################################################################################ -->
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left unbold" >Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
+    <a href="#" ><p class="fl_right unbold">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
+</div>
+<!-- ################################################################################################ -->
   <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
   <!-- JAVASCRIPTS -->
   <script src="../layout/scripts/jquery.min.js"></script>
   <script src="../layout/scripts/jquery.backtotop.js"></script>
   <script src="../layout/scripts/jquery.mobilemenu.js"></script>
-</body>
-</html>
+  </body>
+  </html>

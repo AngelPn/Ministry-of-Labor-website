@@ -1,5 +1,4 @@
 <?php
-print "wtf";
 // Include config file
 require_once "../authentication/config.php";
  
@@ -9,7 +8,6 @@ $employee_id_err = $business_name_err = $name_employee_err = $start_date_err = $
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    print "wtf2";
 	// Check if name_employee is empty
     if(empty(trim($_POST["name_employee"]))){
       $name_employee_err = "Παρακαλώ εισάγετε το ονοματεπώνυμό σας.";
@@ -51,7 +49,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $type = trim($_POST["type"]);
 	}
-	print "wtf3";
 	// // Check if file is empty
     // if(empty(trim($_POST["file"]))){
     //     $file_err = "Παρακαλώ φορτώστε τα δικαιολογητικά.";
@@ -60,11 +57,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //}
 
     mysqli_select_db($link, "adeies");
-    print " wtf4";
-    print $business_name_err;
-    print $end_date_err;
-    print $start_date_err;
-    print $type;
     if(empty($employee_id_err) && empty($name_employee_err) && empty($business_name_err) && empty($end_date_err) && empty($start_date_err) && empty($type_err)){
         // Perform query
         
@@ -74,8 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             printf ("Error: %s\n", mysqli_error($link));
           }
         $sql = "INSERT INTO adeies (employee_id, name_employee, business_name, start_date, end_date, type) VALUES ('$employee_id', '$name_employee', '$business_name', '$start_date', '$end_date', '$type')";
+        
+        // Redirect user to status message
         if (mysqli_query($link, $sql)) {                           
-            // Redirect user to welcome page
             $_SESSION['status_adeies'] = true;
             header("location: ../status_message.php");
         }
