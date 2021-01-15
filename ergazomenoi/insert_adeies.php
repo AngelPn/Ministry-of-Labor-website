@@ -56,7 +56,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //     $file = trim($_POST["file"]);
     //}
 
-    mysqli_select_db($link, "adeies");
     if(empty($employee_id_err) && empty($name_employee_err) && empty($business_name_err) && empty($end_date_err) && empty($start_date_err) && empty($type_err)){
         // Perform query
         

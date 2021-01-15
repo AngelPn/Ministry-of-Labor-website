@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
       printf ("Error: %s\n", mysqli_error($link));
     }
-    mysqli_select_db($link, "business_employees");
+
     if(empty($status_err) && empty($period_err)){
         // Perform query
         $sql = "INSERT INTO business_employees VALUES ('$status', '$period')";

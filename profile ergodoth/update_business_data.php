@@ -53,7 +53,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     $id = $_SESSION["id"];
-    mysqli_select_db($link, "business_data");
     if(empty($name_err) && empty($status_err) && empty($office_err) && empty($region_err) && empty($end_mng_err)){
         // Perform query
         $sql = "UPDATE business_data SET business_name='$name', status='$status', office='$office', region='$region', end_mng='$end_mng' WHERE id = '$id'";                        

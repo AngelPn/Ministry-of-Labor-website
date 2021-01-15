@@ -7,64 +7,61 @@ session_start();
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$id = $password = $confirm_password = $name = $email = "";
-$id_err = $password_err = $confirm_password_err = $name_err = $email_err =  "";
+$id = $password = $confirm_password = $name = $email = $phone = "";
+$id_err = $password_err = $confirm_password_err = $name_err = $email_err = $phone_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    //Receice all input values from the form
+    $id = mysqli_real_escape_string($link, trim($_POST["id"]));
+    $password = mysqli_real_escape_string($link, trim($_POST["password"]));
+    $name = mysqli_real_escape_string($link, trim($_POST["name"]));
+    $email = mysqli_real_escape_string($link, trim($_POST["email"]));
+    $phone = mysqli_real_escape_string($link, trim($_POST["phone"]));
  
     mysqli_select_db($link, "users");
 
     // Validate id
-    if(empty(trim($_POST["id"]))){
-        $id_err = "Παρακαλώ εισάγετε το ΑΦΜ σας.";
+    if(empty($id)){
+        $id_err = "<b style='color:red;'>Παρακαλώ εισάγετε το ΑΦΜ σας.</b>";
     } else{
-        $id = trim($_POST["id"]);
 
         if ($result = mysqli_query($link, "SELECT * FROM users WHERE id = '$id'")){
             $row = mysqli_fetch_array($result);
             if(mysqli_num_rows($result) == 1){
-                $id_err = "Υπάρχει ήδη λογαριασμός με αυτό το ΑΦΜ.";
-            } else{
-                $id = trim($_POST["id"]);
+                $id_err = "<b style='color:red;'>Υπάρχει ήδη λογαριασμός με αυτό το ΑΦΜ.</b>";
             }
         }
     }
         
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Παρακαλώ εισάγετε κωδικό πρόσβασης.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες.";
-    } else{
-        $password = trim($_POST["password"]);
+    if(empty($password)){
+        $password_err = "<b style='color:red;'>Παρακαλώ εισάγετε κωδικό πρόσβασης.</b>";     
+    } elseif(strlen($password) < 6){
+        $password_err = "<b style='color:red;'>Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες.</b>";
     }
     
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Παρακαλώ επιβεβαιώστε τον κωδικό πρόσβασης.";     
+        $confirm_password_err = "<b style='color:red;'>Παρακαλώ επιβεβαιώστε τον κωδικό πρόσβασης.</b>";     
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Οι κωδικοί πρόσβασης δεν ταιριάζουν.";
+            $confirm_password_err = "<b style='color:red;'>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</b>";
         }
     }
 
     // Validate name
-    if(empty(trim($_POST["name"]))){
-        $name_err = "Παρακαλώ εισάγετε το ονοματεπώνυμό σας.";     
-    } else{
-        $name = trim($_POST["name"]);
+    if(empty($name)){
+        $name_err = "<b style='color:red;'>Παρακαλώ εισάγετε το ονοματεπώνυμό σας.</b>";     
     }
 
     // Validate email
-    if(empty(trim($_POST["email"]))){
-        $email_err = "Παρακαλώ εισάγετε το όνομά σας.";     
-    } else{
-        $email = trim($_POST["email"]);
-    }   
+    if(empty($email)){
+        $email_err = "<b style='color:red;'>Παρακαλώ εισάγετε το όνομά σας.</b>";     
+    }
     
-    mysqli_select_db($link, "users");
     // Check input errors before inserting in database
     if(empty($id_err) && empty($password_err) && empty($confirm_password_err) && empty($name_err) && empty($email_err)){
         /* check if server is alive */
@@ -74,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             printf ("Error: %s\n", mysqli_error($link));
         }
         // Prepare an insert statement
-        $sql = "INSERT INTO users (id, role_id, name, password, email, phone) VALUES ('$id', '2', $name', '$password', '$email', '21032')";
+        $sql = "INSERT INTO users (id, name, password, email, phone) VALUES ('$id', '$name', '$password', '$email', '$phone')";
         $_SESSION["id"] = $id;
         $_SESSION["name"] = $name;
         $_SESSION["password"] = $password;
@@ -112,25 +109,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="container">
             <h2>Εγγραφή</h2>
             <p>Παρακαλώ συμπληρώστε την παρακάτω φόρμα για να δημιουργήσετε λογαριασμό.</p>
+            <p>Τα πεδία με <span style='color:red;'>*</span> είναι υποχρεωτικά.</p>
             <hr>
 
-            <label><strong>Ονοματεπώνυμο</strong></label>
+            <label><strong>Ονοματεπώνυμο<span style='color:red;'>*</span></strong></label>
             <input type="text" placeholder="Το ονοματεπώνυμό σας" name="name" class="form-control" value="<?php echo $name; ?>" required>
             <span class="help-block"><?php echo $name_err; ?></span>
 
-            <label><strong>ΑΦΜ</strong></label>
+            <label><strong>ΑΦΜ<span style='color:red;'>*</span></strong></label>
             <input type="text" placeholder="Το ΑΦΜ σας" name="id" class="form-control" value="<?php echo $id; ?>" required>
             <span class="help-block"><?php echo $id_err; ?></span>
 
-            <label><strong>Ηλεκτρονικό Ταχυδρομείο</strong></label>
+            <label><strong>Ηλεκτρονικό Ταχυδρομείο<span style='color:red;'>*</span></strong></label>
             <input type="text" placeholder="Το email σας"  name="email" class="form-control" value="<?php echo $email; ?>" required>
             <span class="help-block"><?php echo $email_err; ?></span>
 
-            <label><strong>Κωδικός Πρόσβασης</strong></label>
+            <label><strong>Τηλέφωνο</strong></label>
+            <input type="text" placeholder="Το τηλέφωνό σας"  name="phone" class="form-control" value="<?php echo $phone; ?>">
+            <span class="help-block"><?php echo $phone_err; ?></span>
+
+            <label><strong>Κωδικός Πρόσβασης<span style='color:red;'>*</span></strong></label>
             <input type="password" placeholder="Έγκυρος κωδικός πρόσβασης πάνω από 6 χαρακτήρες" name="password" class="form-control" value="<?php echo $password; ?>"required>
             <span class="help-block"><?php echo $password_err; ?></span>
 
-            <label><strong>Επιβεβαίωση κωδικού πρόσβασης</strong></label>
+            <label><strong>Επιβεβαίωση κωδικού πρόσβασης<span style='color:red;'>*</span></strong></label>
             <input type="password" placeholder="επιβεβαίωση κωδικού" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>"required>
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
 

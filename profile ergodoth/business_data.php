@@ -134,9 +134,6 @@
             $name = $year = $status = $office = $region = $end_mng = "";
             $id = $_SESSION["id"];
 
-            // Create connection to get business data
-            mysqli_select_db($link, "business_data");
-
             $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = '$id'";
             $result = mysqli_query($link, $sql);
 

@@ -45,7 +45,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail = trim($_POST["mail"]);
     }   
 
-    mysqli_select_db($link, "rantevou");
     if(empty($datetime_err) && empty($text_err) && empty($name_err) && empty($phone_err) && empty($mail_err)){
         // Perform query
         $sql = "INSERT INTO rantevou (datetime, text, name, phone, mail) VALUES ('$datetime', '$text', '$name', '$phone', '$mail')";

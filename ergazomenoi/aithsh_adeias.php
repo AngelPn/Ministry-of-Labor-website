@@ -321,8 +321,7 @@
 				else{
 					// Include config file
 					require_once "../authentication/config.php";
-					// Create connection to get the name
-					mysqli_select_db($link, "users");
+
 					$id = $_SESSION["id"];
 					$sql = "SELECT name FROM users where id = '$id'";
 					$result = mysqli_query($link, $sql);
@@ -341,7 +340,6 @@
 							</div>';
 
 						// Create connection to get the name of the businness as select option
-						mysqli_select_db($link, "business_employees");
 						$sql = "SELECT business_name FROM business_employees where employee_id = '$id'";
 						$result2 = mysqli_query($link, $sql);
 

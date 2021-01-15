@@ -141,14 +141,11 @@
                 $employee_id = $status = $period = "";
                 $id = $_SESSION["id"];
 
-                // Create connection to get business employees
-                mysqli_select_db($link, "business_employees");
+                // Include config file
+                require_once "../authentication/config.php";
 
                 $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
                 $result = mysqli_query($link, $sql);
-
-                // Create connection to get name of employees
-                mysqli_select_db($link, "users");
 
                 if (mysqli_num_rows($result) > 0) {
                   while($row = mysqli_fetch_assoc($result)){
