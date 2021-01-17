@@ -2,7 +2,7 @@
 session_start();
 
 // Include config file
-require_once "authentication/config.php";
+require_once "../authentication/config.php";
  
 // Define variables and initialize with empty values
 $datetime = $text = $name = $phone = $mail = "";
@@ -59,11 +59,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Redirect user to status message
         if (mysqli_query($link, $sql)) {                           
             $_SESSION['status_rantevou'] = true;
-            header("location: status_message.php");
+            header("location: ../status_message.php");
         }
         else{
             $_SESSION['status_rantevou'] = false;
-            header("location: status_message.php");
+            header("location: ../status_message.php");
         }
     }
 

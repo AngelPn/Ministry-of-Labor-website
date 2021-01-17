@@ -88,25 +88,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 
 <body style="margin-top: 45px;">
-
+<main>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" style="border: none;">
     <div class="imgcontainer">
         <img src="../images/logo_big.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container" style="text-align: center;">
-        <h3 class="login_title"> Σύνδεση Χρήστη:</h3>
+<h1 class="login_title" style="font-size:18px;"> Σύνδεση Χρήστη:</h1>
         <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>" style="text-align: left;">
                 
-                <label> ΑΦΜ Χρήστη</label>
-                <input type="text" name="id" class="form-control" value="<?php echo $id; ?>">
+                <label for="afm"> ΑΦΜ Χρήστη</label>
+                <input id="afm" type="text" name="id" class="form-control" value="<?php echo $id; ?>">
                 <span class="help-block"><?php echo $id_err; ?></span>
         </div> 
         <!-- <label for="uname"><b>ΑΦΜ</b></label>
         <input type="text" placeholder="Enter Username" name="uname" required> -->
         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>"style="text-align: left; margin-top: 15px;">
-                <label>  Κωδικός πρόσβασης</label>
-                <input type="password" name="password" class="form-control">
+                <label for="pass">  Κωδικός πρόσβασης</label>
+                <input id="pass" type="password" name="password" class="form-control">
                 <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <!-- <label for="psw"><b>Κωδικός πρόσβασης</b></label>
@@ -134,5 +134,6 @@ function goBack() {
 </script>
 <script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+</main>
 </body>
 </html>

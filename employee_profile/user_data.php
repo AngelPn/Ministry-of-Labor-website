@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -11,98 +15,89 @@
 <!-- ################################################################################################ -->
 
 <div id="fixed">
-	<div class="wrapper row0">
-	  <div id="topbar" class="hoc clear" >
-	    <div class="fl_right"> 
-	      <!-- ################################################################################################ -->
-	      <ul class="nospace">
-	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
-          <?php
-            session_start();
-            // Check if the user is logged in
-            if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-            }
-            elseif($_SESSION["role_id"] == 1){
-              echo '<li><a href="ergasia.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η εργασία μου</a></li>';
-              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-            }
-          ?>
-	        <li id="searchform">
-	          <div>
-	            <form action="#" method="post">
-	              <fieldset>
-	                <legend>Quick Search:</legend>
-	                <input type="text" placeholder="Αναζήτηση&hellip;">
-	                <button type="submit"><i class="fas fa-search"></i></button>
-	              </fieldset>
-	            </form>
-	          </div>
-	        </li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </div>
-	  </div>
-	</div>
+  <div class="wrapper row0">
+    <div id="topbar" class="hoc clear" >
+      <div class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="nospace">
+          <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+          <li><a href="../contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>
+          <li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>
+          <li id="searchform">
+            <div>
+              <form action="#" method="post">
+                <fieldset>
+                  <legend>Quick Search:</legend>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </div>
+    </div>
+  </div>
 
-	<div class="wrapper row1">
-	  <header id="header" class="hoc clear">
-	  	<div id="logo" class="fl_left"> 
-      		<a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
-    	</div>
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left">
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+      </div>
 
-	    <nav id="mainav" class="fl_right"> 
+      <nav id="mainav" class="fl_right">
 
-	      <ul class="clear">
+        <ul class="clear">
 
-	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
-	          <ul>
-	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="#">Συμβάσεις</a></li>
-	            <li><a href="../ergazomenoi/aithsh_adeias.php">Άδειες</a></li>
-	            <li><a href="#">Επιδόματα</a></li>
-	            <li><a href="#">Απολύσεις</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
-	          <ul>
-	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
-	            <li><a href="#">Ρύθμιση οφειλών</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
-	          <ul>
-	            <li><a href="#">Δικαιώματα</a></li>
-	            <li><a href="#">Προϋποθέσεις</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
-	          <ul>
-	            <li><a href="#">Κριτήρια</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>     
-	        <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
-	        <ul>
-	          <li><a href="#">Νέα και αλλαγές</a></li>
-	          <li><a href="#">Εργαζόμενοι</a></li>
-	          <li><a href="#">Εργοδότες</a></li>
-	          <li><a href="#">Άνεργοι</a></li>
-	          <li><a href="#">Συνταξιούχοι</a></li>
-	        </ul>
-	        </li>             
-	        <li><a class="nodrop" href="#">Βοηθεια</a></li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </nav>
-	  </header>
-	</div>
+          <li ><a class="drop" href="../employees.php">&nbsp;Εργαζομενοι</a>
+            <ul>
+            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="../employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="../employers.php">&nbsp;Εργοδοτες</a>
+            <ul>
+              <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+              <li><a href="#">Ρύθμιση οφειλών</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+            <ul>
+              <li><a href="#">Δικαιώματα</a></li>
+              <li><a href="#">Προϋποθέσεις</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+            <ul>
+              <li><a href="#">Κριτήρια</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+          <ul>
+            <li><a href="#">Νέα και αλλαγές</a></li>
+            <li><a href="#">Εργαζόμενοι</a></li>
+            <li><a href="#">Εργοδότες</a></li>
+            <li><a href="#">Άνεργοι</a></li>
+            <li><a href="#">Συνταξιούχοι</a></li>
+          </ul>
+          </li>
+          <li><a class="nodrop" href="#">Βοηθεια</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </header>
+  </div>
 </div>
 
 <!-- ################################################################################################ -->

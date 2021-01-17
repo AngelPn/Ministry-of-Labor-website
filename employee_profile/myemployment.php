@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -11,98 +15,89 @@
 <!-- ################################################################################################ -->
 
 <div id="fixed">
-	<div class="wrapper row0">
-	  <div id="topbar" class="hoc clear" >
-	    <div class="fl_right"> 
-	      <!-- ################################################################################################ -->
-	      <ul class="nospace">
-	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
-          <?php
-            session_start();
-            // Check if the user is logged in
-            if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-            }
-            elseif($_SESSION["role_id"] == 1){
-              echo '<li><a href="ergasia.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η εργασία μου</a></li>';
-              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-            }
-          ?>
-	        <li id="searchform">
-	          <div>
-	            <form action="#" method="post">
-	              <fieldset>
-	                <legend>Quick Search:</legend>
-	                <input type="text" placeholder="Αναζήτηση&hellip;">
-	                <button type="submit"><i class="fas fa-search"></i></button>
-	              </fieldset>
-	            </form>
-	          </div>
-	        </li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </div>
-	  </div>
-	</div>
+  <div class="wrapper row0">
+    <div id="topbar" class="hoc clear" >
+      <div class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="nospace">
+          <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+          <li><a href="../contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>
+          <li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>
+          <li id="searchform">
+            <div>
+              <form action="#" method="post">
+                <fieldset>
+                  <legend>Quick Search:</legend>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </div>
+    </div>
+  </div>
 
-	<div class="wrapper row1">
-	  <header id="header" class="hoc clear">
-	  	<div id="logo" class="fl_left"> 
-      		<a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
-    	</div>
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left">
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+      </div>
 
-	    <nav id="mainav" class="fl_right"> 
+      <nav id="mainav" class="fl_right">
 
-	      <ul class="clear">
+        <ul class="clear">
 
-	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
-	          <ul>
-	            <li><a href="../covid.php">Μετρα λογω πανδημιας</a></li>
-	            <li><a href="#">Συμβασεις</a></li>
-	            <li><a href="../ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
-	            <li><a href="#">Επιδοματα</a></li>
-	            <li><a href="#">Απολυσεις</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
-	          <ul>
-	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
-	            <li><a href="#">Ρύθμιση οφειλών</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
-	          <ul>
-	            <li><a href="#">Δικαιώματα</a></li>
-	            <li><a href="#">Προϋποθέσεις</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
-	          <ul>
-	            <li><a href="#">Κριτήρια</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>     
-	        <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
-	        <ul>
-	          <li><a href="#">Νέα και αλλαγές</a></li>
-	          <li><a href="#">Εργαζόμενοι</a></li>
-	          <li><a href="#">Εργοδότες</a></li>
-	          <li><a href="#">Άνεργοι</a></li>
-	          <li><a href="#">Συνταξιούχοι</a></li>
-	        </ul>
-	        </li>             
-	        <li><a class="nodrop" href="#">Βοηθεια</a></li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </nav>
-	  </header>
-	</div>
+          <li ><a class="drop" href="../employees.php">&nbsp;Εργαζομενοι</a>
+            <ul>
+            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="../employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="../employers.php">&nbsp;Εργοδοτες</a>
+            <ul>
+              <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+              <li><a href="#">Ρύθμιση οφειλών</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+            <ul>
+              <li><a href="#">Δικαιώματα</a></li>
+              <li><a href="#">Προϋποθέσεις</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+            <ul>
+              <li><a href="#">Κριτήρια</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+          <ul>
+            <li><a href="#">Νέα και αλλαγές</a></li>
+            <li><a href="#">Εργαζόμενοι</a></li>
+            <li><a href="#">Εργοδότες</a></li>
+            <li><a href="#">Άνεργοι</a></li>
+            <li><a href="#">Συνταξιούχοι</a></li>
+          </ul>
+          </li>
+          <li><a class="nodrop" href="#">Βοηθεια</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </header>
+  </div>
 </div>
 
 <!-- ################################################################################################ -->
@@ -129,7 +124,6 @@
       <a href="#" id="op3" onclick="activate('op3')">Τα Ραντεβού μου</a>
       <a href="#" id="op4" onclick="activate('op4')">Ηλεκτρονικές υπηρεσίες</a>
       <a href="#" id="op5" onclick="activate('op5')">Ιστορικό Αδειών</a>
-      <a href="#" id="op6" onclick="activate('op6')">Ιστορικό Αιτήσεων</a>
     </div>
 
     <div class="main_content">
@@ -148,7 +142,7 @@
                 </thead>
                 <tbody>
                   <?php
-                  
+
                   // Define variables and initialize with empty values
                   $business_id = $status = $period = "";
                   $employee_id = $_SESSION["id"];
@@ -248,9 +242,6 @@
           </thead>
           <tbody>
             <?php
-              
-              // Define variables and initialize with empty values
-              $datetime = $text = "";
               $cur_dt = date('Y-m-d H:i:s');
 
               // Create connection to get the name
@@ -259,7 +250,7 @@
               if (mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_assoc($result)){
                   $datetime = $row["datetime"];
-                  if ($datetime > $cur_dt){
+                  if ($datetime >= $cur_dt){
                     echo "<tr>
                           <td>".$row["datetime"]."</td>
                           <td>".$row["text"]."</td>
@@ -271,12 +262,12 @@
               else {
                 echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
               }
-              mysqli_close($link);
             ?>
           </tbody>
         </table>
       </div>
 
+    
       <div class="content member" id="yphresies">
         <h1>Ηλεκτρονικές υπηρεσίες</h1>
         <ul class="clear">
@@ -289,25 +280,46 @@
       </div>
 
       <div class="content member" id="istoriko_adeion">
-        <h1>Ιστορικό Αδειών</h1>
-        <ul class="clear">
-          <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
-          <li><a href="#">Αίτηση για επίδομα</a></li>
-          <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
-          <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
-          <li><a href="#">Αίτηση για σύνταξη</a></li>
-        </ul>
-      </div>
+      <h1>Ιστορικό αδειών</h1>
+        <p>Εδώ εμφανόζονται όλες οι άδειες που έχετε πάρει με την αντίστοιχη επιχείρηση στην οποία εργάζεστε.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Επιχείρηση</th>
+              <th>Τύπος άδειας</th>
+              <th>Από</th>
+              <th>Μέχρι</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              
+              // Define variables and initialize with empty values
+              $datetime = $text = "";
+              $cur_dt = date('Y-m-d H:i:s');
 
-      <div class="content member" id="istoriko_aitiseon">
-        <h1>Ιστορικό Αιτήσεων</h1>
-        <ul class="clear">
-          <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
-          <li><a href="#">Αίτηση για επίδομα</a></li>
-          <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
-          <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
-          <li><a href="#">Αίτηση για σύνταξη</a></li>
-        </ul>
+              // Create connection to get the name
+              $sql = "SELECT business_name, start_date, end_date, type FROM adeies WHERE employee_id = '$id' ";
+              $result = mysqli_query($link, $sql);
+
+              if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)){
+                  echo "<tr>
+                        <td>".$row["business_name"]."</td>
+                        <td>".$row["type"]."</td>
+                        <td>".$row["start_date"]."</td>
+                        <td>".$row["end_date"]."</td>
+                      </tr>";
+                  
+                }
+              }
+              else {
+                echo "Το ιστορικό αδειών είναι κενό.";
+              }
+              mysqli_close($link);
+            ?>
+          </tbody>
+        </table>
       </div>
 
     </div>
@@ -357,8 +369,8 @@
 
 <script type = "text/javascript">
 
-var op_list = ['op1', 'op2', 'op3', 'op4', 'op5', 'op6'];
-var id_list = ['#katastasi', '#stoixeia', '#ta_rantevou_mou', '#yphresies', '#istoriko_adeion', '#istoriko_aitiseon'];
+var op_list = ['op1', 'op2', 'op3', 'op4', 'op5'];
+var id_list = ['#katastasi', '#stoixeia', '#ta_rantevou_mou', '#yphresies', '#istoriko_adeion'];
 
 </script>
 

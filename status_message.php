@@ -7,7 +7,7 @@
   <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-  <link rel="icon" href="logo.ico">
+  <link rel="icon" href="images/logo.ico">
 </head>
 
 <body id="top">
@@ -19,20 +19,20 @@
         <!-- ################################################################################################ -->
         <ul class="nospace">
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-          <li><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="contact/contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
             session_start();
             // Check if the user is logged in, if not then redirect him to login page
             if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+              echo '<li><a href="authentication/login.php" title="Κουμπί Σύνδεσης">Σύνδεση</a></li>';
+              echo '<li><a href="authentication/register.php" title="Κουμπί Εγγραφής">Εγγραφή</a></li>';      
             }
             elseif($_SESSION["role_id"] == 1){
-              echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+              echo '<li><a href="employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
               echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
             }
             else{
-              echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+              echo '<li><a href="employer_profile/mybusiness.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
               echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
             }
           ?>
@@ -41,8 +41,9 @@
               <form action="#" method="post">
                 <fieldset>
                   <legend>Quick Search:</legend>
-                  <input type="text" placeholder="Αναζήτηση&hellip;">
-                  <button type="submit"><i class="fas fa-search"></i></button>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
                 </fieldset>
               </form>
             </div>
@@ -56,27 +57,27 @@
   <div class="wrapper row1">
     <header id="header" class="hoc clear">
       <div id="logo" class="fl_left"> 
-          <a href="index.php"><img src="images/logo.png" style="height: 65px;"></a>
+          <a href="index.php"><img src="images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
       </div>
 
       <nav id="mainav" class="fl_right"> 
 
         <ul class="clear">
 
-          <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-          <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
+          <li ><a class="drop" href="employees.php">&nbsp;Εργαζομενοι</a>
             <ul>
-              <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-              <li><a href="#">Συμβασεις</a></li>
-              <li><a href="ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
-              <li><a href="#">Επιδοματα</a></li>
-              <li><a href="#">Απολυσεις</a></li>
+              <li><a href="covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
             </ul>
           </li>
-          <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
+          <li><a class="drop" href="employers.php">&nbsp;Εργοδοτες</a>
             <ul>
-              <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="covid.php">Μέτρα λόγω πανδημίας</a></li>
               <li><a href="#">Ασφαλιστικός οδηγός</a></li>
               <li><a href="#">Ρύθμιση οφειλών</a></li>
             </ul>

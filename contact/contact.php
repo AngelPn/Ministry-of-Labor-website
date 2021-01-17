@@ -3,7 +3,7 @@
 session_start();
  
 // Include config file
-require_once "authentication/config.php";
+require_once "../authentication/config.php";
  
 // Define variables and initialize with empty values
 $text = $name = $phone = $mail = "";
@@ -50,123 +50,115 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <!DOCTYPE html>
-<!--
-Template Name: Trealop
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Copyright: OS-Templates.com
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
--->
 <html lang="el">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Επικοινωνία</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<link rel="icon" href="logo.ico">
+  <title>Επικοινωνία</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="../images/logo.ico">
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div id="fixed">
-	<div class="wrapper row0">
-	  <div id="topbar" class="hoc clear" >
-	    <div class="fl_right"> 
-	      <!-- ################################################################################################ -->
-	      <ul class="nospace">
-	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-	        <li class = "active"><a href="epikinonia.php" title="Επικοινωνία"><b>Επικοινωνια</b></a></li>
+  <div class="wrapper row0">
+    <div id="topbar" class="hoc clear" >
+      <div class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="nospace">
+          <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+          <li><a href="contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-          // Check if the user is logged in, if not then redirect him to login page
-          if(!isset($_SESSION["loggedin"])){
-            echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-            echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-          }
-          elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
-          else{
-            echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
+            // Check if the user is logged in, if not then redirect him to login page
+            if(!isset($_SESSION["loggedin"])){
+              echo '<li><a href="../authentication/login.php" title="Κουμπί Σύνδεσης">Σύνδεση</a></li>';
+              echo '<li><a href="../authentication/register.php" title="Κουμπί Εγγραφής">Εγγραφή</a></li>';
+            }
+            elseif($_SESSION["role_id"] == 1){
+              echo '<li><a href="../employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
+            else{
+              echo '<li><a href="../employer_profile/mybusiness.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
           ?>
-	        <li id="searchform">
-	          <div>
-	            <form action="#" method="post">
-	              <fieldset>
-	                <legend>Quick Search:</legend>
-	                <input type="text" placeholder="Αναζήτηση&hellip;">
-	                <button type="submit"><i class="fas fa-search"></i></button>
-	              </fieldset>
-	            </form>
-	          </div>
-	        </li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </div>
-	  </div>
-	</div>
+          <li id="searchform">
+            <div>
+              <form action="#" method="post">
+                <fieldset>
+                  <legend>Quick Search:</legend>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </div>
+    </div>
+  </div>
 
-	<div class="wrapper row1">
-	  <header id="header" class="hoc clear">
-	  	<div id="logo" class="fl_left"> 
-      		<a href="index.php"><img src="images/logo.png" style="height: 65px;"></a>
-    	</div>
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left">
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+      </div>
 
-	    <nav id="mainav" class="fl_right"> 
+      <nav id="mainav" class="fl_right">
 
-	      <ul class="clear">
+        <ul class="clear">
 
-	        <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
-	          <ul>
-            <li><a href="../covid.php">Μετρα λογω πανδημιας</a></li>
-              <li><a href="#">Συμβασεις</a></li>
-              <li><a href="ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
-              <li><a href="#">Επιδοματα</a></li>
-              <li><a href="#">Απολυσεις</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
-	          <ul>
-	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
-	            <li><a href="#">Ρύθμιση οφειλών</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
-	          <ul>
-	            <li><a href="#">Δικαιώματα</a></li>
-	            <li><a href="#">Προϋποθέσεις</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
-	          <ul>
-	            <li><a href="#">Κριτήρια</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>     
-	        <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
-	        <ul>
-	          <li><a href="#">Νέα και αλλαγές</a></li>
-	          <li><a href="#">Εργαζόμενοι</a></li>
-	          <li><a href="#">Εργοδότες</a></li>
-	          <li><a href="#">Άνεργοι</a></li>
-	          <li><a href="#">Συνταξιούχοι</a></li>
-	        </ul>
-	        </li>             
-	        <li><a class="nodrop" href="#">Βοηθεια</a></li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </nav>
-	  </header>
-	</div>
+          <li ><a class="drop" href="../employees.php">&nbsp;Εργαζομενοι</a>
+            <ul>
+            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="../employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="../employers.php">&nbsp;Εργοδοτες</a>
+            <ul>
+              <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+              <li><a href="#">Ρύθμιση οφειλών</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+            <ul>
+              <li><a href="#">Δικαιώματα</a></li>
+              <li><a href="#">Προϋποθέσεις</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+            <ul>
+              <li><a href="#">Κριτήρια</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+          <ul>
+            <li><a href="#">Νέα και αλλαγές</a></li>
+            <li><a href="#">Εργαζόμενοι</a></li>
+            <li><a href="#">Εργοδότες</a></li>
+            <li><a href="#">Άνεργοι</a></li>
+            <li><a href="#">Συνταξιούχοι</a></li>
+          </ul>
+          </li>
+          <li><a class="nodrop" href="#">Βοηθεια</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </header>
+  </div>
 </div>
 <!-- ################################################################################################ -->
 
@@ -185,8 +177,8 @@ else{
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
-        <li><a href="index.php"><i class="fa fa-home"></i></a></li>
-        <li><a href="#">ΕΠΙΚΟΙΝΩΝΙΑ</a></li>
+        <li><a href="../index.php" title="Αρχική"><i class="fa fa-home"></i></a></li>
+        <li><a href="contact.php">ΕΠΙΚΟΙΝΩΝΙΑ</a></li>
       </ul>
     </div>
 </div>
@@ -200,16 +192,16 @@ else{
       <!-- ################################################################################################ -->
       <ul class="nospace clear">
         <li class="one_quarter first">
-          <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Τηλεφωνικό Κέντρο:</strong> +30 213 1516649 <br> +30 213 1516651</span></div>
+          <div class="block clear"><a href="#" title="Τηλέφωνο"><i class="fas fa-phone"></i></a> <span><strong>Τηλεφωνικό Κέντρο:</strong> +30 213 1516649 <br> +30 213 1516651</span></div>
         </li>
         <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Στείλτε μας mail:</strong>support@ypakp.gov</span></div>
+          <div class="block clear"><a href="#" title="mail"><i class="fas fa-envelope"></i></a> <span><strong>Στείλτε μας mail:</strong>support@ypakp.gov</span></div>
         </li>
         <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong>Δευτέρα - Σάββατο:</strong> 08:00 πμ - 18:00 μμ</span></div>
+          <div class="block clear"><a href="#" title="Ρολόι"><i class="fas fa-clock"></i></a> <span><strong>Δευτέρα - Σάββατο:</strong> 08:00 πμ - 18:00 μμ</span></div>
         </li>
         <li class="one_quarter">
-          <div class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Επισκεφθείτε μας:</strong><a href="rantevou.php">Λόγω covid-19 θα χρειαστεί να κλείσετε ραντεβού</a></span></div>
+          <div class="block clear"><a href="#" title="Τοποθεσία"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Επισκεφθείτε μας:</strong><a href="appointment.php">Λόγω covid-19 θα χρειαστεί να κλείσετε ραντεβού</a></span></div>
         </li>
       </ul>
       <!-- ################################################################################################ -->
@@ -219,8 +211,8 @@ else{
 <div class="wrapper row2">
   <main class="hoc" style="padding: 40px 0;">
     <div class="stack_container">
-      <div class="left_stack" style="text-align: justify;">
-        <p style="padding-top: 80px;"> Από τη σελίδα αυτή μπορείτε να ενημερωθείτε για το ωράριο επικοινωνίας του Υπουργείου Εργασίας, καθώς και να βρείτε όλους τους διαθέσιμους τρόπους να επικοινωνήσετε μαζί μας για οποιοδήποτε πρόβλημα αντιμετωπίζετε. Το Τηλεφωνικό μας Κέντρο λειτρουργεί 24 ώρες το 24ωρο, 7 ημέρες την εβδομάδα. Εναλλακτικά μπορείτε να μας στείλετε ηλεκτρονικά μηνύματα μέσω email ή μέσω της <a href="#comments"> <b> Φόρμας Ηλεκτρονικής Επικοινωνίας</b></a>, ή ακόμα και να <a href="rantevou.php"><b>Κλείσετε Ραντεβού</b></a> για να σας εξυπηρετήσουμε από κοντά. </p>
+      <div class="left_stack">
+        <p style="padding-top: 80px;"> Από τη σελίδα αυτή μπορείτε να ενημερωθείτε για το ωράριο επικοινωνίας του Υπουργείου Εργασίας, καθώς και να βρείτε όλους τους διαθέσιμους τρόπους να επικοινωνήσετε μαζί μας για οποιοδήποτε πρόβλημα αντιμετωπίζετε. Το Τηλεφωνικό μας Κέντρο λειτρουργεί 24 ώρες το 24ωρο, 7 ημέρες την εβδομάδα. Εναλλακτικά μπορείτε να μας στείλετε ηλεκτρονικά μηνύματα μέσω email ή μέσω της <a href="#comments"> <b> Φόρμας Ηλεκτρονικής Επικοινωνίας</b></a>, ή ακόμα και να <a href="appointment.php"><b>Κλείσετε Ραντεβού</b></a> για να σας εξυπηρετήσουμε από κοντά. </p>
         <p style=" font-size: 14px; "> <strong> <span style="color: red;">Σημαντικό:</span> Λόγω του COVID-19, εξυπηρετούμε από κοντά, ΑΠΟΚΛΕΙΣΤΙΚΑ κατόπιν ραντεβού για αποφυγή συνωστισμών.</strong></p>
       </div>
       <div>
@@ -326,7 +318,7 @@ else{
   <main class="hoc clear"> 
     <div class="content three_quarter first min_info">
       <div class="flex_row">
-        <img class="single_logo" src="./images/logo_big.png">
+        <img class="single_logo" src="../images/logo_big.png" alt="Υπουργείο Εργασίας Λόγκο">
         <p class="yp_name unbold"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
         <ul class="unbold">
           <li><a  href="#"> Ρόλος του Υπουργείου </a></li>
@@ -353,7 +345,7 @@ else{
   </div>
 </div>
 <!-- ################################################################################################ -->
-  <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+  <a id="backtotop" href="#top" title="Πίσω στην κορυφή"><i class="fas fa-chevron-up"></i></a>
   <!-- JAVASCRIPTS -->
   <script src="../layout/scripts/jquery.min.js"></script>
   <script src="../layout/scripts/jquery.backtotop.js"></script>
