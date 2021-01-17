@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Include config file
 require_once "../authentication/config.php";
  
@@ -49,12 +51,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $type = trim($_POST["type"]);
 	}
-	// // Check if file is empty
-    // if(empty(trim($_POST["file"]))){
-    //     $file_err = "Παρακαλώ φορτώστε τα δικαιολογητικά.";
-    // } else{
-    //     $file = trim($_POST["file"]);
-    //}
 
     if(empty($employee_id_err) && empty($name_employee_err) && empty($business_name_err) && empty($end_date_err) && empty($start_date_err) && empty($type_err)){
         // Perform query

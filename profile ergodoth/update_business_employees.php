@@ -1,37 +1,35 @@
 <?php
-// Initialize the session
 session_start();
-if(isset($_SESSION['status_arxeio_erg'])){
-  unset($_SESSION['status_arxeio_erg']);
-  echo "Οι τροποποιήσεις στους εργαζομένους έγιναν με επιτυχία.";
-}
-else{
-  echo "not";
-}
- 
+
 // Include config file
 require_once "../authentication/config.php";
  
 // Define variables and initialize with empty values
 $status = $period = "";
 $status_err = $period_err = "";
+
+$id = $_SESSION["id"];
+$employee_id = $_SESSION["employee_id"];
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-  require_once "../authentication/config.php";
+
+    $status = mysqli_real_escape_string($link, trim($_POST["status"]));
+    $period = mysqli_real_escape_string($link, trim($_POST["period"]));
+
     // Check if status is empty
-    if(empty(trim($_POST["status"]))){
+    if(empty($status)){
         $status_err = "Παρακαλώ επιλέξτε ημερομηνία.";
-    } else{
-        $status = trim($_POST["status"]);
     }
 
     // Check if period is empty
-    if(empty(trim($_POST["period"]))){
+    if(empty($period)){
         $period_err = "Παρακαλώ εισάγετε το όνομά σας.";
-    } else{
-        $period = trim($_POST["period"]);
     }
+
+    // to prevent mysql injection
+    $status = stripcslashes($status);
+    $period = stripcslashes($period);
 
     /* check if server is alive */
     if (mysqli_ping($link)) {
@@ -42,14 +40,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($status_err) && empty($period_err)){
         // Perform query
-        $sql = "INSERT INTO business_employees VALUES ('$status', '$period')";
+        $sql = "UPDATE business_employees SET status = '$status', period = '$period' WHERE business_id = '$id' and employee_id = '$employee_id'";
+        // Redirect user to status message
         if (mysqli_query($link, $sql)) {                           
-          // Redirect user here
-          $_SESSION['status_arxeio_erg'] = "success";
-          header("location: ../index.php");
+          $_SESSION['status_business_employees'] = true;
+          header("location: ../status_message.php");
         }
         else{
-          echo "Κάτι πήγε στραβά! Προσπαθήστε ξανά αργότερα";
+          $_SESSION['status_business_employees'] = false;
+          header("location: ../status_message.php");
         }
     }        
     // Close connection

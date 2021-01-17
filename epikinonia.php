@@ -86,7 +86,7 @@ Licence URI: https://www.os-templates.com/template-terms
             echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
           }
           elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="#" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+            echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
             echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
           }
           else{
@@ -121,7 +121,7 @@ Licence URI: https://www.os-templates.com/template-terms
 
 	      <ul class="clear">
 
-	        <li><a class="nodrop" href="index.html" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+	        <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
 	        <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
 	          <ul>
@@ -169,7 +169,18 @@ Licence URI: https://www.os-templates.com/template-terms
 	</div>
 </div>
 <!-- ################################################################################################ -->
-<div style="padding-bottom: 113px;"></div>
+
+<?php
+// Set the correct padding-offset for the breadcrumb if you are connected
+if(isset($_SESSION["loggedin"])){
+  echo '<div style="padding-bottom: 133px;"></div>';
+}
+else{
+  echo '<div style="padding-bottom: 113px;"></div>';
+}
+?>
+
+
 <!-- ################################################################################################ -->
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 

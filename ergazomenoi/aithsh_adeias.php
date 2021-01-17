@@ -8,6 +8,7 @@
 	<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../layout/styles/collapsible.css">
 	<link rel="icon" href="../logo.ico">
 </head>
 
@@ -57,7 +58,7 @@
   <div class="wrapper row1">
     <header id="header" class="hoc clear">
       <div id="logo" class="fl_left"> 
-          <a href="#"><img src="../images/logo.png" style="height: 65px;"></a>
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
       </div>
 
       <nav id="mainav" class="fl_right"> 
@@ -112,7 +113,15 @@
   </div>
 </div>
 <!-- ################################################################################################ -->
-<div style="padding-bottom: 115px;"></div>
+<?php
+// Set the correct padding-offset for the breadcrumb if you are connected
+if(isset($_SESSION["loggedin"])){
+  echo '<div style="padding-bottom: 133px;"></div>';
+}
+else{
+  echo '<div style="padding-bottom: 113px;"></div>';
+}
+?>
 <!-- ################################################################################################ -->
 
 <div class="wrapper bgded overlay gradient" style="background-color: black; ">
@@ -121,7 +130,7 @@
     <ul>
       <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
       <li><a href="../ergazomenoi.php">ΕΡΓΑΖΟΜΕΝΟΙ</a></li>
-      <li><a href="#">ΑΔΕΙΕΣ</a></li>
+      <li><a href="aithsh_adeias.php">ΑΔΕΙΕΣ</a></li>
     </ul>
     <!-- ################################################################################################ -->
   </div>
@@ -323,7 +332,7 @@
 					require_once "../authentication/config.php";
 
 					$id = $_SESSION["id"];
-					$sql = "SELECT name FROM users where id = '$id'";
+					$sql = "SELECT name FROM users WHERE id = '$id'";
 					$result = mysqli_query($link, $sql);
 
 					if (mysqli_num_rows($result) > 0) {
@@ -331,7 +340,7 @@
 						// output data of each row
 						echo ' <div class="one_half first">
 								<label for="name">Ονοματεπώνυμο Εργαζόμενου</label>
-								<input readonly type="text" name="name_employee" id="name_employee" value="'.$row["name"].' size="22" required>
+								<input readonly type="text" name="name_employee" id="name_employee" value="'.$row["name"].'" size="22" required>
 							</div>
 				
 							<div class="one_half">
@@ -340,7 +349,7 @@
 							</div>';
 
 						// Create connection to get the name of the businness as select option
-						$sql = "SELECT business_name FROM business_employees where employee_id = '$id'";
+						$sql = "SELECT business_name FROM business_employees WHERE employee_id = '$id'";
 						$result2 = mysqli_query($link, $sql);
 
 						echo '

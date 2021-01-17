@@ -1,3 +1,24 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Include config file
+require_once "../authentication/config.php";
+ 
+// Define variables and initialize with empty values
+$employee_id = "";
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    $employee_id = trim($_POST["employee_id"]);
+
+    // to prevent mysql injection
+    $employee_id = stripcslashes($employee_id);
+    $employee_id = mysqli_real_escape_string($link, $employee_id);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -20,7 +41,6 @@
 	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
 	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-            session_start();
             // Check if the user is logged in
             if(!isset($_SESSION["loggedin"])){
               echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
@@ -123,65 +143,81 @@
 <div class="wrapper row2">
   <main class="hoc container clear">
     <div class="content three_quarter">
-        <h1>Εργαζόμενοι</h1>
+        <h1>Αλλαγή κατάστασης εργαζομένου</h1>
+        <p>Μπορείτε να αλλάξετε την κατάσταση του ακόλουθου εργαζομένου με κλικ στα κατάλληλα πεδία και Υποβολή.</p>
+        <?php
+          // Define variables and initialize with empty values
+          $status = $period = "";
+          $id = $_SESSION["id"];
+          $_SESSION["employee_id"] = $employee_id;
+
+          $sql = "SELECT status, period FROM business_employees where business_id = '$id' and employee_id = '$employee_id'";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+              $row = mysqli_fetch_assoc($result);
+
+              $status = $row["status"];
+              $period = $row["period"];
+          }
+          else {
+            echo "0 results";
+          }
+
+          $sql = "SELECT name FROM users where id = '$employee_id'";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            $name= $row["name"];
+          }
+          else{
+            echo "0 results";
+          }
+
+          mysqli_close($link);
+        ?>
         <form action="update_business_employees.php" method="post">
-          <table>
-              <thead>
-                  <tr>
-                      <th>Ονοματεπώνυμο</th>
-                      <th>ΑΦΜ</th>
-                      <th>Αρχείο Σύμβασης Εργασίας</th>
-                      <th>Κατάσταση</th>
-                      <th>Ισχύ μέχρι</th>
-                  </tr>
-              </thead>
-              <tbody>
-              <?php
-                // Define variables and initialize with empty values
-                $employee_id = $status = $period = "";
-                $id = $_SESSION["id"];
-
-                // Include config file
-                require_once "../authentication/config.php";
-
-                $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
-                $result = mysqli_query($link, $sql);
-
-                if (mysqli_num_rows($result) > 0) {
-                  while($row = mysqli_fetch_assoc($result)){
-                    $sql = "SELECT name FROM users where id = ".$row["employee_id"]."";
-                    $result2 = mysqli_query($link, $sql);
-                    $row2 = mysqli_fetch_assoc($result2);
-                    echo "<tr>
-                          <td>".$row2["name"]."</td>
-                          <td>".$row["employee_id"]."</td>
-                          <td><a href='#'>Σύμβαση εργασίας</a></td>
-                          <td> <select id='status' name='status'>
-                            <option value='".$row["status"]."'>'".$row["status"]."'</option>
-                            <option value='active'>Ενεργή</option>
-                            <option value='postponement'>Αναβολή</option>
-                            <option value='teleworking'>Τηλεργασία</option>
-                            </select>
-                          </td>
-                          <td><input type = 'date' name='period' id='period' value='".$row["period"]."'></td>
-                          <td><div id='comments'>
-                          <div style='float: right;'>
-                            <form action='business_employees.php'>
-                              <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
-                            </form>
-                          </div>
-                        </div>
-                          </td>
-                          </tr>";
-                  }
-                }
-                else {
-                  echo "0 results";
-                }
-                mysqli_close($link);
-              ?>
-              </tbody>
           </table>
+            <div class="scrollable">
+            <table>
+              <tbody>
+                <tr>
+                    <td>Ονοματεπώνυμο</td>
+                    <?php echo "<td>$name</td>"; ?>
+                </tr>
+                <tr>
+                    <td>ΑΦΜ</td>
+                    <?php echo "<td>$employee_id</td>"; ?>
+                </tr>
+                <tr>
+                    <td>Αρχείο Σύμβαση εργασίας</td>
+                    <td><a href='#'>Σύμβαση εργασίας</a></td>
+                </tr>
+                <tr>
+                    <td>Κατάσταση εργαζομένου</td>
+                    <td>
+                      <select id='status' name='status'>
+                        <option value='<?php echo "$status"; ?>'><?php echo "$status"; ?></option>
+                        <option value='Ενεργή'>Ενεργή</option>
+                        <option value='Αναβολή'>Αναβολή</option>
+                        <option value='Τηλεργασία'>Τηλεργασία</option>
+                      </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ισχύ μέχρι</td>
+                    <td><input type = 'date' name='period' id='period' value='<?php echo "$period"; ?>'></td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="comments">
+              <div style='float: right;'>
+                <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
+              </div>
+            </div>
+          </div>
         </form>
     </div>
   </main>
@@ -225,9 +261,9 @@
 <!-- ################################################################################################ -->
 
 <!-- JAVASCRIPTS -->
-<script src="layout/scripts/jquery.min.js"></script>
-<script src="layout/scripts/jquery.backtotop.js"></script>
-<script src="layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../layout/scripts/jquery.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
 
 </body>
 </html>

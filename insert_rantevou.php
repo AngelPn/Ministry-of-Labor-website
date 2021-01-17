@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Include config file
 require_once "authentication/config.php";
@@ -43,11 +44,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail_err = "Παρακαλώ εισάγετε το email σας.";
     } else{
         $mail = trim($_POST["mail"]);
-    }   
+    }
+
+    // Check if user is logged in to set the id
+    if(isset($_SESSION["loggedin"])){
+        $id = $_SESSION["id"];
+    }
+    else $id = NULL;
 
     if(empty($datetime_err) && empty($text_err) && empty($name_err) && empty($phone_err) && empty($mail_err)){
         // Perform query
-        $sql = "INSERT INTO rantevou (datetime, text, name, phone, mail) VALUES ('$datetime', '$text', '$name', '$phone', '$mail')";
+        $sql = "INSERT INTO rantevou (datetime, user_id, text, name, phone, mail) VALUES ('$datetime', '$id', '$text', '$name', '$phone', '$mail')";
         
         // Redirect user to status message
         if (mysqli_query($link, $sql)) {                           

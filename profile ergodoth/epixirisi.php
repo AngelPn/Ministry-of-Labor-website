@@ -63,42 +63,42 @@
 	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
 	          <ul>
 	            <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-	            <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
-	            <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
-	            <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
-	            <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
+	            <li><a href="../under_construction.html">Συμβασεις</a></li>
+	            <li><a href="../profile ergazomenou/adeies">Αδειες</a></li>
+	            <li><a href="../under_construction.html">Επιδοματα</a></li>
+	            <li><a href="../under_construction.html">Απολυσεις</a></li>
 	          </ul>
 	        </li>
 	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
 	          <ul>
 	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
-	            <li><a href="#">Ρύθμιση οφειλών</a></li>
+	            <li><a href="../under_construction.html">Ασφαλιστικός οδηγός</a></li>
+	            <li><a href="../under_construction.html">Ρύθμιση οφειλών</a></li>
 	          </ul>
 	        </li>
-	        <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+	        <li><a class="drop" href="../under_construction.html" style="width: 145px;">&nbsp;Ανεργοι</a>
 	          <ul>
-	            <li><a href="#">Δικαιώματα</a></li>
-	            <li><a href="#">Προϋποθέσεις</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
+	            <li><a href="../under_construction.html">Δικαιώματα</a></li>
+	            <li><a href="../under_construction.html">Προϋποθέσεις</a></li>
+	            <li><a href="../under_construction.html">Δικαιολογητικά</a></li>
 	          </ul>
 	        </li>
-	        <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+	        <li><a class="drop" href="../under_construction.html">&nbsp;Συνταξιουχοι</a>
 	          <ul>
-	            <li><a href="#">Κριτήρια</a></li>
-	            <li><a href="#">Δικαιολογητικά</a></li>
+	            <li><a href="../under_construction.html">Κριτήρια</a></li>
+	            <li><a href="../under_construction.html">Δικαιολογητικά</a></li>
 	          </ul>
 	        </li>     
-	        <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+	        <li><a class="drop" href="../under_construction.html">&nbsp;Νομοθεσια</a>
 	        <ul>
-	          <li><a href="#">Νέα και αλλαγές</a></li>
-	          <li><a href="#">Εργαζόμενοι</a></li>
-	          <li><a href="#">Εργοδότες</a></li>
-	          <li><a href="#">Άνεργοι</a></li>
-	          <li><a href="#">Συνταξιούχοι</a></li>
+	          <li><a href="../under_construction.html">Νέα και αλλαγές</a></li>
+	          <li><a href="../under_construction.html">Εργαζόμενοι</a></li>
+	          <li><a href="../under_construction.html">Εργοδότες</a></li>
+	          <li><a href="../under_construction.html">Άνεργοι</a></li>
+	          <li><a href="../under_construction.html">Συνταξιούχοι</a></li>
 	        </ul>
 	        </li>             
-	        <li><a class="nodrop" href="#">Βοηθεια</a></li>
+	        <li><a class="nodrop" href="../under_construction.html">Βοηθεια</a></li>
 	      </ul>
 	      <!-- ################################################################################################ -->
 	    </nav>
@@ -130,11 +130,11 @@
       <ul>
         <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
         <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
-        <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
-        <li><a href="#">Οικονομική διαχείρηση</a>
+        <li><a href="../under_construction.html">Ηλεκτρονικές υπηρεσίες</a></li>
+        <li><a href="../under_construction.html">Οικονομική διαχείρηση</a>
         <ul>
-          <li><a href="#">Φορολογικές υποχρεώσεις</a></li>
-          <li><a href="#">Μηνιαία έσοδα κι έξοδα</a></li>
+          <li><a href="../under_construction.html">Φορολογικές υποχρεώσεις</a></li>
+          <li><a href="../under_construction.html">Μηνιαία έσοδα κι έξοδα</a></li>
         </ul>
         </li> 
       </ul>
@@ -151,8 +151,7 @@
         $name = $year = $status = $office = $region = $end_mng = "";
         $id = $_SESSION["id"];
 
-
-        $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = '$id'";
+        $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = $id";
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -242,18 +241,11 @@
                 $row2 = mysqli_fetch_assoc($result2);
                 echo "<tr id = '".$row["employee_id"]."'>
                       <td>".$row2["name"]."</td>
-                      <td>".$row["employee_id"]."</td>
+                      <td><input readonly type = 'text' name='employee_id' id='".$row["employee_id"]."' value='".$row["employee_id"]."'></td>
                       <td><a href='#'>Σύμβαση εργασίας</a></td>
                       <td>".$row["status"]."</td>
                       <td>".$row["period"]."</td>
-                      <td>
-                        <div id='comments'>
-                          <form action='business_employees.php'>
-                            <input type='submit' name='submit' value='Τροποποίηση' style='background-color: #813DAA; color: #FFFFFF;'>
-                          </form>
-                        </div>
-                      </td>
-                      <td><button onclick='submitRowAsForm(".$row["employee_id"].")'>SUBMIT ROW1</button></td>
+                      <td><button onclick='submitRowAsForm(".$row["employee_id"].")'>Τροποποίηση</button></td>
                       </tr>";
               }
             }
@@ -264,21 +256,17 @@
           ?>
 <script>
 function submitRowAsForm(idRow) {
+
   form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
   form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
   form.action = "business_employees.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
-  $("#"+idRow+" td").children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
-        if(this.type.substring(0,6) == "select") { // JQUERY DOESN'T CLONE <SELECT> ELEMENTS PROPERLY, SO HANDLE THAT
-            input = document.createElement("input"); // CREATE AN ELEMENT TO COPY VALUES TO
-            input.type = "hidden";
-            input.name = this.name; // GIVE ELEMENT SAME NAME AS THE <SELECT>
-            input.value = this.value; // ASSIGN THE VALUE FROM THE <SELECT>
-            form.appendChild(input);
-        } else { // IF IT'S NOT A SELECT ELEMENT, JUST CLONE IT.
-            $(this).clone().appendTo(form);
-        }
+  $("#"+idRow).children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
+        console.log("#"+idRow);
+        $(this).clone().appendTo(form);
 
     });
+    
+  $(document.body).append(form);
   form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
 }
 </script>
@@ -288,11 +276,11 @@ function submitRowAsForm(idRow) {
       <div class="scrollable">
         <h1><br><br><br>Ηλεκτρονικές υπηρεσίες</h1>
         <ul class="clear">
-          <li><a href="#">Πιστοποίηση εργοδοτών</a></li>
-          <li><a href="#">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
-          <li><a href="#">Ασφαλιστική ενημερότητα</a></li>
-          <li><a href="#">Ρύθμιση οφειλών</a></li>
-				  <li><a href="#">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
+          <li><a href="../under_construction.html">Πιστοποίηση εργοδοτών</a></li>
+          <li><a href="../under_construction.html">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
+          <li><a href="../under_construction.html">Ασφαλιστική ενημερότητα</a></li>
+          <li><a href="../under_construction.html">Ρύθμιση οφειλών</a></li>
+				  <li><a href="../under_construction.html">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
         </ul>
       </div>
     </div>
@@ -310,15 +298,15 @@ function submitRowAsForm(idRow) {
         <img class="single_logo" src="../images/logo_big.png">
         <p class="yp_name"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
         <ul>
-          <li><a href="#"> Ρόλος του Υπουργείου </a></li>
-          <li><a href="#"> Πολιτική Ηγεσία </a></li>
-          <li><a href="#"> Οργανωτική Δομή </a></li>
+          <li><a href="../under_construction.html"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="../under_construction.html"> Πολιτική Ηγεσία </a></li>
+          <li><a href="../under_construction.html"> Οργανωτική Δομή </a></li>
         </ul>
 
         <ul>
-          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
-          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
-          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
+          <li><a href="../under_construction.html"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="../under_construction.html"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="../under_construction.html"> Σώμα Επιθεώρησης Εργασίας </a></li>
         </ul>
       </div>
       <div class="clear"></div>
@@ -339,9 +327,9 @@ function submitRowAsForm(idRow) {
 <!-- ################################################################################################ -->
 
 <!-- JAVASCRIPTS -->
-<script src="layout/scripts/jquery.min.js"></script>
-<script src="layout/scripts/jquery.backtotop.js"></script>
-<script src="layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../layout/scripts/jquery.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
 
 </body>
 </html>

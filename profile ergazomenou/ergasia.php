@@ -1,51 +1,15 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Include config file
-require_once "../authentication/config.php";
- 
-// Define variables and initialize with empty values
-$name = $email = $phone = "";
-$id = $_SESSION["id"];
-
-// Create connection to get the name
-mysqli_select_db($link, "users");
-$sql = "SELECT name, email, phone FROM users where id = '$id'";
-$result = mysqli_query($link, $sql);
-if (mysqli_num_rows($result) > 0) {
-  $row = mysqli_fetch_assoc($result);
-  $name = $row["name"];
-  $email = $row["email"];
-  $phone = $row["phone"];
-}
-else {
-  echo "0 results";
-}
-
-?>
-
 <!DOCTYPE html>
-<!--
-Template Name: Trealop
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Copyright: OS-Templates.com
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
--->
 <html lang="el">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
-<title>Η εργασία μου</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <title>Η εργασία μου</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="icon" href="../logo.ico">
 </head>
-<body id="top">
+<body id="top" onload="select('op1');">
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div id="fixed">
 	<div class="wrapper row0">
 	  <div id="topbar" class="hoc clear" >
@@ -55,15 +19,16 @@ Licence URI: https://www.os-templates.com/template-terms
 	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
 	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-          // Check if the user is logged in
-          if(!isset($_SESSION["loggedin"])){
-            echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-            echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-          }
-          elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="ergasia.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η εργασία μου</a></li>';
-            echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
+            session_start();
+            // Check if the user is logged in
+            if(!isset($_SESSION["loggedin"])){
+              echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+              echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+            }
+            elseif($_SESSION["role_id"] == 1){
+              echo '<li><a href="ergasia.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η εργασία μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
           ?>
 	        <li id="searchform">
 	          <div>
@@ -94,18 +59,18 @@ Licence URI: https://www.os-templates.com/template-terms
 
 	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
+	        <li ><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
 	          <ul>
-	            <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-	            <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
-	            <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
-	            <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
-	            <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
+	            <li><a href="../covid.php">Μετρα λογω πανδημιας</a></li>
+	            <li><a href="#">Συμβασεις</a></li>
+	            <li><a href="../ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
+	            <li><a href="#">Επιδοματα</a></li>
+	            <li><a href="#">Απολυσεις</a></li>
 	          </ul>
 	        </li>
 	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
 	          <ul>
-	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
+	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
 	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
 	            <li><a href="#">Ρύθμιση οφειλών</a></li>
 	          </ul>
@@ -141,179 +106,263 @@ Licence URI: https://www.os-templates.com/template-terms
 </div>
 
 <!-- ################################################################################################ -->
+
 <div style="padding-bottom: 130px;"></div>
+
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-        <li class="active">ΕΡΓΑΣΙΑΚΗ ΚΑΤΑΣΤΑΣΗ</li>
+        <li class="active"> <a href="ergasia.php" style="font-size: inherit;">Η ΕΡΓΑΣΙΑ ΜΟΥ</a></li>
       </ul>
     </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <main class="hoc container clear"> 
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <div class="sidebar one_quarter first"> 
-      <!-- ################################################################################################ -->
-      <h6>Η εργασία μου</h6>
-      <nav class="sdb_holder">
-      <ul>
-          <li class="active"><a href="ergasia.php">Εργασιακή κατάσταση</a></li>
-          <li><a href="#">Τα στοιχεία μου</a></li>
-          <li><a href="#">Ηλεκτρονικές υπηρεσίες</a></li>
-          <li><a href="#">Άδειες</a>
-          <ul>
-              <li><a href="#">που έχω λάβει</a></li>
-              <li><a href="#">που δικαιούμαι</a></li>
-          </ul>
-          </li>
-          <li><a href="#">Ιστορικό αιτήσεων</a></li>  
-      </ul>
-      </nav>
+
+<div class="wrapper row2">
+  <main class=" clear"> 
+
+    <div class="side" style="top: 200px; left: 30px;">
+      <a href="#" id="op1" onclick="activate('op1')">Εργασιακή κατάσταση</a>
+      <a href="#" id="op2" onclick="activate('op2')">Τα στοιχεία μου</a>
+      <a href="#" id="op3" onclick="activate('op3')">Τα Ραντεβού μου</a>
+      <a href="#" id="op4" onclick="activate('op4')">Ηλεκτρονικές υπηρεσίες</a>
+      <a href="#" id="op5" onclick="activate('op5')">Ιστορικό Αδειών</a>
+      <a href="#" id="op6" onclick="activate('op6')">Ιστορικό Αιτήσεων</a>
     </div>
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter"> 
-      <h1>Εργασιακή κατάσταση</h1>
-      <div class="scrollable">
-          <table>
-              <thead>
-                  <tr>
-                      <th>Επιχείρηση</th>
-                      <th>Αρχείο Σύμβασης Εργασίας</th>
-                      <th>Κατάσταση</th>
-                      <th>Ισχύ μέχρι</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <?php
-                
-                // Define variables and initialize with empty values
-                $business_id = $status = $period = "";
-                $employee_id = $_SESSION["id"];
 
-                // Include config file
-              //   require_once "../authentication/config.php";
+    <div class="main_content">
 
-                // Create connection to get business employees
-                mysqli_select_db($link, "business_employees");
+      <div class="content " id="katastasi"> 
+        <h1>Εργασιακή κατάσταση</h1>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Επιχείρηση</th>
+                        <th>Αρχείο Σύμβασης Εργασίας</th>
+                        <th>Κατάσταση</th>
+                        <th>Ισχύ μέχρι</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  
+                  // Define variables and initialize with empty values
+                  $business_id = $status = $period = "";
+                  $employee_id = $_SESSION["id"];
 
-                $sql = "SELECT business_id, status, period FROM business_employees where employee_id = '$employee_id'";
-                $result = mysqli_query($link, $sql);
+                  // Include config file
+                  require_once "../authentication/config.php";
 
-                // Create connection to get name of business
-                mysqli_select_db($link, "users");
+                  $sql = "SELECT business_id, status, period FROM business_employees where employee_id = '$employee_id'";
+                  $result = mysqli_query($link, $sql);
 
-                if (mysqli_num_rows($result) > 0) {
-                  while($row = mysqli_fetch_assoc($result)){
-                    $sql = "SELECT name FROM users where id = ".$row["business_id"]."";
-                    $result2 = mysqli_query($link, $sql);
-                    $row2 = mysqli_fetch_assoc($result2);
-                    echo "<tr>
-                              <td>".$row2["name"]."</td>
-                              <td><a href='#'>Σύμβαση εργασίας</a></td>
-                              <td>".$row["status"]."</td>
-                              <td>".$row["period"]."</td>
-                          </tr>";
+                  if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)){
+                      $sql = "SELECT name FROM users where id = ".$row["business_id"]."";
+                      $result2 = mysqli_query($link, $sql);
+                      $row2 = mysqli_fetch_assoc($result2);
+                      echo "<tr>
+                                <td>".$row2["name"]."</td>
+                                <td><a href='#'>Σύμβαση εργασίας</a></td>
+                                <td>".$row["status"]."</td>
+                                <td>".$row["period"]."</td>
+                            </tr>";
+                    }
                   }
-                }
-                else {
-                  echo "0 results";
-                }
-                mysqli_close($link);
-                ?>
-              </tbody>
-          </table>    
-      </div>
-    </div>
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter">
-      <h1>Τα στοιχεία μου</h1>
-      <div class="scrollable">
-        <table>
-          <tbody>
-            <tr>
-                <td>Ονοματεπώνυμο</td>
-                <?php
-                echo "<td>$name</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>ΑΦΜ</td>
-                <?php
-                echo "<td>$id</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <?php
-                echo "<td>$email</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>Τηλέφωνο</td>
-                <?php
-                echo "<td>$phone</td>";
-                ?>
-            </tr>
-          </tbody>
-        </table>
-        <div style='float: right;'>
-            <a href="#">Τροποποίηση στοιχείων</a>
+                  else {
+                    echo "0 results";
+                  }
+                  
+                  ?>
+                </tbody>
+            </table>    
         </div>
       </div>
+      <div></div>
+
+      <div class="content member" id="stoixeia">
+        <h1>Τα στοιχεία μου</h1>
+        <div class="scrollable">
+        <?php
+          
+          // Define variables and initialize with empty values
+          $name = $email = $phone = "";
+          $id = $_SESSION["id"];
+
+          // Create connection to get the name
+          $sql = "SELECT name, email, phone FROM users where id = '$id'";
+          $result = mysqli_query($link, $sql);
+          if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $name = $row["name"];
+            $email = $row["email"];
+            $phone = $row["phone"];
+          }
+          else {
+            echo "0 results";
+          }
+
+        ?>
+          <table>
+            <tbody>
+              <tr>
+                  <td>Ονοματεπώνυμο</td>
+                  <?php echo "<td>$name</td>"; ?>
+              </tr>
+              <tr>
+                  <td>ΑΦΜ</td>
+                  <?php echo "<td>$id</td>"; ?>
+              </tr>
+              <tr>
+                  <td>Email</td>
+                  <?php echo "<td>$email</td>"; ?>
+              </tr>
+              <tr>
+                  <td>Τηλέφωνο</td>
+                  <?php echo "<td>$phone</td>"; ?>
+              </tr>
+            </tbody>
+          </table>
+          <div id="comments">
+          <div style='float: right;'>
+            <form action="user_data.php">
+              <input type='submit' name='submit' value='Τροποποίηση στοιχείων' style='background-color: #813DAA; color: #FFFFFF;'>
+            </form>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="content member" id="ta_rantevou_mou">
+        <h1>Τα Ραντεβού μου</h1>
+        <p>Εδώ εμφανόζονται τα ραντεβού με το Υπουργείο Εργασίας που βρίσκονται σε ισχύ.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Ημερομηνία και ώρα</th>
+              <th>Λόγοι ραντεβού</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              
+              // Define variables and initialize with empty values
+              $datetime = $text = "";
+              $cur_dt = date('Y-m-d H:i:s');
+
+              // Create connection to get the name
+              $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
+              $result = mysqli_query($link, $sql);
+              if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)){
+                  $datetime = $row["datetime"];
+                  if ($datetime > $cur_dt){
+                    echo "<tr>
+                          <td>".$row["datetime"]."</td>
+                          <td>".$row["text"]."</td>
+                        </tr>";
+                  }
+                  
+                }
+              }
+              else {
+                echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
+              }
+              mysqli_close($link);
+            ?>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content member" id="yphresies">
+        <h1>Ηλεκτρονικές υπηρεσίες</h1>
+        <ul class="clear">
+          <li><a href="../ergazomenoi/aithsh_adeias.php">Αίτηση άδειας</a></li>
+          <li><a href="#">Αίτηση για επίδομα</a></li>
+          <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
+          <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
+          <li><a href="#">Αίτηση για σύνταξη</a></li>
+        </ul>
+      </div>
+
+      <div class="content member" id="istoriko_adeion">
+        <h1>Ιστορικό Αδειών</h1>
+        <ul class="clear">
+          <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
+          <li><a href="#">Αίτηση για επίδομα</a></li>
+          <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
+          <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
+          <li><a href="#">Αίτηση για σύνταξη</a></li>
+        </ul>
+      </div>
+
+      <div class="content member" id="istoriko_aitiseon">
+        <h1>Ιστορικό Αιτήσεων</h1>
+        <ul class="clear">
+          <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
+          <li><a href="#">Αίτηση για επίδομα</a></li>
+          <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
+          <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
+          <li><a href="#">Αίτηση για σύνταξη</a></li>
+        </ul>
+      </div>
+
     </div>
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter">
-      <h1>Ηλεκτρονικές υπηρεσίες</h1>
-      <ul class="clear">
-        <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
-        <li><a href="#">Αίτηση για επίδομα</a></li>
-        <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
-        <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
-        <li><a href="#">Αίτηση για σύνταξη</a></li>
-      </ul>
-    </div>
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter">
-      <h1>Άδειες που έχω λάβει</h1>
-      <ul class="clear">
-        <li><a href="../ergazomenoi/aithsh_adeias.html">Αίτηση άδειας</a></li>
-        <li><a href="#">Αίτηση για επίδομα</a></li>
-        <li><a href="#">Αίτηση για ένταξη στο ταμείο ανεργίας</a></li>
-        <li><a href="#">Υποβολή οικειοθελούς αποχώρησης από την εργασία μου</a></li>
-        <li><a href="#">Αίτηση για σύνταξη</a></li>
-      </ul>
-    </div>
-    <div class="clear"></div>
-    <!-- / main body -->
   </main>
 </div>
+
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row5">
-    <div id="copyright" class="hoc clear"> 
-      <!-- ################################################################################################ -->
-      <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
-      <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-      <!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <main class="hoc clear"> 
+
+    <div class="content three_quarter first min_info">
+      <div class="flex_row">
+        <img class="single_logo" src="../images/logo_big.png">
+        <p class="yp_name"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
+        <ul>
+          <li><a href="#"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="#"> Πολιτική Ηγεσία </a></li>
+          <li><a href="#"> Οργανωτική Δομή </a></li>
+        </ul>
+
+        <ul>
+          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
+        </ul>
+      </div>
+      
+      <div class="clear"></div>
     </div>
+
+  </main>
+</div>
+
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
+    <a href="#" ><p class="fl_right">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
-  <!-- JAVASCRIPTS -->
-  <script src="layout/scripts/jquery.min.js"></script>
-  <script src="layout/scripts/jquery.backtotop.js"></script>
-  <script src="layout/scripts/jquery.mobilemenu.js"></script>
-  </body>
-  </html>
+</div>
+
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="../layout/scripts/jquery.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<script type = "text/javascript">
+
+var op_list = ['op1', 'op2', 'op3', 'op4', 'op5', 'op6'];
+var id_list = ['#katastasi', '#stoixeia', '#ta_rantevou_mou', '#yphresies', '#istoriko_adeion', '#istoriko_aitiseon'];
+
+</script>
+
+<script src="../layout/scripts/select.js"></script>
+
+</body>
+</html>

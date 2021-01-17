@@ -29,8 +29,16 @@ Licence URI: https://www.os-templates.com/template-terms
 <div style="margin: auto; width: 40%;  padding-top: 60px; text-align: center; ">
   <img src="images/under.png" style="height: 350px;">
   <p style="font-size:20px;"><b> Η σελίδα αυτή βρίσκεται ακόμα υπό κατασκευή </b></p>
-  <div style="font-size:20px; padding-top: 30px; "><a href="index.php"><b style="border: 1px solid #507DA9; margin: auto; background-color: #507DA9; padding: 8px; color: white; font-size: 18px;">Επιστροφή στην Αρχική Σελίδα</b></a></div>
+
+  <div style="font-size:20px; padding-top: 30px; ">
+  	<button type="button" style="border: 1px solid #507DA9; margin: auto; background-color: #507DA9; padding: 8px; color: white; font-size: 18px; cursor: pointer;"  onclick="goBack()">Επιστροφή</button>
+  </div>
 </div>
 
+<script> 
+function goBack() {
+  window.history.back();
+}
+</script>
 </body>
 </html>

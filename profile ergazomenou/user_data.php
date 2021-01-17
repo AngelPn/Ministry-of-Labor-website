@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <title>Στοιχεία επιχείρησης</title>
+  <title>Στοιχεία εργαζομένου</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
   <link rel="icon" href="../logo.ico">
 </head>
-<body id="top">
+<body id="top" onload="select('op1');">
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div id="fixed">
 	<div class="wrapper row0">
 	  <div id="topbar" class="hoc clear" >
@@ -23,11 +22,11 @@
             session_start();
             // Check if the user is logged in
             if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
+              echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
+              echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
             }
-            elseif($_SESSION["role_id"] == 2){
-              echo '<li><a href="epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+            elseif($_SESSION["role_id"] == 1){
+              echo '<li><a href="ergasia.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η εργασία μου</a></li>';
               echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
             }
           ?>
@@ -43,6 +42,7 @@
 	          </div>
 	        </li>
 	      </ul>
+	      <!-- ################################################################################################ -->
 	    </div>
 	  </div>
 	</div>
@@ -59,18 +59,18 @@
 
 	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
+	        <li ><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
 	          <ul>
-	            <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-	            <li><a href="ergazomenoi/symvaseis.html">Συμβασεις</a></li>
-	            <li><a href="ergazomenoi/adeies.html">Αδειες</a></li>
-	            <li><a href="ergazomenoi/epidomata.html">Επιδοματα</a></li>
-	            <li><a href="ergazomenoi/apoliseis.html">Απολυσεις</a></li>
+	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+	            <li><a href="#">Συμβάσεις</a></li>
+	            <li><a href="../ergazomenoi/aithsh_adeias.php">Άδειες</a></li>
+	            <li><a href="#">Επιδόματα</a></li>
+	            <li><a href="#">Απολύσεις</a></li>
 	          </ul>
 	        </li>
 	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
 	          <ul>
-	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
+	            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
 	            <li><a href="#">Ασφαλιστικός οδηγός</a></li>
 	            <li><a href="#">Ρύθμιση οφειλών</a></li>
 	          </ul>
@@ -106,103 +106,83 @@
 </div>
 
 <!-- ################################################################################################ -->
+
 <div style="padding-bottom: 130px;"></div>
+
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-        <li><a href="epixirisi.php">Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</a></li>
-        <li>ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ ΕΠΙΧΕΙΡΗΣΗΣ</li>
+        <li><a href="ergasia.php">Η ΕΡΓΑΣΙΑ ΜΟΥ</a></li>
+        <li class="active"> <a href="user_data.php" style="font-size: inherit;">ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ ΕΡΓΑΖΟΜΕΝΟΥ</a></li>
       </ul>
     </div>
 </div>
+
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row2">
-  <main class="hoc container clear">
-    <div class="content three_quarter"> 
-        <h1>Στοιχεία επιχείρησης</h1>
-        <?php        
-            // Include config file
-            require_once "../authentication/config.php";
-            
-            // Define variables and initialize with empty values
-            $name = $year = $status = $office = $region = $end_mng = "";
-            $id = $_SESSION["id"];
+    <main class="hoc container clear">
+        <div class="content three_quarter">
+            <h1>Τροποποίηση στοιχείων</h1>
+            <?php               
+                // Define variables and initialize with empty values
+                $name = $email = $phone = "";
+                $id = $_SESSION["id"];
 
-            $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = '$id'";
-            $result = mysqli_query($link, $sql);
+                // Include config file
+                require_once "../authentication/config.php";
 
-            if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-
-            $name = $row["business_name"];
-            $year = $row["year"];
-            $status = $row["status"];
-            $office = $row["office"];
-            $region = $row["region"];
-            $end_mng = $row["end_mng"];
-            }
-            else {
-                echo "0 results";
-            }
-
-            // Close connection
-            mysqli_close($link);
-        ?>
-        <form action="update_business_data.php" method="post">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Επωνυμία</td>
-                    <td><input type = 'text' name='business_name' id='business_name' value='<?php echo "$name"; ?>'></td>           
-                </tr>
-                <tr>
-                    <td>ΑΦΜ επιχείρησης</td>
-                    <?php echo "<td>$id</td>"; ?>
-                </tr>
-                <tr>
-                    <td>Έτος ίδρυσης</td>
-                    <?php echo "<td>$year</td>"; ?>
-                </tr>
-                <tr>
-                    <td>Κατάσταση επιχείρησης</td>
-                    <td><input type = 'text' name='status' id='status' value='<?php echo "$status"; ?>'></td>   
-                </tr>
-                <tr>
-                    <td>Έδρα επιχείρησης</td>
-                    <td><input type = 'text' name='office' id='office' value='<?php echo "$office"; ?>'></td>
-                </tr>
-                <tr>
-                    <td>Νομός - Περιφέρεια</td>
-                    <td><input type = 'text' name='region' id='region' value='<?php echo "$region"; ?>'></td>
-                </tr>
-                <tr>
-                    <td>Λήξη διαχειριστικής περιόδου</td>
-                    <td><input type = 'date' name='end_mng' id='end_mng' value='<?php echo "$end_mng"; ?>'></td>
-                </tr>
-                </tbody>
-            </table>
-            <div id="comments">
-                <div style='float: right;'>
-                    <input type='reset' name='reset' value='Εκκαθάριση'>
-                    &nbsp;
-                    <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
+                $sql = "SELECT name, email, phone FROM users where id = '$id'";
+                $result = mysqli_query($link, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $name = $row["name"];
+                $email = $row["email"];
+                $phone = $row["phone"];
+                }
+                else {
+                    echo "0 results";
+                }
+                mysqli_close($link);
+            ?>
+            <form action="update_user_data.php" method="post">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Ονοματεπώνυμο</td>
+                            <?php echo "<td>$name</td>"; ?>
+                        </tr>
+                        <tr>
+                            <td>ΑΦΜ</td>
+                            <?php echo "<td>$id</td>"; ?>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type = 'text' name='email' id='email' value='<?php echo "$email"; ?>'></td>
+                        </tr>
+                        <tr>
+                            <td>Τηλέφωνο</td>
+                            <td><input type = 'text' name='phone' id='phone' value='<?php echo "$phone"; ?>'></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="comments">
+                    <div style='float: right;'>
+                        <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-  </main>
+            </form>
+        </div>
+    </main>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc clear"> 
+
     <div class="content three_quarter first min_info">
       <div class="flex_row">
         <img class="single_logo" src="../images/logo_big.png">
@@ -219,27 +199,26 @@
           <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
         </ul>
       </div>
+      
       <div class="clear"></div>
     </div>
+
   </main>
 </div>
-<!-- ################################################################################################ -->
+
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
     <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
     <a href="#" ><p class="fl_right">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
   </div>
 </div>
-<!-- ################################################################################################ -->
 
-<!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
-<!-- ################################################################################################ -->
-
 <!-- JAVASCRIPTS -->
 <script src="../layout/scripts/jquery.min.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script>
 <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 </body>
 </html>

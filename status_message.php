@@ -63,7 +63,7 @@
 
         <ul class="clear">
 
-          <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
           <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
             <ul>
@@ -123,19 +123,24 @@
         if($_SESSION['status_rantevou'] == true){
             echo "<p style='font-size:130px; text-align:center;'>&#128512;</p>";
             echo "<p style= 'text-align:center;'>Η κατοχύρωση του ραντεβού ολοκληρώθηκε με επιτυχία</p>";
-            $index='index.php';
-            echo '<button onclick="document.location='.$index.'" style="background-color: #813DAA; color: #FFFFFF;">Επιστροφή στην αρχική σελίδα</button>';
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='index.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην αρχική σελίδα' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";
         } 
         else{
             echo "<p style='font-size:130px; text-align:center;'>&#128533;</p>";
             echo "<p style= 'text-align:center;'>Κάτι πήγε στραβά! Δοκιμάστε ξανά αργότερα</p>";
-            $index='index.php';
-            echo '<div class="container_success">
-            <div class="center">
-            <button onclick="document.location='.$index.'" style="background-color: #813DAA; color: #FFFFFF;;">Επιστροφή στην αρχική σελίδα</button>
-            </div>
-          </div>
-            ';   
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='index.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην αρχική σελίδα' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";;   
         }
         unset($_SESSION['status_rantevou']);    
       }
@@ -188,6 +193,56 @@
                   </div>";
         }
         unset($_SESSION['status_business_data']);    
+      }
+      elseif(isset($_SESSION['status_business_employees'])){
+        if($_SESSION['status_business_employees'] == true){
+            echo "<p style='font-size:130px; text-align:center;'>&#128512;</p>";
+            echo "<p style= 'text-align:center;'>Η υποβολή των στοιχείων της επιχείρησής σας ολοκληρώθηκε με επιτυχία</p>";
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='profile ergodoth/epixirisi.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην Επιχείρησή μου' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";
+        } 
+        else{
+            echo "<p style='font-size:130px; text-align:center;'>&#128533;</p>";
+            echo "<p style= 'text-align:center;'>Κάτι πήγε στραβά! Δοκιμάστε ξανά αργότερα</p>";
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='profile ergodoth/epixirisi.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην Επιχείρησή μου' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";
+        }
+        unset($_SESSION['status_business_employees']);    
+      }
+      elseif(isset($_SESSION['status_user_data'])){
+        if($_SESSION['status_user_data'] == true){
+            echo "<p style='font-size:130px; text-align:center;'>&#128512;</p>";
+            echo "<p style= 'text-align:center;'>Η υποβολή των στοιχείων σας ολοκληρώθηκε με επιτυχία</p>";
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='index.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην Αρχική' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";
+        } 
+        else{
+            echo "<p style='font-size:130px; text-align:center;'>&#128533;</p>";
+            echo "<p style= 'text-align:center;'>Κάτι πήγε στραβά! Δοκιμάστε ξανά αργότερα</p>";
+            echo "<div id='comments'>
+                    <div style='text-align:center;'>
+                      <form action='index.php'>
+                        <input type='submit' name='submit' value='Επιστροφή στην Αρχική' style='background-color: #813DAA; color: #FFFFFF;'>
+                      </form>
+                    </div>
+                  </div>";
+        }
+        unset($_SESSION['status_user_data']);    
       }
       else{
         echo "<p style='font-size:130px; text-align:center;'>&#128533;</p>";

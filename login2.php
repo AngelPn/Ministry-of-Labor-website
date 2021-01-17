@@ -87,52 +87,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="icon" href="../logo.ico">
 </head>
 
-<body style="margin-top: 45px;">
-
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" style="border: none;">
+<body style="margin-top: 95px;">
+    <main>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <div class="imgcontainer">
         <img src="../images/logo_big.png" alt="Avatar" class="avatar">
     </div>
 
-    <div class="container" style="text-align: center;">
-        <h3 class="login_title"> Σύνδεση Χρήστη:</h3>
-        <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>" style="text-align: left;">
-                
-                <label> ΑΦΜ Χρήστη</label>
-                <input type="text" name="id" class="form-control" value="<?php echo $id; ?>">
+    <div class="container">
+        <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>">
+                <h1 class="login_title" style="font-size:18px;"> Σύνδεση Χρήστη:</h1>
+                <label for="afm">ΑΦΜ</label>
+                <input id="afm" type="text" name="id" class="form-control" value="<?php echo $id; ?>" title="Εισαγωγή ΑΦΜ">
                 <span class="help-block"><?php echo $id_err; ?></span>
         </div> 
         <!-- <label for="uname"><b>ΑΦΜ</b></label>
         <input type="text" placeholder="Enter Username" name="uname" required> -->
-        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>"style="text-align: left; margin-top: 15px;">
-                <label>  Κωδικός πρόσβασης</label>
-                <input type="password" name="password" class="form-control">
+        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                <label for="pass">Κωδικός πρόσβασης</label>
+                <input id="pass" type="password" name="password" class="form-control" title="Εισαγωγή κωδικού">
                 <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <!-- <label for="psw"><b>Κωδικός πρόσβασης</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required> -->
             
-        <button type="submit" style="background-color: #507DA9;">Σύνδεση</button>
-        <div style="text-align: right;">
-           <label >
-            <input type="checkbox" checked="checked" name="remember"> Απομνημόνευση
-            </label> 
-        </div>
-        
+        <button type="submit">Σύνδεση</button>
+        <label>
+        <input type="checkbox" checked="checked" name="remember"> Απομνημόνευση
+        </label>
     </div>
 
-    <div class="container" style="background-color:#dae3f0">
-        <button type="button" style="background-color: #507DA9;" class="cancelbtn" onclick="goBack()">Ακύρωση</button>
-        <span class="psw"><a href="#">Ξέχασα τον κωδικό μου</a></span>
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Ακύρωση</button>
+        <span class="psw"><a href="#">Ξέχασες τον κωδικό;</a></span>
     </div>
-    </form>  
-
-<script> 
-function goBack() {
-  window.history.back();
-}
-</script>
-<script src="../layout/scripts/jquery.min.js"></script>
-<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+    </form>
+</main>
 </body>
 </html>
