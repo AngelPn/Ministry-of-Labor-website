@@ -9,7 +9,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../layout/styles/collapsible.css">
-	<link rel="icon" href="../logo.ico">
+	<link rel="icon" href="../images/logo.ico">
 </head>
 
 <body id="top">
@@ -17,34 +17,35 @@
 <div id="fixed">
   <div class="wrapper row0">
     <div id="topbar" class="hoc clear" >
-      <div class="fl_right"> 
+      <div class="fl_right">
         <!-- ################################################################################################ -->
         <ul class="nospace">
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-		  <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="../contact/contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
 		  <?php
-			session_start();
-			// Check if the user is logged in, if not then redirect him to login page
-			if(!isset($_SESSION["loggedin"])){
-				echo '<li><a href="../authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-				echo '<li><a href="../authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-			}
-			elseif($_SESSION["role_id"] == 1){
-				echo '<li><a href="../profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-				echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-			}
-			else{
-				echo '<li><a href="../profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-				echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-			}
+		  	session_start();
+            // Check if the user is logged in, if not then redirect him to login page
+            if(!isset($_SESSION["loggedin"])){
+              echo '<li><a href="../authentication/login.php" title="Κουμπί Σύνδεσης">Σύνδεση</a></li>';
+              echo '<li><a href="../authentication/register.php" title="Κουμπί Εγγραφής">Εγγραφή</a></li>';
+            }
+            elseif($_SESSION["role_id"] == 1){
+              echo '<li><a href="../employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
+            else{
+              echo '<li><a href="../employer_profile/mybusiness.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
           ?>
           <li id="searchform">
             <div>
               <form action="#" method="post">
                 <fieldset>
                   <legend>Quick Search:</legend>
-                  <input type="text" placeholder="Αναζήτηση&hellip;">
-                  <button type="submit"><i class="fas fa-search"></i></button>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
                 </fieldset>
               </form>
             </div>
@@ -57,26 +58,26 @@
 
   <div class="wrapper row1">
     <header id="header" class="hoc clear">
-      <div id="logo" class="fl_left"> 
-          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
+      <div id="logo" class="fl_left">
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
       </div>
 
-      <nav id="mainav" class="fl_right"> 
+      <nav id="mainav" class="fl_right">
 
         <ul class="clear">
 
           <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-          <li class="active"><a class="drop" href="../ergazomenoi.php">&nbsp;Εργαζομενοι</a>
+          <li ><a class="drop" href="../employees.php">&nbsp;Εργαζομενοι</a>
             <ul>
-              <li><a href="../covid.php">Μετρα λογω πανδημιας</a></li>
-              <li><a href="#">Συμβασεις</a></li>
-              <li><a href="aithsh_adeias.php">Αδειες</a></li>
-              <li><a href="#">Επιδοματα</a></li>
-              <li><a href="#">Απολυσεις</a></li>
+            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
             </ul>
           </li>
-          <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
+          <li><a class="drop" href="../employers.php">&nbsp;Εργοδοτες</a>
             <ul>
               <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
               <li><a href="#">Ασφαλιστικός οδηγός</a></li>
@@ -95,7 +96,7 @@
               <li><a href="#">Κριτήρια</a></li>
               <li><a href="#">Δικαιολογητικά</a></li>
             </ul>
-          </li>     
+          </li>
           <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
           <ul>
             <li><a href="#">Νέα και αλλαγές</a></li>
@@ -104,7 +105,7 @@
             <li><a href="#">Άνεργοι</a></li>
             <li><a href="#">Συνταξιούχοι</a></li>
           </ul>
-          </li>             
+          </li>
           <li><a class="nodrop" href="#">Βοηθεια</a></li>
         </ul>
         <!-- ################################################################################################ -->
@@ -129,8 +130,8 @@ else{
     <!-- ################################################################################################ -->
     <ul>
       <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-      <li><a href="../ergazomenoi.php">ΕΡΓΑΖΟΜΕΝΟΙ</a></li>
-      <li><a href="aithsh_adeias.php">ΑΔΕΙΕΣ</a></li>
+      <li><a href="../employees.php">ΕΡΓΑΖΟΜΕΝΟΙ</a></li>
+      <li><a href="license.php">ΑΔΕΙΕΣ</a></li>
     </ul>
     <!-- ################################################################################################ -->
   </div>
@@ -276,7 +277,7 @@ else{
 	      <div id="comments" >
 	        
 			<h2>Φόρμα ηλεκτρονικής αίτησης άδειας</h2>
-			<form action="insert_adeies.php" method="post">
+			<form action="insert_license.php" method="post">
 				<?php
 				// Check if the user is logged in
 				if(!isset($_SESSION["loggedin"]) || (isset($_SESSION["loggedin"]) && $_SESSION["role_id"]==2)){
@@ -314,17 +315,13 @@ else{
 									<option value="7">Άδεια λόγω ασθένειας</option>
 									<option value="1">Άδεια μητρότητας</option>
 									<option value="2">Άδεια στράτευσης</option>
-									<option value="3">Άδεια γάμου</option>
-									<option value="4">Άδεια γέννησης τέκνου</option>
-									<option value="5">Άδεια γονικής φροντίδας</option>
-									<option value="6">Άδεια λόγω θανάτου συγγενούς</option>
+									<option value="3">Γονική άδεια</option>
+									<option value="4">Άδεια γάμου</option>
+									<option value="5">Άδεια γέννησης τέκνου</option>
+									<option value="6">Άδεια γονικής φροντίδας</option>
+									<option value="7">Άδεια λόγω θανάτου συγγενούς</option>
 									<!-- Μπορούμε να έχουμε 2 πεδια επιλογής αδειων, ένα με τις γενικές κατηγορίες άδειας και ένα άλλο με τις πιο συγκεκριμένες? ) -->
 								</select>
-						</div>
-			
-						<div class="first">
-							<label for="file">Ανεβάστε τα απαραίτητα δικαιολογητικά<span>*</span>&nbsp;
-							<input readonly type="file" class="not-allowed" name="file" id="file" value="" size="22" multiple>
 						</div>';    
 				}
 				else{
@@ -381,6 +378,7 @@ else{
 									<option value="0">Τύπος άδειας:</option>
 									<option value="Άδεια λόγω ασθένειας">Άδεια λόγω ασθένειας</option>
 									<option value="Άδεια μητρότητας">Άδεια μητρότητας</option>
+									<option value="Γονική άδεια">Γονική άδεια</option>
 									<option value="Άδεια στράτευσης">Άδεια στράτευσης</option>
 									<option value="Άδεια γάμου">Άδεια γάμου</option>
 									<option value="Άδεια γέννησης τέκνου">Άδεια γέννησης τέκνου</option>
@@ -393,7 +391,7 @@ else{
 						<div style="float: right;">
 							<input type="reset" name="reset" value="Εκκαθάριση">
 							&nbsp;
-							<input type="submit" name="submit" value="Υποβολή" style="background-color: #53D3DE; color: #FFFFFF;">
+							<input type="submit" name="submit" value="Υποβολή" style="background-color: #813DAA; color: #FFFFFF;">
 						</div>
 						';
 					} 

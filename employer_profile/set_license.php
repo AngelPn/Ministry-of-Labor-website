@@ -1,11 +1,30 @@
 <?php
-  session_start();
+// Initialize the session
+session_start();
+ 
+// Include config file
+require_once "../authentication/config.php";
+
+print $_SESSION["idRow"];
+ 
+// // Define variables and initialize with empty values
+// $employee_id = "";
+
+// // Processing form data when form is submitted
+// if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+//     $employee_id = trim($_POST["employee_id"]);
+
+//     // to prevent mysql injection
+//     $employee_id = stripcslashes($employee_id);
+//     $employee_id = mysqli_real_escape_string($link, $employee_id);
+// }
 ?>
 
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <title>Στοιχεία επιχείρησης</title>
+  <title>Άδεια εργαζομένου</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
@@ -110,89 +129,13 @@
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
         <li><a href="mybusiness.php">Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</a></li>
-        <li><a href="business_data.php">ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ ΕΠΙΧΕΙΡΗΣΗΣ</a></li>
+        <li><a href="business_data.php">ΑΔΕΙΑ ΕΡΓΑΖΟΜΕΝΟΥ</a></li>
       </ul>
     </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row2">
-  <main class="hoc container clear">
-    <div class="content three_quarter"> 
-        <h1>Στοιχεία επιχείρησης</h1>
-        <?php        
-            // Include config file
-            require_once "../authentication/config.php";
-            
-            // Define variables and initialize with empty values
-            $name = $year = $status = $office = $region = $end_mng = "";
-            $id = $_SESSION["id"];
 
-            $sql = "SELECT business_name, year, status, office, region, end_mng FROM business_data where id = '$id'";
-            $result = mysqli_query($link, $sql);
 
-            if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
 
-            $name = $row["business_name"];
-            $year = $row["year"];
-            $status = $row["status"];
-            $office = $row["office"];
-            $region = $row["region"];
-            $end_mng = $row["end_mng"];
-            }
-            else {
-                echo "0 results";
-            }
-
-            // Close connection
-            mysqli_close($link);
-        ?>
-        <form action="update_business_data.php" method="post">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Επωνυμία</td>
-                    <td><input type = 'text' name='business_name' id='business_name' value='<?php echo "$name"; ?>'></td>           
-                </tr>
-                <tr>
-                    <td>ΑΦΜ επιχείρησης</td>
-                    <?php echo "<td>$id</td>"; ?>
-                </tr>
-                <tr>
-                    <td>Έτος ίδρυσης</td>
-                    <?php echo "<td>$year</td>"; ?>
-                </tr>
-                <tr>
-                    <td>Κατάσταση επιχείρησης</td>
-                    <td><input type = 'text' name='status' id='status' value='<?php echo "$status"; ?>'></td>   
-                </tr>
-                <tr>
-                    <td>Έδρα επιχείρησης</td>
-                    <td><input type = 'text' name='office' id='office' value='<?php echo "$office"; ?>'></td>
-                </tr>
-                <tr>
-                    <td>Νομός - Περιφέρεια</td>
-                    <td><input type = 'text' name='region' id='region' value='<?php echo "$region"; ?>'></td>
-                </tr>
-                <tr>
-                    <td>Λήξη διαχειριστικής περιόδου</td>
-                    <td><input type = 'date' name='end_mng' id='end_mng' value='<?php echo "$end_mng"; ?>'></td>
-                </tr>
-                </tbody>
-            </table>
-            <div id="comments">
-                <div style='float: right;'>
-                    <input type='reset' name='reset' value='Εκκαθάριση'>
-                    &nbsp;
-                    <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
-                </div>
-            </div>
-        </form>
-    </div>
-  </main>
-</div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->

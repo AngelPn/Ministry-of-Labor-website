@@ -21,7 +21,7 @@
         <!-- ################################################################################################ -->
         <ul class="nospace">
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-          <li><a href="../contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="../contact/contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <li><a href="employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>
           <li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>
           <li id="searchform">

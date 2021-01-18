@@ -64,7 +64,7 @@
 
         <ul class="clear">
 
-          <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
           <li ><a class="drop" href="employees.php">&nbsp;Εργαζομενοι</a>
             <ul>
@@ -114,8 +114,7 @@
 <!-- ################################################################################################ -->
 <div style="padding-bottom: 115px;"></div>
 <!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row2">
   <main class="hoc container clear">
             
@@ -159,7 +158,7 @@
         } 
         else{
             echo "<p style='font-size:130px; text-align:center;'>&#128533;</p>";
-            echo "<p style= 'text-align:center;'>Κάτι πήγε στραβά! Δοκιμάστε ξανά αργότερα</p>";
+            echo "<p style= 'text-align:center;'>Έχετε πάρει ήδη άδεια για αυτή την ημερομηνία. Παρακαλώ επιλέξτε άλλη ημερομηνία.</p>";
             echo "<div id='comments'>
                     <div style='text-align:center;'>
                       <form action='index.php'>
@@ -167,6 +166,12 @@
                       </form>
                     </div>
                   </div>";
+                print  $_SESSION["employee_id"];
+                print  $_SESSION["name_employee"];
+                print  $_SESSION["business_name"];
+                print  $_SESSION["start_date"];
+                print  $_SESSION["end_date"];
+                print  $_SESSION["type"];
         }
         unset($_SESSION['status_adeies']);    
       }

@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <!-- ################################################################################################ -->
         <ul class="nospace">
           <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-          <li><a href="contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="contact.php" title="Επικοινωνία"><b>Επικοινωνια</b></a></li>
           <?php
             // Check if the user is logged in, if not then redirect him to login page
             if(!isset($_SESSION["loggedin"])){

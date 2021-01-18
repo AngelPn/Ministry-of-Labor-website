@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -5,117 +9,107 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-  <link rel="icon" href="../logo.ico">
+  <link rel="icon" href="../images/logo.ico">
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div id="fixed">
-	<div class="wrapper row0">
-	  <div id="topbar" class="hoc clear" >
-	    <div class="fl_right"> 
-	      <!-- ################################################################################################ -->
-	      <ul class="nospace">
-	        <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
-	        <li><a href="../epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
-          <?php
-            session_start();
-            // Check if the user is logged in
-            if(!isset($_SESSION["loggedin"])){
-              echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-              echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';      
-            }
-            elseif($_SESSION["role_id"] == 2){
-              echo '<li><a href="epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-              echo '<li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-            }
-          ?>
-	        <li id="searchform">
-	          <div>
-	            <form action="#" method="post">
-	              <fieldset>
-	                <legend>Quick Search:</legend>
-	                <input type="text" placeholder="Αναζήτηση&hellip;">
-	                <button type="submit"><i class="fas fa-search"></i></button>
-	              </fieldset>
-	            </form>
-	          </div>
-	        </li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </div>
-	  </div>
-	</div>
+  <div class="wrapper row0">
+    <div id="topbar" class="hoc clear" >
+      <div class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="nospace">
+          <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+          <li><a href="../contact/contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="../employer_profile/mybusiness.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>
+          <li><a href="../authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>
+          <li id="searchform">
+            <div>
+              <form action="#" method="post">
+                <fieldset>
+                  <legend>Quick Search:</legend>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </div>
+    </div>
+  </div>
 
-	<div class="wrapper row1">
-	  <header id="header" class="hoc clear">
-	  	<div id="logo" class="fl_left"> 
-      		<a href="../index.php"><img src="../images/logo.png" style="height: 65px;"></a>
-    	</div>
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left">
+          <a href="../index.php"><img src="../images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+      </div>
 
-	    <nav id="mainav" class="fl_right"> 
+      <nav id="mainav" class="fl_right">
 
-	      <ul class="clear">
+        <ul class="clear">
 
-	        <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+          <li><a class="nodrop" href="../index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-	        <li ><a class="drop" href="ergazomenoi.html">&nbsp;Εργαζομενοι</a>
-	          <ul>
-	            <li><a href="covid.html">Μετρα λογω πανδημιας</a></li>
-	            <li><a href="../under_construction.html">Συμβασεις</a></li>
-	            <li><a href="../profile ergazomenou/adeies">Αδειες</a></li>
-	            <li><a href="../under_construction.html">Επιδοματα</a></li>
-	            <li><a href="../under_construction.html">Απολυσεις</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="../ergodotes.php">&nbsp;Εργοδοτες</a>
-	          <ul>
-	            <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-	            <li><a href="../under_construction.html">Ασφαλιστικός οδηγός</a></li>
-	            <li><a href="../under_construction.html">Ρύθμιση οφειλών</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="../under_construction.html" style="width: 145px;">&nbsp;Ανεργοι</a>
-	          <ul>
-	            <li><a href="../under_construction.html">Δικαιώματα</a></li>
-	            <li><a href="../under_construction.html">Προϋποθέσεις</a></li>
-	            <li><a href="../under_construction.html">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>
-	        <li><a class="drop" href="../under_construction.html">&nbsp;Συνταξιουχοι</a>
-	          <ul>
-	            <li><a href="../under_construction.html">Κριτήρια</a></li>
-	            <li><a href="../under_construction.html">Δικαιολογητικά</a></li>
-	          </ul>
-	        </li>     
-	        <li><a class="drop" href="../under_construction.html">&nbsp;Νομοθεσια</a>
-	        <ul>
-	          <li><a href="../under_construction.html">Νέα και αλλαγές</a></li>
-	          <li><a href="../under_construction.html">Εργαζόμενοι</a></li>
-	          <li><a href="../under_construction.html">Εργοδότες</a></li>
-	          <li><a href="../under_construction.html">Άνεργοι</a></li>
-	          <li><a href="../under_construction.html">Συνταξιούχοι</a></li>
-	        </ul>
-	        </li>             
-	        <li><a class="nodrop" href="../under_construction.html">Βοηθεια</a></li>
-	      </ul>
-	      <!-- ################################################################################################ -->
-	    </nav>
-	  </header>
-	</div>
+          <li ><a class="drop" href="../employees.php">&nbsp;Εργαζομενοι</a>
+            <ul>
+            <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="../employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="../employers.php">&nbsp;Εργοδοτες</a>
+            <ul>
+              <li><a href="../covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+              <li><a href="#">Ρύθμιση οφειλών</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+            <ul>
+              <li><a href="#">Δικαιώματα</a></li>
+              <li><a href="#">Προϋποθέσεις</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+            <ul>
+              <li><a href="#">Κριτήρια</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+          <ul>
+            <li><a href="#">Νέα και αλλαγές</a></li>
+            <li><a href="#">Εργαζόμενοι</a></li>
+            <li><a href="#">Εργοδότες</a></li>
+            <li><a href="#">Άνεργοι</a></li>
+            <li><a href="#">Συνταξιούχοι</a></li>
+          </ul>
+          </li>
+          <li><a class="nodrop" href="#">Βοηθεια</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </header>
+  </div>
 </div>
+<!-- ################################################################################################ -->
 
-<!-- ################################################################################################ -->
 <div style="padding-bottom: 130px;"></div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <!-- ################################################################################################ -->
 <div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
     <div id="breadcrumb" class="hoc clear"> 
       <ul>
         <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
-        <li>Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</li>
+        <li><a href="mybusiness.php">Η ΕΠΙΧΕΙΡΗΣΗ ΜΟΥ</a></li>
       </ul>
     </div>
 </div>
@@ -128,9 +122,11 @@
       <h6>Η επιχείρησή μου</h6>
       <nav class="sdb_holder">
       <ul>
-        <li class="active"><a href="epixirisi.php">Στοιχεία επιχείρησης</a></li>
+        <li class="active"><a href="mybusiness.php">Στοιχεία επιχείρησης</a></li>
         <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
+        <li><a href="arxeio_ergazomenwn.php">Άδειες σε εκκρεμότητα</a></li>
         <li><a href="../under_construction.html">Ηλεκτρονικές υπηρεσίες</a></li>
+        <li><a href="arxeio_ergazomenwn.php">Ραντεβού</a></li>
         <li><a href="../under_construction.html">Οικονομική διαχείρηση</a>
         <ul>
           <li><a href="../under_construction.html">Φορολογικές υποχρεώσεις</a></li>
@@ -158,6 +154,7 @@
           $row = mysqli_fetch_assoc($result);
 
           $name = $row["business_name"];
+          $_SESSION["business_name"] = $name;
           $year = $row["year"];
           $status = $row["status"];
           $office = $row["office"];
@@ -252,37 +249,144 @@
             else {
               echo "0 results";
             }
-            mysqli_close($link);
+            
           ?>
-<script>
-function submitRowAsForm(idRow) {
+          <script>
+          function submitRowAsForm(idRow) {
 
-  form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
-  form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
-  form.action = "business_employees.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
-  $("#"+idRow).children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
-        console.log("#"+idRow);
-        $(this).clone().appendTo(form);
+            form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
+            form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
+            form.action = "business_employees.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
+            $("#"+idRow).children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
+                  console.log("#"+idRow);
+                  $(this).clone().appendTo(form);
 
-    });
-    
-  $(document.body).append(form);
-  form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
-}
-</script>
+              });
+              
+            $(document.body).append(form);
+            form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
+          }
+          </script>
           </tbody>
         </table>         
       </div>
+
+      <div class="content member" id="ta_rantevou_mou">
+        <h1>Άδειες σε εκκρεμότητα</h1>
+        <p>Εδώ εμφανόζονται οι αιτήσεις αδειών για να τις δεχτείτε ή να τις απορρίψετε.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Όνομα εργαζομένου</th>
+              <th>ΑΦΜ</th>
+              <th>Από</th>
+              <th>Μέχρι</th>
+              <th>Τύπος άδειας</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+
+              // Create connection to get the name
+              $sql = "SELECT employee_id, name_employee, start_date, end_date, type FROM adeies WHERE business_name = '".$_SESSION["business_name"]."' ";
+              $result = mysqli_query($link, $sql);
+
+              if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)){
+                  echo "<tr>
+                        <td>".$row["name_employee"]."</td>
+                        <td>".$row["employee_id"]."</td>
+                        <td>".$row["type"]."</td>
+                        <td>".$row["start_date"]."</td>
+                        <td>".$row["end_date"]."</td>";        
+                  
+                  $idRow1 = $row["employee_id"]." accept";
+                  $idRow2 = $row["employee_id"]." decline";
+                  
+                  echo  "<td><button onclick='submitRowAsFormLicense(".$idRow1.")'>Αποδοχή</button></td>
+                        <td><button onclick='submitRowAsFormLicense(".$idRow2.")'>Απόρριψη</button></td>
+                      </tr>";
+                  
+                }
+              }
+              else {
+                echo "Δεν υπάρχουν άδειες με εκκρεμότητα.";
+              }
+
+            ?>
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+          function submitRowAsFormLicense(idRow) {
+
+            form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
+            form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
+            form.action = "set_license.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
+            $("#"+idRow).children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
+                  console.log("#"+idRow);
+                  $(this).clone().appendTo(form);
+
+              });
+
+            // '<%Session["idRow"] = "' + idRow + '"; %>';
+            // alert('<%=Session["idRow"] %>');
+              
+            $(document.body).append(form);
+            form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
+          }
+        </script>
+
+      <div class="content member" id="ta_rantevou_mou">
+        <h1>Ραντεβού</h1>
+        <p>Εδώ εμφανόζονται τα ραντεβού του εργοδότη της επιχείρησης με το Υπουργείο Εργασίας που βρίσκονται σε ισχύ.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Ημερομηνία και ώρα</th>
+              <th>Λόγοι ραντεβού</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              $cur_dt = date('Y-m-d H:i:s');
+
+              // Create connection to get the name
+              $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
+              $result = mysqli_query($link, $sql);
+              if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_assoc($result)){
+                  $datetime = $row["datetime"];
+                  if ($datetime >= $cur_dt){
+                    echo "<tr>
+                          <td>".$row["datetime"]."</td>
+                          <td>".$row["text"]."</td>
+                        </tr>";
+                  }
+                  
+                }
+              }
+              else {
+                echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
+              }
+              mysqli_close($link);
+            ?>
+          </tbody>
+        </table>
+      </div>
+
       <div class="scrollable">
-        <h1><br><br><br>Ηλεκτρονικές υπηρεσίες</h1>
+        <h1><br><br>Ηλεκτρονικές υπηρεσίες</h1>
         <ul class="clear">
-          <li><a href="../under_construction.html">Πιστοποίηση εργοδοτών</a></li>
-          <li><a href="../under_construction.html">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
-          <li><a href="../under_construction.html">Ασφαλιστική ενημερότητα</a></li>
-          <li><a href="../under_construction.html">Ρύθμιση οφειλών</a></li>
-				  <li><a href="../under_construction.html">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
+          <li><a href="#">Πιστοποίηση εργοδοτών</a></li>
+          <li><a href="#">Ηλεκτρονική υποβολή ΑΠΔ</a></li>
+          <li><a href="#">Ασφαλιστική ενημερότητα</a></li>
+          <li><a href="#">Ρύθμιση οφειλών</a></li>
+				  <li><a href="#">Υπολογισμός έκπτωσης ασφαλιστικών εισφορών</a></li>
         </ul>
       </div>
+
     </div>
     <!-- ################################################################################################ -->
     <div class="clear"></div>
