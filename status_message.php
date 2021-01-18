@@ -206,7 +206,7 @@
             echo "<p style= 'text-align:center;'>Η υποβολή των στοιχείων της επιχείρησής σας ολοκληρώθηκε με επιτυχία</p>";
             echo "<div id='comments'>
                     <div style='text-align:center;'>
-                      <form action='profile ergodoth/epixirisi.php'>
+                      <form action='employer_profile/mybusiness.php'>
                         <input type='submit' name='submit' value='Επιστροφή στην Επιχείρησή μου' style='background-color: #813DAA; color: #FFFFFF;'>
                       </form>
                     </div>
@@ -217,7 +217,7 @@
             echo "<p style= 'text-align:center;'>Κάτι πήγε στραβά! Δοκιμάστε ξανά αργότερα</p>";
             echo "<div id='comments'>
                     <div style='text-align:center;'>
-                      <form action='profile ergodoth/epixirisi.php'>
+                      <form action='employer_profile/mybusiness.php'>
                         <input type='submit' name='submit' value='Επιστροφή στην Επιχείρησή μου' style='background-color: #813DAA; color: #FFFFFF;'>
                       </form>
                     </div>

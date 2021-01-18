@@ -137,20 +137,18 @@
                         <th>Επιχείρηση</th>
                         <th>Αρχείο Σύμβασης Εργασίας</th>
                         <th>Κατάσταση</th>
-                        <th>Ισχύ μέχρι</th>
+                        <th>Χρονικό διάστημα</th>
                     </tr>
                 </thead>
                 <tbody>
                   <?php
 
-                  // Define variables and initialize with empty values
-                  $business_id = $status = $period = "";
                   $employee_id = $_SESSION["id"];
 
                   // Include config file
                   require_once "../authentication/config.php";
 
-                  $sql = "SELECT business_id, status, period FROM business_employees where employee_id = '$employee_id'";
+                  $sql = "SELECT business_id, status, start_date, end_date FROM business_employees where employee_id = '$employee_id'";
                   $result = mysqli_query($link, $sql);
 
                   if (mysqli_num_rows($result) > 0) {
@@ -159,11 +157,17 @@
                       $result2 = mysqli_query($link, $sql);
                       $row2 = mysqli_fetch_assoc($result2);
                       echo "<tr>
-                                <td>".$row2["name"]."</td>
-                                <td><a href='#'>Σύμβαση εργασίας</a></td>
-                                <td>".$row["status"]."</td>
-                                <td>".$row["period"]."</td>
+                              <td>".$row2["name"]."</td>
+                              <td><a href='#'>Σύμβαση εργασίας</a></td>
+                              <td>".$row["status"]."</td>";
+                      if ($row["end_date"] == "0000-00-00" || $row["end_date"] == NULL)
+                        $end_date = "Δεν έχει οριστεί";
+                      else
+                        $end_date = $row["end_date"];
+                      echo    "<td>".$row["start_date"]." - ".$end_date."</td>
                             </tr>";
+
+                            
                     }
                   }
                   else {
@@ -233,40 +237,40 @@
       <div class="content member" id="ta_rantevou_mou">
         <h1>Τα Ραντεβού μου</h1>
         <p>Εδώ εμφανόζονται τα ραντεβού με το Υπουργείο Εργασίας που βρίσκονται σε ισχύ.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Ημερομηνία και ώρα</th>
-              <th>Λόγοι ραντεβού</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              $cur_dt = date('Y-m-d H:i:s');
+        <?php
+          $cur_dt = date('Y-m-d H:i:s');
 
-              // Create connection to get the name
-              $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
-              $result = mysqli_query($link, $sql);
-              if (mysqli_num_rows($result) > 0) {
-                while($row = mysqli_fetch_assoc($result)){
-                  $datetime = $row["datetime"];
-                  if ($datetime >= $cur_dt){
-                    echo "<tr>
-                          <td>".$row["datetime"]."</td>
-                          <td>".$row["text"]."</td>
-                        </tr>";
-                  }
-                  
-                }
-              }
-              else {
-                echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
-              }
-            ?>
-          </tbody>
-        </table>
+          // Create connection to get the name
+          $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+            echo "<table>
+                  <thead>
+                    <tr>
+                      <th>Ημερομηνία και ώρα</th>
+                      <th>Λόγοι ραντεβού</th>
+                    </tr>
+                  </thead>
+                  <tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+              $datetime = $row["datetime"];
+              if ($datetime >= $cur_dt){
+                echo "<tr>
+                      <td>".$row["datetime"]."</td>
+                      <td>".$row["text"]."</td>
+                    </tr>";
+              } 
+            }
+            echo "</tbody>
+                </table>";
+
+          }
+          else {
+            echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
+          }
+        ?>
       </div>
-
     
       <div class="content member" id="yphresies">
         <h1>Ηλεκτρονικές υπηρεσίες</h1>
@@ -280,46 +284,80 @@
       </div>
 
       <div class="content member" id="istoriko_adeion">
-      <h1>Ιστορικό αδειών</h1>
-        <p>Εδώ εμφανόζονται όλες οι άδειες που έχετε πάρει με την αντίστοιχη επιχείρηση στην οποία εργάζεστε.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Επιχείρηση</th>
-              <th>Τύπος άδειας</th>
-              <th>Από</th>
-              <th>Μέχρι</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
+        <h1>Ιστορικό αδειών</h1>
+        <p>Εδώ εμφανόζονται οι άδειες σε εκκρεμότητα με την αντίστοιχη επιχείρηση στην οποία εργάζεστε:</p>
+        <?php
+
+          // Create connection to get the name
+          $sql = "SELECT business_name, start_date, end_date, type FROM adeies WHERE employee_id = '$id' and confirmed = 0";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+            echo "<table>
+                  <thead>
+                    <tr>
+                      <th>Επιχείρηση</th>
+                      <th>Τύπος άδειας</th>
+                      <th>Από</th>
+                      <th>Μέχρι</th>
+                    </tr>
+                  </thead>
+                  <tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+              echo "<tr>
+                    <td>".$row["business_name"]."</td>
+                    <td>".$row["type"]."</td>
+                    <td>".$row["start_date"]."</td>
+                    <td>".$row["end_date"]."</td>
+                  </tr>";
               
-              // Define variables and initialize with empty values
-              $datetime = $text = "";
-              $cur_dt = date('Y-m-d H:i:s');
+            }
+            echo "</tbody>
+                </table>";
 
-              // Create connection to get the name
-              $sql = "SELECT business_name, start_date, end_date, type FROM adeies WHERE employee_id = '$id' ";
-              $result = mysqli_query($link, $sql);
+          }
+          else {
+            echo "Δεν υπάρχει άδεια σε εκκρεμότητα.";
+          }
+        ?>
 
-              if (mysqli_num_rows($result) > 0) {
-                while($row = mysqli_fetch_assoc($result)){
-                  echo "<tr>
-                        <td>".$row["business_name"]."</td>
-                        <td>".$row["type"]."</td>
-                        <td>".$row["start_date"]."</td>
-                        <td>".$row["end_date"]."</td>
-                      </tr>";
-                  
-                }
-              }
-              else {
-                echo "Το ιστορικό αδειών είναι κενό.";
-              }
-              mysqli_close($link);
-            ?>
-          </tbody>
-        </table>
+        <p><br>Εδώ εμφανόζονται όλες οι άδειες που έχετε πάρει με την αντίστοιχη επιχείρηση στην οποία εργάζεστε:</p>
+        <?php
+
+          // Create connection to get the name
+          $sql = "SELECT business_name, start_date, end_date, type FROM adeies WHERE employee_id = '$id' and confirmed = 1";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+            echo "<table>
+                  <thead>
+                    <tr>
+                      <th>Επιχείρηση</th>
+                      <th>Τύπος άδειας</th>
+                      <th>Από</th>
+                      <th>Μέχρι</th>
+                    </tr>
+                  </thead>
+                  <tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+              echo "<tr>
+                    <td>".$row["business_name"]."</td>
+                    <td>".$row["type"]."</td>
+                    <td>".$row["start_date"]."</td>
+                    <td>".$row["end_date"]."</td>
+                  </tr>";
+              
+            }
+            echo "</tbody>
+                </table>";
+
+          }
+          else {
+            echo "Δεν έχετε πάρει καμία άδεια.";
+          }
+          
+          mysqli_close($link);
+        ?>       
       </div>
 
     </div>

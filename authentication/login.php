@@ -40,6 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     mysqli_select_db($link, "users");
     if(empty($id_err) && empty($password_err)){
+        
         // Perform query
         if ($result = mysqli_query($link, "SELECT * FROM users WHERE id = '$id' and password = '$password'")) {
 

@@ -24,42 +24,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate id
     if(empty($id)){
-        $id_err = "<b style='color:red;'>Παρακαλώ εισάγετε το ΑΦΜ σας.</b>";
+        $id_err = "<text style='color:red; margin-left: 215px;'>Παρακαλώ εισάγετε το ΑΦΜ σας.</text>";
     } else{
 
         if ($result = mysqli_query($link, "SELECT * FROM users WHERE id = '$id'")){
             $row = mysqli_fetch_array($result);
             if(mysqli_num_rows($result) == 1){
-                $id_err = "<b style='color:red;'>Υπάρχει ήδη λογαριασμός με αυτό το ΑΦΜ.</b>";
+                $id_err = "<text style='color:red;'><br>Υπάρχει ήδη λογαριασμός με αυτό το ΑΦΜ.</text>";
             }
         }
     }
         
     // Validate password
     if(empty($password)){
-        $password_err = "<b style='color:red;'>Παρακαλώ εισάγετε κωδικό πρόσβασης.</b>";     
+        $password_err = "<text style='color:red; margin-left: 41px;' >Παρακαλώ εισάγετε κωδικό πρόσβασης.</text>";     
     } elseif(strlen($password) < 6){
-        $password_err = "<b style='color:red;'>Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες.</b>";
+        $password_err = "<text style='color:red;'><br>Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες.</text>";
     }
     
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "<b style='color:red;'>Παρακαλώ επιβεβαιώστε τον κωδικό πρόσβασης.</b>";     
+        $confirm_password_err = "<text style='color:red;'><br>Παρακαλώ επιβεβαιώστε τον κωδικό πρόσβασης.</text>";     
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "<b style='color:red;'>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</b>";
+            $confirm_password_err = "<text style='color:red;'><br>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</text>";
         }
     }
 
     // Validate name
     if(empty($name)){
-        $name_err = "<b style='color:red;'>Παρακαλώ εισάγετε το ονοματεπώνυμό σας.</b>";     
+        $name_err = "<text style='color:red; margin-left:44px;' >Παρακαλώ εισάγετε το ονοματεπώνυμό σας.</text>";     
     }
 
     // Validate email
     if(empty($email)){
-        $email_err = "<b style='color:red;'>Παρακαλώ εισάγετε το όνομά σας.</b>";     
+        $email_err = "<text style='color:red; margin-left:52px;'>Παρακαλώ εισάγετε το email σας.</text>";     
     }
     
     // Check input errors before inserting in database
@@ -70,12 +70,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else {
             printf ("Error: %s\n", mysqli_error($link));
         }
+
         // Prepare an insert statement
         $sql = "INSERT INTO users (id, name, password, email, phone) VALUES ('$id', '$name', '$password', '$email', '$phone')";
-        $_SESSION["id"] = $id;
-        $_SESSION["name"] = $name;
-        $_SESSION["password"] = $password;
-        $_SESSION["email"] = $email;
+
         // Redirect user to login page
         if (mysqli_query($link, $sql)) {                           
             $_SESSION['status_login'] = true;
@@ -98,46 +96,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Εγγραφή</title>
-    <link href="../layout/styles/login.css" rel="stylesheet" type="text/css" media="all">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
-    <link rel="icon" href="../logo.ico">
+    <link href="../layout/styles/register.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="../images/logo.ico">
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper " >
         
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="container">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" style="border: none;">
+        <div class="container hoc">
             <h2>Εγγραφή</h2>
-            <p>Παρακαλώ συμπληρώστε την παρακάτω φόρμα για να δημιουργήσετε λογαριασμό.</p>
+            <p>Παρακαλώ συμπληρώστε την παρακάτω φόρμα για να δημιουργήσετε λογαριασμό στην ιστοσελίδα του Υπουργείου Εργασίας & Κοινωνικών Υποθέσεων.</p>
             <p>Τα πεδία με <span style='color:red;'>*</span> είναι υποχρεωτικά.</p>
             <hr>
 
-            <label><strong>Ονοματεπώνυμο<span style='color:red;'>*</span></strong></label>
-            <input type="text" placeholder="Το ονοματεπώνυμό σας" name="name" class="form-control" value="<?php echo $name; ?>" required>
-            <span class="help-block"><?php echo $name_err; ?></span>
+            <label><strong>Ονοματεπώνυμο<span style='color:red;'>*</span></strong></label> <span class="help-block"><?php echo $name_err; ?></span>
+            <input type="text" placeholder="Το ονοματεπώνυμό σας" name="name" class="
+            form-control" value="<?php echo $name; ?>" >
 
             <label><strong>ΑΦΜ<span style='color:red;'>*</span></strong></label>
-            <input type="text" placeholder="Το ΑΦΜ σας" name="id" class="form-control" value="<?php echo $id; ?>" required>
             <span class="help-block"><?php echo $id_err; ?></span>
+            <input type="text" placeholder="Το ΑΦΜ σας" name="id" class="form-control" value="<?php echo $id; ?>" >
 
             <label><strong>Ηλεκτρονικό Ταχυδρομείο<span style='color:red;'>*</span></strong></label>
-            <input type="text" placeholder="Το email σας"  name="email" class="form-control" value="<?php echo $email; ?>" required>
             <span class="help-block"><?php echo $email_err; ?></span>
+            <input type="text" placeholder="Το email σας"  name="email" class="" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" >
 
             <label><strong>Τηλέφωνο</strong></label>
-            <input type="text" placeholder="Το τηλέφωνό σας"  name="phone" class="form-control" value="<?php echo $phone; ?>">
             <span class="help-block"><?php echo $phone_err; ?></span>
+            <input type="text" placeholder="Το τηλέφωνό σας"  name="phone" class="form-control" value="<?php echo $phone; ?>">
+            
 
-            <label><strong>Κωδικός Πρόσβασης<span style='color:red;'>*</span></strong></label>
-            <input type="password" placeholder="Έγκυρος κωδικός πρόσβασης πάνω από 6 χαρακτήρες" name="password" class="form-control" value="<?php echo $password; ?>"required>
-            <span class="help-block"><?php echo $password_err; ?></span>
+            <label><strong>Κωδικός Πρόσβασης<span style='color:red;'>*</span></strong></label> <span class="help-block"><?php echo $password_err; ?></span>
+            <input type="password" placeholder="Έγκυρος κωδικός πρόσβασης πάνω από 6 χαρακτήρες" name="password" class="form-control" value="<?php echo $password; ?>">
+            
 
             <label><strong>Επιβεβαίωση κωδικού πρόσβασης<span style='color:red;'>*</span></strong></label>
-            <input type="password" placeholder="επιβεβαίωση κωδικού" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>"required>
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
+            <input type="password" placeholder="Επιβεβαίωση κωδικού" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+            
 
             <hr>
-            <p>Με τη δημιουργία λογαρισμού, αποδέχεστε τους <a href="#">Όρους & Προϋποθέσεις</a>.</p>
+            <p style="font-size: 15.4px;">Με τη δημιουργία λογαρισμού, αποδέχεστε τους <a href="#">Όρους & Προϋποθέσεις</a>.</p>
 
             <button type="submit" class="registerbtn">Δημιουργία λογαριασμού</button>
 

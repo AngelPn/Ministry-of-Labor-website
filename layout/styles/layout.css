@@ -774,7 +774,7 @@ table a, #comments a{background-color:inherit;}
 /*--------------------------------------------------------------------*/
 .side{
     position: fixed;
-    width: 340px;
+    width: 400px;
     z-index: 1;
     /*background-color: #FFFFFF;*/
     overflow-x: hidden;
@@ -809,3 +809,14 @@ table a, #comments a{background-color:inherit;}
     margin: 60px 0;
 }
 
+.dynamic_segment{
+    min-height: 85vh;
+}
+
+.metra_header{
+    margin: 15px 0 5px 0;
+}
+
+.erga_h4s{
+    font-size: 18px;
+}

@@ -125,8 +125,8 @@
         <li class="active"><a href="mybusiness.php">Στοιχεία επιχείρησης</a></li>
         <li><a href="arxeio_ergazomenwn.php">Εργαζόμενοι</a></li>
         <li><a href="arxeio_ergazomenwn.php">Άδειες σε εκκρεμότητα</a></li>
-        <li><a href="../under_construction.html">Ηλεκτρονικές υπηρεσίες</a></li>
         <li><a href="arxeio_ergazomenwn.php">Ραντεβού</a></li>
+        <li><a href="../under_construction.html">Ηλεκτρονικές υπηρεσίες</a></li>
         <li><a href="../under_construction.html">Οικονομική διαχείρηση</a>
         <ul>
           <li><a href="../under_construction.html">Φορολογικές υποχρεώσεις</a></li>
@@ -216,16 +216,15 @@
               <th>ΑΦΜ</th>
               <th>Αρχείο Σύμβασης Εργασίας</th>
               <th>Κατάσταση</th>
-              <th>Ισχύ μέχρι</th>
+              <th>Χρονικό διάστημα</th>
             </tr>
           </thead>
           <tbody>
           <?php
-            // Define variables and initialize with empty values
-            $employee_id = $status = $period = "";
+
             $id = $_SESSION["id"];
 
-            $sql = "SELECT employee_id, status, period FROM business_employees where business_id = '$id'";
+            $sql = "SELECT employee_id, status, start_date, end_date FROM business_employees where business_id = '$id'";
             $result = mysqli_query($link, $sql);
 
             // Create connection to get name of employees
@@ -240,8 +239,12 @@
                       <td>".$row2["name"]."</td>
                       <td><input readonly type = 'text' name='employee_id' id='".$row["employee_id"]."' value='".$row["employee_id"]."'></td>
                       <td><a href='#'>Σύμβαση εργασίας</a></td>
-                      <td>".$row["status"]."</td>
-                      <td>".$row["period"]."</td>
+                      <td>".$row["status"]."</td>";
+                if ($row["end_date"] == "0000-00-00" || $row["end_date"] == NULL)
+                  $end_date = "Δεν έχει οριστεί";
+                else
+                  $end_date = $row["end_date"];
+                echo  "<td>".$row["start_date"]." - ".$end_date."</td>
                       <td><button onclick='submitRowAsForm(".$row["employee_id"].")'>Τροποποίηση</button></td>
                       </tr>";
               }
@@ -274,106 +277,85 @@
       <div class="content member" id="ta_rantevou_mou">
         <h1>Άδειες σε εκκρεμότητα</h1>
         <p>Εδώ εμφανόζονται οι αιτήσεις αδειών για να τις δεχτείτε ή να τις απορρίψετε.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Όνομα εργαζομένου</th>
-              <th>ΑΦΜ</th>
-              <th>Από</th>
-              <th>Μέχρι</th>
-              <th>Τύπος άδειας</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
+        <?php
 
-              // Create connection to get the name
-              $sql = "SELECT employee_id, name_employee, start_date, end_date, type FROM adeies WHERE business_name = '".$_SESSION["business_name"]."' ";
-              $result = mysqli_query($link, $sql);
+          // Create connection to get the name
+          $sql = "SELECT employee_id, name_employee, start_date, end_date, type FROM adeies WHERE business_name = '".$_SESSION["business_name"]."' and confirmed = 0";
+          $result = mysqli_query($link, $sql);
 
-              if (mysqli_num_rows($result) > 0) {
-                while($row = mysqli_fetch_assoc($result)){
-                  echo "<tr>
-                        <td>".$row["name_employee"]."</td>
-                        <td>".$row["employee_id"]."</td>
-                        <td>".$row["type"]."</td>
-                        <td>".$row["start_date"]."</td>
-                        <td>".$row["end_date"]."</td>";        
-                  
-                  $idRow1 = $row["employee_id"]." accept";
-                  $idRow2 = $row["employee_id"]." decline";
-                  
-                  echo  "<td><button onclick='submitRowAsFormLicense(".$idRow1.")'>Αποδοχή</button></td>
-                        <td><button onclick='submitRowAsFormLicense(".$idRow2.")'>Απόρριψη</button></td>
-                      </tr>";
-                  
-                }
-              }
-              else {
-                echo "Δεν υπάρχουν άδειες με εκκρεμότητα.";
-              }
-
-            ?>
-          </tbody>
-        </table>
-      </div>
-
-      <script>
-          function submitRowAsFormLicense(idRow) {
-
-            form = document.createElement("form"); // CREATE A NEW FORM TO DUMP ELEMENTS INTO FOR SUBMISSION
-            form.method = "post"; // CHOOSE FORM SUBMISSION METHOD, "GET" OR "POST"
-            form.action = "set_license.php"; // TELL THE FORM WHAT PAGE TO SUBMIT TO
-            $("#"+idRow).children().each(function() { // GRAB ALL CHILD ELEMENTS OF <TD>'S IN THE ROW IDENTIFIED BY idRow, CLONE THEM, AND DUMP THEM IN OUR FORM
-                  console.log("#"+idRow);
-                  $(this).clone().appendTo(form);
-
-              });
-
-            // '<%Session["idRow"] = "' + idRow + '"; %>';
-            // alert('<%=Session["idRow"] %>');
+          if (mysqli_num_rows($result) > 0) {
+            echo "<table>
+                  <thead>
+                    <tr>
+                      <th>Όνομα εργαζομένου</th>
+                      <th>ΑΦΜ</th>
+                      <th>Τύπος άδειας</th>
+                      <th>Από</th>
+                      <th>Μέχρι</th>
+                    </tr>
+                  </thead>
+                  <tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+              echo "<tr>
+                    <td>".$row["name_employee"]."</td>
+                    <td>".$row["employee_id"]."</td>
+                    <td>".$row["type"]."</td>
+                    <td>".$row["start_date"]."</td>
+                    <td>".$row["end_date"]."</td>
+                    <td><button>Αποδοχή</button></td>
+                    <td><button>Απόρριψη</button></td>
+                  </tr>";
               
-            $(document.body).append(form);
-            form.submit(); // NOW SUBMIT THE FORM THAT WE'VE JUST CREATED AND POPULATED
+            }
+            echo "</tbody>
+                </table>";
+
           }
-        </script>
+          else {
+            echo "Δεν υπάρχουν άδειες με εκκρεμότητα.";
+          }
+        ?>
+      </div>
 
       <div class="content member" id="ta_rantevou_mou">
         <h1>Ραντεβού</h1>
         <p>Εδώ εμφανόζονται τα ραντεβού του εργοδότη της επιχείρησης με το Υπουργείο Εργασίας που βρίσκονται σε ισχύ.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Ημερομηνία και ώρα</th>
-              <th>Λόγοι ραντεβού</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              $cur_dt = date('Y-m-d H:i:s');
+        <?php
 
-              // Create connection to get the name
-              $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
-              $result = mysqli_query($link, $sql);
-              if (mysqli_num_rows($result) > 0) {
-                while($row = mysqli_fetch_assoc($result)){
-                  $datetime = $row["datetime"];
-                  if ($datetime >= $cur_dt){
-                    echo "<tr>
-                          <td>".$row["datetime"]."</td>
-                          <td>".$row["text"]."</td>
-                        </tr>";
-                  }
-                  
-                }
+          $cur_dt = date('Y-m-d H:i:s');
+
+          // Create connection to get the name
+          $sql = "SELECT datetime, text FROM rantevou WHERE user_id = '$id' ";
+          $result = mysqli_query($link, $sql);
+
+          if (mysqli_num_rows($result) > 0) {
+            echo "<table>
+                  <thead>
+                    <tr>
+                      <th>Ημερομηνία και ώρα</th>
+                      <th>Λόγοι ραντεβού</th>
+                    </tr>
+                  </thead>
+                  <tbody>";
+            while($row = mysqli_fetch_assoc($result)){
+              $datetime = $row["datetime"];
+              if ($datetime >= $cur_dt){
+                echo "<tr>
+                      <td>".$row["datetime"]."</td>
+                      <td>".$row["text"]."</td>
+                    </tr>";
               }
-              else {
-                echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
-              }
-              mysqli_close($link);
-            ?>
-          </tbody>
-        </table>
+            }
+            echo "</tbody>
+                </table>";
+
+          }
+          else {
+            echo "Δεν υπάρχουν δεσμευμένα ραντεβού.";
+          }
+          
+          mysqli_close($link);
+        ?>
       </div>
 
       <div class="scrollable">

@@ -8,50 +8,54 @@ Licence: Free to use under our free template licence terms
 Licence URI: https://www.os-templates.com/template-terms
 -->
 <html lang="el">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
 <title>Υπουργείο Εργασίας & Κοινωνικών Υποθέσεων</title>
+<style>.not-allowed {cursor: not-allowed;}</style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../layout/styles/collapsible.css">
+<link rel="icon" href="../images/logo.ico">
 </head>
 
-<body id="top">
+<body id="top" onload="select('op1')">
 
 
 <!-- ################################################################################################ -->
 <div id="fixed">
   <div class="wrapper row0">
     <div id="topbar" class="hoc clear" >
-      <div class="fl_right">
+      <div class="fl_right"> 
         <!-- ################################################################################################ -->
         <ul class="nospace">
-          <li><a href="under_construction.html" title="English"><i class="fas fa-globe"></i> English</a></li>
-          <li><a href="epikinonia.php" title="Επικοινωνία">Επικοινωνια</a></li>
+          <li><a href="#" title="English"><i class="fas fa-globe"></i> English</a></li>
+          <li><a href="contact/contact.php" title="Επικοινωνία">Επικοινωνια</a></li>
           <?php
-          // Check if the user is logged in, if not then redirect him to login page
-          if(!isset($_SESSION["loggedin"])){
-            echo '<li><a href="authentication/login.php" title="Σύνδεση">Σύνδεση</a></li>';
-            echo '<li><a href="authentication/register.php" title="Εγγραφή">Εγγραφή</a></li>';
-          }
-          elseif($_SESSION["role_id"] == 1){
-            echo '<li><a href="profile ergazomenou/ergasia.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
-            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
-          else{
-            echo '<li><a href="profile ergodoth/epixirisi.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
-            echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
-          }
+            session_start();
+            // Check if the user is logged in, if not then redirect him to login page
+            if(!isset($_SESSION["loggedin"])){
+              echo '<li><a href="authentication/login.php" title="Κουμπί Σύνδεσης">Σύνδεση</a></li>';
+              echo '<li><a href="authentication/register.php" title="Κουμπί Εγγραφής">Εγγραφή</a></li>';      
+            }
+            elseif($_SESSION["role_id"] == 1){
+              echo '<li><a href="employee_profile/myemployment.php" class="btn btn-danger" title="Προφίλ εργαζόμενου">Η εργασία μου</a></li>';
+              echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
+            else{
+              echo '<li><a href="employer_profile/mybusiness.php" class="btn btn-danger" title="Προφίλ εργοδότη">Η επιχείρησή μου</a></li>';
+              echo '<li><a href="authentication/logout.php" title = "Αποσύνδεση"><i class="fa fa-sign-out-alt"></i></a></li>';
+            }
           ?>
           <li id="searchform">
             <div>
               <form action="#" method="post">
                 <fieldset>
                   <legend>Quick Search:</legend>
-                  <input type="text" placeholder="Αναζήτηση&hellip;" title="Αναζήτηση">
-                  <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
+                    <label for="search" style="font-size:0px;">Αναζήτηση</label>
+                  <input id="search" type="text" placeholder="Αναζήτηση&hellip;">
+                    <button type="submit" title="Υποβολή αναζήτησης"><i class="fas fa-search"></i></button>
                 </fieldset>
               </form>
             </div>
@@ -62,445 +66,362 @@ Licence URI: https://www.os-templates.com/template-terms
     </div>
   </div>
 
-    <div class="wrapper row1">
-      <header id="header" class="hoc clear">
-        <div id="logo" class="fl_left">
-            <a href="index.php"><img src="images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left"> 
+          <a href="index.php"><img src="images/logo.png" style="height: 65px;" alt="Υπουργείο Εργασίας"></a>
+      </div>
+
+      <nav id="mainav" class="fl_right"> 
+
+        <ul class="clear">
+
+          <li><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
+
+          <li ><a class="drop" href="employees.php">&nbsp;Εργαζομενοι</a>
+            <ul>
+              <li><a href="covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Συμβάσεις</a></li>
+              <li><a href="employees/license.php">Άδειες</a></li>
+              <li><a href="#">Επιδόματα</a></li>
+              <li><a href="#">Απολύσεις</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="employers.php">&nbsp;Εργοδοτες</a>
+            <ul>
+              <li><a href="covid.php">Μέτρα λόγω πανδημίας</a></li>
+              <li><a href="#">Ασφαλιστικός οδηγός</a></li>
+              <li><a href="#">Ρύθμιση οφειλών</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#" style="width: 145px;">&nbsp;Ανεργοι</a>
+            <ul>
+              <li><a href="#">Δικαιώματα</a></li>
+              <li><a href="#">Προϋποθέσεις</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>
+          <li><a class="drop" href="#">&nbsp;Συνταξιουχοι</a>
+            <ul>
+              <li><a href="#">Κριτήρια</a></li>
+              <li><a href="#">Δικαιολογητικά</a></li>
+            </ul>
+          </li>     
+          <li><a class="drop" href="#">&nbsp;Νομοθεσια</a>
+          <ul>
+            <li><a href="#">Νέα και αλλαγές</a></li>
+            <li><a href="#">Εργαζόμενοι</a></li>
+            <li><a href="#">Εργοδότες</a></li>
+            <li><a href="#">Άνεργοι</a></li>
+            <li><a href="#">Συνταξιούχοι</a></li>
+          </ul>
+          </li>             
+          <li><a class="nodrop" href="#">Βοηθεια</a></li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </nav>
+    </header>
+  </div>
+</div>
+
+<?php
+// Set the correct padding-offset for the breadcrumb if you are connected
+if(isset($_SESSION["loggedin"])){
+  echo '<div style="padding-bottom: 133px;"></div>';
+}
+else{
+  echo '<div style="padding-bottom: 113px;"></div>';
+}
+?>
+
+<div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
+<div id="breadcrumb" class="hoc clear" style=" margin-left:225px;">
+      <ul>
+        <li><a href="../index.php"><i class="fa fa-home"></i></a></li>
+        <li > <a href="covid.php" style="font-size: inherit;"><b>COVID</b></a></li>
+      </ul>
+    </div>
+</div>
+
+
+<div class="side" style="top: 250px; left: 30px; ">
+  <a href="#" id="op1" onclick="activate('op1')" style="font-size: 18px;" >Oδηγίες και Mέτρα Πρόληψης</a>
+  <a href="#" id="op2" onclick="activate('op2')" style="font-size: 18px;" >Κρούσμα σε εργασιακό περιβάλλον</a>
+  <a href="#" id="op3" onclick="activate('op3')" style="font-size: 18px;">Πληροφορίες για Εργαζόμενους</a>
+  <a href="#" id="op4" onclick="activate('op4')" style="font-size: 18px;">Πληροφορίες για Εργοδότες</a>
+</div>
+
+<div class="wrapper row3 dynamic_segment" style="padding-left:380px; font-family: Arial;">
+    <div id="odigies_metra">
+      <ul style="padding: 0 60px; max-width: 80%;">
+        <h1 style="text-align: center; padding: 30px 0 10px 0px;  font-family: Arial;"> <b>Oδηγίες και Mέτρα Πρόληψης</b></h1>
+
+        <h4 class="metra_header" style="font-family: inherit;">&nbsp;Οδηγίες προστασίας για Εργασιακούς Χώρους</h4>
+        <div style="font-size:  15.5px;">
+          <ol>
+            <li>Αυστηρή Τήρηση Απόστασης 2 μέτρων ανάμεσα στους εργαζόμενους</li>
+            <li>Εμβαδόν γραφείου έως 20 τ.μ. επιτρέπονται μέχρι 3 άτομα, από 20 τ.μ. – 100 τ.μ. 4 άτομα + 1 άτομο για κάθε επιπλέον 10 τ.μ. - Εμβαδόν άνω των 100 τ.μ. μέχρι 12 άτομα + 1 άτομο για κάθε επιπλέον 15 τ.μ.</li>
+            <li>Συχνή και σωστή υγιεινή των χεριών με σαπούνι και νερό ή αλκοολούχο αντισηπτικό</li>
+            <li>Αποφυγή επαφής των χεριών με τα μάτια την μύτη και το στόμα</li>
+            <li>Καλός και συχνός αερισμός των χώρων</li>
+            <li>Ελαχιστοποίηση των επαφών μεταξύ των εργαζομένων</li>
+            <li>Συχνός καθαρισμός των χώρων και ιδιαίτερα των κοινόχρηστων αντικειμένων(πόμολα, κουπαστές, φωτοτυπικά, διακόπτες κλπ.)</li>
+            <li>Ατομική χρήση προσωπικών αντικειμένων και γραφικής ύλης (συρραπτικό, στυλό,πληκτρολόγιο, ποντίκι κλπ.)</li>
+          </ol>
         </div>
 
-        <nav id="mainav" class="fl_right">
+        <h4 class="metra_header" style="font-family: inherit;">&nbsp;Μέτρα πρόληψης κατά της διασποράς του COVID σε επιχειρήσεις </h4>
+        <div style="font-size:  15.5px;">
+          <ol>
+            <li>Αποτροπή της εισόδου πολλών ατόμων ταυτόχρονα στην επιχείρηση (1 άτομο /10τετραγωνικά μέτρα, ώστε να αποφεύγεται ο συγχρωτισμός </li>
+            <li>Ύπαρξη, σε ευκρινή θέση στις εισόδους και τις εξόδους των καταστημάτων, φιάλης αλκοολούχου διαλύματος (με αντλία έγχυσης και βάση) για την υγιεινή τωνχεριών, προς χρήση των πελατών.</li>
+            <li>Οι υπάλληλοι να φορούν γάντια και να πλένουν τα χέρια τους μετά την απόρριψη αυτών</li>
+            <li>Αποφυγή χρήσης μετρητών κατά τη συναλλαγή.</li>
+            <li>Εφοδιασμό των αποχωρητηρίων με υγρό σαπούνι, χειροπετσέτες μιας χρήσης, (οι οποίες θα απορρίπτονται σε ποδοκίνητους κάδους πλησίον των νιπτήρων), αντισηπτικό αλκοολούχο διάλυμα (περιεκτικότητας 70% σε αλκοόλη)</li>
+            <li>Επιμελής και συχνός καθαρισμός των αντικειμένων κοινής χρήσης</li>
+          </ol>
+        </div>
 
-          <ul class="clear">
+        <h4 class="metra_header" style="font-family: inherit;">&nbsp;Οι εργαζόμενοι μπορούν να εισέρχονται στον χώρο εργασίας τους μονάχα εαν:</h4>
+        <div style="font-size: 15.5px;">
+          <ol>
+            <li>ΔΕΝ εμφανίζουν συμπτώματα οξείας λοίμωξης αναπνευστικού (βήχα, πυρετό,πονόλαιμο, ρινική καταρροή, δύσπνοια)</li>
+            <li>ΔΕΝ αποτελούν στενή επαφή επιβεβαιωμένου κρούσματος Covid-19 </li>
+            <li>ΔΕΝ ανήκουν στις ευπαθείς ομάδες καθ’ υπόδειξη του θεράποντος ιατρού τους</li>
+            <li>ΔΕΝ υπάρχει σοβαρό υποκείμενο πρόβλημα υγείας που τους καθιστά ευάλωτους έναντι του Covid-19 σε σχέση με τα καθήκοντά τους στη θέση εργασίας</li>
+          </ol>
+        </div>
+        
+      </ul>
+      <div style="width: 80%; text-align: center; padding-top: 20px; font-size: 18px;">
+        <a href="#" style="font-family: inherit;"><b>Αναλυτικά όλα τα μέτρα του Υπουργείου για Ειδικές Κατηγορίες Επιχειρήσεων</b></a>
+      </div>
+    </div>
+</div>
 
-            <li class="active"><a class="nodrop" href="index.php" style="padding-top: 32px; padding-bottom: 30px;">Αρχικη</a></li>
 
-            <li ><a class="drop" href="ergazomenoi.php">&nbsp;Εργαζομενοι</a>
-              <ul>
-                <li><a href="covid.php">Μετρα λογω πανδημιας</a></li>
-                <li><a href="under_construction.html">Συμβασεις</a></li>
-                <li><a href="ergazomenoi/aithsh_adeias.php">Αδειες</a></li>
-                <li><a href="under_construction.html">Επιδοματα</a></li>
-                <li><a href="under_construction.html">Απολυσεις</a></li>
-              </ul>
-            </li>
-            <li><a class="drop" href="ergodotes.php">&nbsp;Εργοδοτες</a>
-              <ul>
-                <li><a href="covid.html">Μέτρα λόγω πανδημίας</a></li>
-                <li><a href="under_construction.html">Ασφαλιστικός οδηγός</a></li>
-                <li><a href="under_construction.html">Ρύθμιση οφειλών</a></li>
-              </ul>
-            </li>
-            <li><a class="drop" href="under_construction.html" style="width: 145px;">&nbsp;Ανεργοι</a>
-              <ul>
-                <li><a href="under_construction.html">Δικαιώματα</a></li>
-                <li><a href="under_construction.html">Προϋποθέσεις</a></li>
-                <li><a href="under_construction.html">Δικαιολογητικά</a></li>
-              </ul>
-            </li>
-            <li><a class="drop" href="under_construction.html">&nbsp;Συνταξιουχοι</a>
-              <ul>
-                <li><a href="under_construction.html">Κριτήρια</a></li>
-                <li><a href="under_construction.html">Δικαιολογητικά</a></li>
-              </ul>
-            </li>
-            <li><a class="drop" href="under_construction.html">&nbsp;Νομοθεσια</a>
-            <ul>
-              <li><a href="under_construction.html">Νέα και αλλαγές</a></li>
-              <li><a href="under_construction.html">Εργαζόμενοι</a></li>
-              <li><a href="under_construction.html">Εργοδότες</a></li>
-              <li><a href="under_construction.html">Άνεργοι</a></li>
-              <li><a href="under_construction.html">Συνταξιούχοι</a></li>
-            </ul>
-            </li>
-            <li><a class="nodrop" href="under_construction.html">Βοηθεια</a></li>
-          </ul>
-          <!-- ################################################################################################ -->
-        </nav>
-      </header>
+<div class="wrapper row2 dynamic_segment" style="padding-left:380px; font-family: Arial;">
+  <div id="krousma" style="padding: 0 60px; max-width: 80%;">
+    <h1 style="text-align: center; padding: 80px 0 40px 0px; font-family: inherit;"> <b>Αντιμετώπιση Κρούσματος σε Εργασιακό περιβάλλον</b></h1>
+    <h4 style="font-family: inherit;">Σε περίπτωση που κάποιο άτομο στον χώρο εργασίας σας εμφανίσει κάποιο από τα παρακάτω συμπτώματα: </h4>
+    <ol style="font-size: 16px;">
+      <li> Απομόνωση του ατόμου που εμφάνισε τα συμπτώματα</li>
+      <li> Άμεση ενημέρωση του προϊστάμενου του και του συντονιστή διαχείρισης COVID-19, το ύποπτο κρούσμα φοράει μάσκα, αποχωρεί από τον χώρο εργασίας και παραμένει στο σπίτι του για ανάρρωση ή καλείται το ΕΚΑΒ για τη μεταφορά του στον εγγύτερο υγειονομικό σχηματισμό</li>
+      <li> Καλός διαμπερής αερισμός του χώρου και απολύμανση των επιφανειών</li>
+      <li> Ο συντονιστής διαχείρισης COVID-19 ενημερώνει τον ΕΟΔΥ για, επιδημιολογική διερεύνηση και ιχνηλάτηση όλων των πιθανών επαφών του κρούσματος (προσωπικού και επισκεπτών κλπ)</li>
+    </ol>
+
+    <div style=" text-align: center; padding-top: 20px;">
+      <img src="images/til.png">
     </div>
   </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay gradient" style="z-index: 1; background-color:rgb(0, 0, 0);">
-<div id="breadcrumb" class="hoc clear" style="padding-top:130px; margin-left:200px;">
-      <ul>
-        <li><a href="index.php" title="Αρχική"><i class="fa fa-home"></i></a></li>
-        <li>COVID</li>
-      </ul>
-    </div>
 </div>
-<!-- ################################################################################################ -->
-<div class="sdb_cov">
-    <!-- ################################################################################################ -->
-    <h6 style="color:white; text-align:center">Covid</h6>
-    <nav>
-    <ul>
-        <li><a href="#news">Τελευταία Νέα</a></li>
-        <li><a href="#wor">Πληροφορίες<br> για εργαζόμενους</a></li>
-        <li><a href="#emp">Πληροφορίες<br> για εργοδότες</a></li>
-        <li><a href="#od">Οδηγίες πρόληψης</a></li>
-        <li><a href="#krousma">Κρούσμα σε<br> εργασιακό περιβάλλον</a></li>
-    </ul>
-    </nav>
+
+
+<div class="wrapper row3 dynamic_segment" style="padding-left:380px; font-family: Arial;">
+  <div id="ergazomenoi" style="padding: 0 60px; max-width: 80%; ">
+    <h1 style="text-align: center; padding: 60px 0 20px 0px; font-family: inherit;"> <b>Σημαντικές Πληροφορίες για Εργαζόμενους</b></h1>
+
+    <p style="font-family: inherit; font-size: 18px;">Για την ενίσχυση των Εργαζομένων στην Ελλάδα, και την ευκολότερη προσαρμογή του Εργατικού Δυναμικού της χώρας στις νέες συνθήκες που επιβάλλει η πανδημία του COVID-19, παρέχονται υπό την Αιγίδα του Υπουργείου Εργασίας και της ΕΕ, οι εξής δυνατότητες: </p>
+    <ol style="font-size: 16px;">
+      <li style="margin-bottom: 20px;">
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Τηλεργασία</b></h4>
+        <p style="margin-top: 5px; margin-bottom: 5px;"> <b>Όλοι</b> οι εργαζόμενοι έχουν το δικαίωμα, <b>εφόσον το επάγγελμά τους το επιτρέπει</b>, να εργαστούν από τον χώρο κατοικίας τους. Ο αριθμός ωρών εργασίας καθώς και η πληρωμή, παραμένουν αυστηρά οι ίδιοι, ενώ το νέο ωράριο (αν αλλάζει) καθορίζεται κατόπιν συννενόησης με τον εργοδότη<br> Για να μπείτε ύπο καθεστός Τηλεργασίας, αρκεί να έρθετε σε επαφή με τον εργοδότη σας</p>
+
+      </li>
+      <li> 
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Προσωρινή Αναστολή Σύμβασης Εργασίας</b></h4>
+        <p style="margin-top: 5px;"> Όλοι οι εργαζόμενοι <b> με προβλήματα υγείας ή με κοντινούς συγγενείς με προβλήματα υγείας</b> έχουν το δικαίωμα να ζητήσουν από τον Εργοδότη τους Προσωρινή Αναστολή της Σύμβασης Εργασίας τους, <b> διάρκειας μέχρι 2 μηνών</b>, για λόγους προστασίας της ατομικής ή οικογενειακής τους υγείας <br> Για να αιτηθείτε αναστολή σύμβασης εργασίας αρκεί να έρθετε σε επαφή με τον εργοδότη σας. <br> <b>Σημαντική σημείωση:</b> Οι Εργοδότες έχουν το δικαίωμα να θέσουν σε αναστολή οποιονδήποτε εργαζόμενο το αιτηθεί ή όποιον/όποιους κρίνουν μη-απαραίτητους για την λειτουργία των επιχειρήσεων για την περίοδο της πανδημίας</p>
+      </li>
+      <li>
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Άδειες Ειδικού Σκοπού για Εμβολιασμό κατά του COVID</b></h4>
+        <p style="margin-top: 5px;"> Όλοι οι εργαζόμενοι έχουν το δικαίωμα να πάρουν άδεια ειδικού σκοπού διάρκειας 1 ημέρας, <b>ώστε να εμβολιαστούν κατά του COVID-19</b>. Η επιβεβαίωση του εμβολιασμού γίνεται από τον ίδιο τον υπεύθυνο Ιατρό, συνεπώς για να πάρετε την συγκεκριμένη άδεια αρκεί να υποβάλετε την αντίστοιχη αίτηση μέσω της πλατφόρμας μας από τον παρακάτω σύνδεσμο: </p>
+        <div style="text-align: center;">
+          <!-- FTIAXE AUTO TO LINK vvv -->
+          <a href="/ergazomenoi/aithsh_adeias.php" ><b>Αίτηση Άδειας για Εμβολιασμό</b></a>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div style="width: 80%; text-align: center; padding-top: 40px; font-size: 18px; padding-left: 20px;">
+    <a href="#" style="font-family: inherit;"><b>Περισσότερες Πληροφορίες για Εργαζόμενους</b></a>
+  </div>
 </div>
-<div class="wrapper row2">
-  <section id="news" class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <h1 style="text-align: center; padding-bottom: 50px;">Τελευταία νέα</h1>
-    <ul class="nospace group prices" style="margin-left:180px;">
-      <li class="one_third first">
-        <article style="padding-bottom:40px;"><i class="fas fa-shopping-bag"></i>
-          <ul>
-            <li>(24/12) Χορήγηση κρατικών ενισχύσεων στους παραγωγούς πωλητές λαϊκών αγορών</li>
-          </ul>
-          <footer><a class="btn" href="under_construction.php">Περισσoτερα</a></footer>
-        </article>
+
+
+<div class="wrapper row2 dynamic_segment" style="padding-left:380px; font-family: Arial;">
+  <div id="ergodotes" style="padding: 0 60px; max-width: 80%;">
+    <h1 style="text-align: center; padding: 80px 0 40px 0px; font-family: inherit;"> <b>Σημαντικές Πληροφορίες για Εργοδότες</b></h1>
+    <p style="font-family: inherit; font-size: 18px;">Για την ενίσχυση των Εργοδοτών στην Ελλάδα, και την ευκολότερη προσαρμογή των Επιχειρήσεων της χώρας στις νέες συνθήκες που επιβάλλει η πανδημία του COVID-19, παρέχονται υπό την Αιγίδα του Υπουργείου Εργασίας και της ΕΕ, οι εξής δυνατότητες: </p>
+
+    <ol style="font-size: 16px;">
+      <li style="margin-bottom: 20px;">
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Μερική Χρηματοδότηση Μισθών και Ασφαλιστικών κόστων</b></h4>
+        <p style="margin-top: 5px; margin-bottom: 5px;"> Όλοι οι Εργοδότες μικρομεσαίων επιχειρήσεων έχουν το δικαίωμα, υποβάλλοντας την κατάλληλη αίτηση μέσω της πλατφόρμας μας να λάβουν χρηματοδοτική ενίσχυση σε μορφή μερικής χρηματοδότησης μισθών εργαζομένων, ή/και σε μορφή έκπτωσης στα ασφαλιστικά κόστη της επιχείρησης. Το πρόγραμμα συγχρηματοδοτείται από την ΕΕ με στόχο την ενίσχυση και σταθεροποίηση της Ευρωπαικής οικονομιας έναντι στα προβλήματα που έχουν προκληθεί από τον COVID-19. Για να υποβάλετε την αίτηση χρηματοδότησης, ακολουθήστε τον παρακάτω σύνδεσμο</p>
+        <div style="text-align: center;">
+          <!-- FTIAXE AUTO TO LINK vvv -->
+          <a href="#" ><b>Αίτηση Χρηματοδοτικής ενίσχυσης</b></a>
+        </div>
       </li>
-      <li class="one_third">
-        <article><i class="fas fa-seedling"></i>
-          <ul>
-            <li>(16/12)Προσωρινή στήριξη στους γεωργούς που πλήττονται ιδιαίτερα από τις επιπτώσεις της πανδημίας COVID-19</li>
-          </ul>
-          <footer><a class="btn" href="under_construction.php">Περισσoτερα</a></footer>
-        </article>
+      <li style="margin-bottom: 20px;">
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Προσωρινή Αναστολή Σύμβασης Εργασίας</b></h4>
+        <p style="margin-top: 5px; margin-bottom: 5px;"> Στην περίπτωση που μια επιχείρηση λόγω των συνθηκών που έχει επιβάλει η πανδημία, δυσκολεύεται να λειτουργήσει αποδοτικά, ο εργοδότης υπεύθυνος της επιχείρησης έχει το δικαίωμα να θέσει κάποιους ή ακόμα και όλους τους εργαζόμενους της επιχείρησης ύπο καθεστος αναστολής, "παγώνοντας" την σύμβασή εργασίας τους προσωρινά, ώστε να μπορέσει η επιχείρηση να συνεχίσει να λειτουργεί μετά την άρση των περιοριστικών μέτρων.  Οι ενδιαφερόμενοι εργοδότες μπορούν να θέσουν εργαζόμενους σε αναστολή μέσω του λογαριασμού τους στην πλατφόρμα μας, από την επιλογή "Τροποποίηση Εργαζομένου" της σελίδας χρήστη τους αφού συνδεθούν 
+        <div style="text-align: center;">
+          <!-- FTIAXE AUTO TO LINK vvv BALE NA KANEI ANAKATEYUYNSH SE EPIXEIRHSH MOY -->
+          <a href="/authentication/login.php" ><b>Αίτηση Αναστολή Σύμβασης Εργασίας</b></a>
+        </div>
       </li>
-      <li class="one_third">
-        <article style="padding-bottom:60px;"><i class="fas fa-briefcase"></i>
-            <ul>
-                <li>(25/11)Παράταση διάρκειας τακτικής επιδότησης ανεργίας</li>
-            </ul>
-            <footer style="position:relative; top:10px;"><a class="btn" href="under_construction.php">Περισσoτερα</a></footer>
-        </article>
+      <li style="margin-bottom: 20px;">
+        <h4 class="erga_h4s" style="font-family: inherit; margin-bottom: 5px;"><b>Φορολογική Ελάφρυνση για το έτος 2020-2021</b></h4>
+        <p style="margin-top: 5px; margin-bottom: 5px;"> Όλες οι μικρομεσαίες επιχειρήσεις με μείωση ετήσιων εσόδων άνω του 30% για το έτος 2020-2021 δικαιούνται σημαντική ελάφρυνση των φορολογικών τους υποχρεώσεων για το έτος 2021-2022. Για να αιτηθείτε για φορολογική ελάφρυνση αρκει να ακολουθήσετε τον παρακάτω σύνδεσμο και να υποβάλετε την ηλεκτρονική αίτηση.
+        <div style="text-align: center;">
+          <!-- FTIAXE AUTO TO LINK vvv -->
+          <a href="#" ><b>Αίτηση Φορολογικής Ελάφρυνσης</b></a>
+        </div>
       </li>
-    </ul>
-    
-    <!-- ################################################################################################ -->
-  </section>
+
+    </ol>
+      
+  </div>
+  <div style="width: 80%; text-align: center; padding-top: 20px; font-size: 18px; padding-left: 20px; padding-bottom: 40px;">
+    <a href="#" style="font-family: inherit;"><b>Περισσότερες Πληροφορίες για Εργοδότες</b></a>
+  </div>
 </div>
-<!-- ################################################################################################ -->
+
+<!-- ################################################################################## -->
 
 <div class="wrapper row3">
-    <main id="wor" class="hoc container clear" style="padding-left:180px;">
-    <h1 style="text-align: center; padding-bottom: 50px;">Πληροφορίες για εργαζομένους</h1>
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter first">
-      <!-- ################################################################################################ -->
-      <h1>Επιδόματα για εργαζομένους των οποίων η εργασία αναστέλλεται</h1>
-      <img class="imgr borderedbox inspace-5" src="images/ergaz.jpeg" alt="Εργαζόμενος από σπίτι" style="width:260px; height:180px;">
-      <p><b>Επιδόματα στήριξης</b> για τους εργαζομένους που πλήττονται από το νέο κύμα της πανδημίας στο ασφαλιστικό - εργασιακό πεδίο ανακοινώθηκαν από τον Υπουργό Εργασίας κ. Σταϊκούρας.</p>
-      <p>Συγκεκριμένα αναφέρεται στην αύξηση της αποζημίωσης για τους εργαζομένους που βγαίνουν σε αναστολή κατά <b>266 ευρώ ή 33%</b> και συγκεκριμένα στα <b>800 ευρώ</b> (σ.σ. για αναστολή 30 ημερών) έναντι των 534 ευρώ που ήταν έως και τον Οκτώβρη.</p>
-      <p><a href="metra.php"><b>Αναλυτικά τα νέα μέτρα που αποφασίστηκαν από το υπουργείο εργασίας --></b></a></p>
-      <ul class="nospace group prices">
-        <li class="one_third">
-          <article style="margin-top:30px;"><i class="fas fa-credit-card"></i>
-            <h6 class="heading">Επιδoματα</h6><br>
-            <footer ><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-        <li class="one_third">
-          <article style="margin-top:30px;"><i class="fas fa-briefcase"></i>
-            <h6 class="heading">Αναστολες συμβασεων</h6>
-            <footer ><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-        <li class="one_third">
-          <article style="margin-top:30px;"><i class="fas fa-desktop"></i>
-            <h6 class="heading">Εργασια εξ αποστασεως</h6>
-            <footer ><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-      </ul>
-        <ul class="nospace clear">
-          <li class="one_half">
-           <div class="block clear" style="margin-top:70px;"><a href="under_construction.php"><strong>Υγειονομικά μέτρα που οφείλουν να τηρούν οι εργαζόμενοi</strong></a><i class="far fa-file-pdf" style="margin-left:5px;"></i></div>
-          </li>
-        </ul>
-      <!-- ################################################################################################ -->
-    </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <div class="sidebar one_quarter">
-      <!-- ################################################################################################ -->
-      <h6>Είμαι...</h6>
-      <nav class="sdb_holder">
+  <main class="hoc clear"> 
+
+    <div class="content three_quarter first min_info">
+      <div class="flex_row">
+        <img class="single_logo" src="../images/logo_big.png">
+        <p class="yp_name"> Υπουργείο Εργασίας και <br> Κοινωνικών Υποθέσεων</p>
         <ul>
-          <li><a href="under_construction.php">Εργαζόμενος που ανήκει σε ευπαθής ομάδα</a></li>
-          <li><a href="under_construction.php">Εργαζόμενος γονέας</a></li>
-          <li><a href="under_construction.php">Εργαζόμενος στον κλάδο υγείας</a></li>
-          <li><a href="under_construction.php">Εργαζόμενος στις μεταφορές</a></li>
-          <li><a href="under_construction.php">Εργαζόμενος στην εκπαίδευση</a></li>
+          <li><a href="#"> Ρόλος του Υπουργείου </a></li>
+          <li><a href="#"> Πολιτική Ηγεσία </a></li>
+          <li><a href="#"> Οργανωτική Δομή </a></li>
         </ul>
-      </nav>
-      <!-- ################################################################################################ -->
-    </div>
-    </main>
-</div>
 
-<!-- ########################################################################################################### -->
-
-<div class="wrapper row2">
-    <main id="emp" class="hoc container clear" style="padding-left:180px;">
-<h1 style="text-align: center; padding-bottom: 50px;">Πληροφορίες για εργoδότες</h1>
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter first">
-      <!-- ################################################################################################ -->
-      <h1>Απαραίτητη η χρήση αυστηρών προληπτικών μέτρων σε κάθε εργασιακό χώρο</h1>
-      <img class="imgr borderedbox inspace-5" src="images/ergod.jpg" alt="Φοράμε πάντα μάσκα στη δουλειά" style="width:240px; height:180px;">
-      <p><b>Βασικές υποχρεώσεις εργοδοτών</b>
-        <ol>
-        <li>Επικαιροποίηση της Εκτίμησης Επαγγελματικού Κινδύνου ως προς την αξιολόγηση του κινδύνου και τα μέτρα πρόληψης και προστασίας έναντι του κορωνοϊού.</li>
-        <li>Ενημέρωση των εργαζομένων για την κίνδυνο λοίμωξης από τον κορωνοϊό και τα μέτρα πρόληψης και προστασίας, βάσει και των οδηγιών του ΕΟΔΥ.</li>
-        <li>Χορήγηση κατάλληλων μέσων ατομικής προστασίας (Μ.Α.Π.) και επίβλεψη της ορθής χρήσης τους.</li>
-        <li>Διαβούλευση με τους εργαζόμενους και ενθάρρυνση για υποβολή σχετικών προτάσεων.</li>
-        <li>Λήψη μέτρων περιβαλλοντικής και ατομικής υγιεινής, όπως τακτικός αερισμός των χώρων εργασίας, συντήρηση των συστημάτων εξαερισμού - κλιματισμού και καθαρισμός επιφανειών, συσκευών κ.λπ., σύμφωνα και με τις οδηγίες του ΕΟΔΥ.</li>
-        </p>
-      <p><a href="under_construction.php"><b>Αναλυτικά τα νέα μέτρα που αποφασίστηκαν από το υπουργείο εργασίας --></b></a></p>
-      <ul class="nospace group prices">
-        <li class="one_third">
-          <article style="margin-top:30px;"><i class="fas fa-universal-access"></i>
-            <h6 class="heading">Εχω υπαλληλο/ους σε ευπαθη ομαδα</h6><br>
-            <footer ><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-        <li class="one_third">
-          <article style="margin-top:30px; padding-bottom:90px;"><i class="fas fa-file-medical"></i>
-            <h6 class="heading">Εχω υπαλληλο/ους κρουσμα</h6>
-            <footer style="position:relative; top:50px;"><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-        <li class="one_third">
-          <article style="margin-top:30px; padding-bottom:40px;"><i class="fas fa-building"></i>
-            <h6 class="heading">Οργανωτικα μετρα στο εργασιακο περιβαλλον</h6>
-            <footer><a class="btn" href="under_construction.php">Περισσότερα</a></footer>
-          </article>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <div class="sidebar one_quarter">
-      <!-- ################################################################################################ -->
-      <h6>Είμαι...</h6>
-      <nav class="sdb_holder">
         <ul>
-          <li><a href="under_construction.php">Ιδιοκτήτης καταστήματος που έκλεισε λόγω Covid-19</a></li>
-            <ul>
-              <li><a href="under_construction.php">Εστίαση</a></li>
-              <li><a href="under_construction.php">Ψυχαγωγία</a></li>
-              <li><a href="under_construction.php">Λιανεμπόριο</a></li>
-            </ul>
-          <li><a href="under_construction.php">Εργοδότης στον κλάδο υγείας</a></li>
-          <li><a href="under_construction.php">Εργοδότης στις μεταφορές</a></li>
-          <li><a href="under_construction.php">Εργοδότης στην εκπαίδευση</a></li>
+          <li><a href="#"> Γενική Γραματεία Πρόνοιας </a></li>
+          <li><a href="#"> Γενική Γραματεία Κοινωνικής Ασφάλισης </a></li>
+          <li><a href="#"> Σώμα Επιθεώρησης Εργασίας </a></li>
         </ul>
-      </nav>
-      <!-- ################################################################################################ -->
+      </div>
+      
+      <div class="clear"></div>
     </div>
-    </main>
-</div>
 
-<div class="wrapper row3" style="padding-left:180px;">
-<main id="od" class="hoc container clear">
-  <!-- main body -->
-  <!-- ################################################################################################ -->
-<h1 style="text-align: center; padding-bottom: 50px;">Οδηγίες Πρόληψης</h1>
-    <div id="gallery">
-      <article>
-        <ul>
-          <button class="btn_od" onclick=mydoc("gen")>Γενικές οδηγίες</button>
-            <p  id="gen" class="hide">Οι εργαζόμενοι εισέρχονται στους χώρους εργασίας όταν: <br>
-              1. ΔΕΝ εμφανίζουν συμπτώματα οξείας λοίμωξης αναπνευστικού (βήχα, πυρετό,
-              πονόλαιμο, ρινική καταρροή, δύσπνοια) <br>
-              2. ΔΕΝ αποτελούν στενή επαφή επιβεβαιωμένου κρούσματος Covid-19 (ΔΕΝ
-              βρίσκονται στο χρονικό διάστημα απομόνωσης για 14 ημέρες)
-              3. ΔΕΝ ανήκουν στις ευπαθείς ομάδες καθ’ υπόδειξη του θεράποντος ιατρού
-              τους <br>
-              4. ΔΕΝ υπάρχει σοβαρό υποκείμενο πρόβλημα υγείας που τους καθιστά
-              ευάλωτους έναντι του Covid-19 σε σχέση με τα καθήκοντά τους στη θέση
-              εργασίας τους <br><br>
-              Συστάσεις εντός του χώρου εργασίας:<br>
-              1. Αυστηρή τήρηση όλων των κανόνων υγιεινής <br>
-              ✓ Πλύσιμο των χεριών τακτικά και σχολαστικά με σαπούνι και νερό ή με
-              αλκοολούχο διάλυμα και αποφυγή επαφής των χεριών με το πρόσωπο
-              (μάτια, μύτη, στόμα).<br>
-              ✓ Κάλυψη του βήχα ή το φτερνίσματος με χαρτομάντιλο το οποίο
-              απορρίπτεται άμεσα. Αν αυτό δεν είναι διαθέσιμο, κάλυψη με το
-              εσωτερικό του αγκώνα.<br>
-              2. Χρήση όλων των μέσων ατομικής προστασίας που προβλέπονται κατά
-              περίπτωση (μάσκα, γάντια)<br>
-              3. Αποφυγή επαφών και συναθροίσεων με άλλους εργαζόμενους, διατήρηση
-              αποστάσεων αν είναι δυνατόν >2 μέτρα από το συνάδελφο τους.<br>
-              4. Πλήρης Ενημέρωση και παρακολούθηση από τους προϊστάμενους και τους
-              επόπτες καθαριότητας για τον τόπο, τις τεχνικές και τον χρόνο εργασίας των
-              εργαζομένων ώστε να εντοπιστούν αμέσως λάθος τεχνικές που θα
-              μπορούσαν να μειώσουν την αποτελεσματικότητα των λαμβανομένων
-              μέτρων έναντι του κορονοϊού<br>
-              5. Χρήση του ιατρείου εργασίας:<br>
-              • για σοβαρό και επείγοντα λόγο<br>
-              • να προηγείται τηλεφωνική επικοινωνία για καλύτερο συντονισμό<br>
-              • Τα στοιχεία επικοινωνίας του Ιατρού Εργασίας θα πρέπει να είναι
-              διαθέσιμα σε όλους
-             </p>
-          <button class="btn_od" onclick=mydoc("prof")>Οδηγίες για καθηγητές</button>
-          <p id="prof" class="hide">- Τήρηση απόστασης 2 μέτρων ανάμεσα στους εργαζόμενους.<br>
-            - Εμβαδόν γραφείου έως 20 τ.μ. επιτρέπονται μέχρι 3 άτομα, από 20 τ.μ. – 100 τ.μ. 4
-            άτομα + 1 άτομο για κάθε επιπλέον 10 τ.μ. - Εμβαδόν άνω των 100 τ.μ. μέχρι 12 άτομα
-            + 1 άτομο για κάθε επιπλέον 15 τ.μ. <br>
-            - Συχνή και σωστή υγιεινή των χεριών με σαπούνι και νερό ή αλκοολούχο αντισηπτικό. <br>
-            - Κάλυψη του βήχα και του φτερνίσματος με χειροπετσέτα και ακολούθως απόρριψη
-            σε κάδο με καπάκι ή εναλλακτικά χρήση του εσωτερικού του αγκώνα. <br>
-            - Αποφυγή επαφής των χεριών με τα μάτια την μύτη και το στόμα. <br>
-            - Ελαχιστοποίηση των επαφών μεταξύ των εργαζομένων. <br>
-            - Καλός και συχνός αερισμός των χώρων. <br>
-            - Συχνός καθαρισμός των χώρων και ιδιαίτερα των κοινόχρηστων αντικειμένων
-            (πόμολα, κουπαστές, φωτοτυπικά, διακόπτες κλπ.) <br>
-            - Ατομική χρήση προσωπικών αντικειμένων και γραφικής ύλης (συρραπτικό, στυλό,
-            πληκτρολόγιο, ποντίκι κλπ.)
-            2 <br>
-            - Σωστή εφαρμογή, χρήση και απόρριψη των μέσων ατομικής προστασίας, όταν αυτή
-            χρησιμοποιείται <br>
-            - Παραμονή των εργαζομένων που εμφανίζουν συμπτώματα λοίμωξης αναπνευστικού
-            στο σπίτι τους. <br>
-            - Τήρηση των οδηγιών από τους εργαζόμενους και τους εξωτερικούς συνεργάτες</p>
-          <script>
-            function mydoc(id){
-              var div = document.getElementById(id);
-              div.classList.toggle('hide');
-            }
-          </script>
-          <button class="btn_od" onclick=mydoc("doc")>Οδηγίες για μέλη νοσηλευτικού προσωπικού</button>
-          <button class="btn_od" onclick=mydoc("tour")>Οδηγίες για τουριστικές επιχειρήσεις</button>
-          <button class="btn_od" onclick=mydoc("air")>Οδηγίες για εργαζόμενους σε λιμάνια/αεροδρόμια</button>
-          <button class="btn_od" onclick=mydoc("ser")>Οδηγίες για εργαζόμενους σε χώρους παροχής υπηρεσιών</button>
-        </ul>
-      </article>
-    </div>
-    <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- / main body -->
-  <div class="clear"></div>
-</main>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-
-<div class="wrapper row2">
-  <main id="krousma" class="hoc container clear" style="padding-left:180px;">
-    <!-- main body -->
-<h1 style="text-align: center; padding-bottom: 50px;">Κρούσμα σε εργασιακό περιβάλλον</h1>
-    <button class="btn_od" onclick=mydoc("out")>Εμφάνιση συμπτωμάτων εκτός εργασίας</button>
-    <p id="out" class="hide">Α. Εργαζόμενοι που εμφανίζουν ήπια συμπτώματα οξείας λοίμωξης
-      αναπνευστικού (όπως καταρροή, πταρμός, δεκατική πυρετική κίνηση, μυϊκή
-      αδυναμία):<br>
-      &nbsp 1. Δεν προσέρχονται στην εργασία<br>
-      &nbsp 2. Ειδοποιούν τον προϊστάμενό τους<br>
-      &nbsp 3. Ειδοποιείται ο Ιατρός Εργασίας του Ο.Τ.Α.<br>
-      &nbsp 4. Επικοινωνούν με το θεράποντα ιατρό τους και λαμβάνουν οδηγίες<br>
-      &nbsp 5. Επιστρέφουν στην εργασία τους μόνο όταν:<br>
-      &nbsp &nbsp • Είναι 7ημέρες ελεύθεροι συμπτωμάτων*<br>
-      &nbsp &nbsp • Έχουν αναρρώσει πλήρως και είναι ικανοί προς εργασία<br>
-      Σε επιδείνωση ή εμμονή των συμπτωμάτων αναζητούν ιατρική εξέταση λαμβάνοντας<br>
-      προληπτικά μέτρα μη διασποράς της νόσου (μάσκα, γάντια κ.λπ.).<br><br>
-      Β. Εργαζόμενοι που εμφανίζουν επίμονο πυρετό, βήχα ή επιδείνωση του βήχα και
-      δυσκολία στην αναπνοή:<br>
-      &nbsp 1. Δεν προσέρχονται στην εργασία<br>
-      &nbsp 2. Ειδοποιούν τον προϊστάμενό τους<br>
-      &nbsp 3. Ειδοποιείται ο Ιατρός Εργασίας του Ο.Τ.Α.<br>
-      &nbsp 4. Αναζητούν άμεσα ιατρική βοήθεια<br>
-      &nbsp 5. Επικοινωνούν με τον ΕΟΔΥ και λαμβάνουν οδηγίες (εργαστηριακός έλεγχος
-      για COVID-19 σύμφωνα με τις οδηγίες και τα εκάστοτε κριτήρια του ΕΟΔΥ)<br>
-      &nbsp 6. Υποχρεωτική ενημέρωση του ιατρού εργασίας σε επιβεβαίωση κρούσματος.<br>
-      &nbsp 7. Επιστρέφουν στην εργασία τους μόνο όταν:<br>
-      &nbsp &nbsp • Είναι 7 μέρες ελεύθεροι συμπτωμάτων<br>
-      &nbsp &nbsp • Έχουν αναρρώσει πλήρως και είναι ικανοί προς εργασία<br>
-      &nbsp &nbsp • Έχουν συμπληρώσει διάστημα 14ημερών απομόνωσης κατόπιν
-      οδηγιών του ΕΟΔΥ και δεν έχουν εμφανίσει συμπτώματα</p>
-      <button class="btn_od" onclick=mydoc("in")>Εμφάνιση συμπτωμάτων κατά την εργασία</button>
-      <p id="in" class="hide">Όλοι οι εργαζόμενοι με οξεία εμφάνιση συμπτωμάτων λοίμωξης αναπνευστικού:<br>
-        &nbsp • Απομονώνονται από τους υπόλοιπους εργαζόμενους<br>
-        &nbsp • Ειδοποιούν τον προϊστάμενό τους<br>
-        &nbsp • Ειδοποιείται ο Ιατρός Εργασίας του Ο.Τ.Α.<br>
-        &nbsp • Αποχωρούν άμεσα από την εργασία<br>
-        &nbsp • Ακολουθούν τις παραπάνω οδηγίες και τις οδηγίες
-        του θεράποντα ιατρού τους<br><br>
-        Α. Εργαζόμενοι που δεν εμφανίζουν βαριά συμπτωματολογία (χωρίς δυσκολία στην
-        αναπνοή ή απώλεια συνείδησης ή άλλη βαριά κλινική εικόνα):<br>
-        &nbsp 1. Αποφεύγουν την επαφή με τους άλλους εργαζόμενους<br>
-        &nbsp 2. Αποχωρούν με δικό τους ιδιωτικό μέσο (όχι χρήση μέσων μαζικής
-        κυκλοφορίας)<br>
-        &nbsp 3. Εάν δεν έχουν, μεταφέρονται με υπηρεσιακό όχημα ή άλλο όχημα. Φέρουν
-        μάσκα μιας χρήσης, απόσταση τουλάχιστον ενός μέτρου από τον οδηγό<br>
-        &nbsp 4. Γίνεται απολύμανση όλων των επιφανειών και χώρων του εργαζόμενου με
-        διάλυμα χλωρίνης ή και με αλκοολούχο αντισηπτικό.<br>
-        &nbsp 5. Εφαρμόζεται καλός αερισμός των εργασιακών χώρων<br><br>
-        Β. Εργαζόμενοι που χρήζουν επείγουσας ιατρικής αντιμετώπισης (δυσκολία στην
-        αναπνοή, απώλεια συνείδησης, βαριά κλινική εικόνα):<br>
-        &nbsp 1. Ενημερώνεται το ιατρείο<br>
-        &nbsp 2. Επικοινωνία με ΕΟΔΥ για λήψη περαιτέρω οδηγιών, ο ασθενής μεταφέρεται
-        άμεσα με ασθενοφόρο ή σύμφωνα με οδηγίες του ΕΟΔΥ<br>
-        &nbsp 3. Τηρούνται όλα τα μέτρα ατομικής προστασίας των οδηγών και νοσηλευτών<br>
-        &nbsp 4. Γίνεται απολύμανση όλων των επιφανειών και χώρων (χρήση 0,5%
-        υποχλωριώδους νατρίου δηλ. αραίωση 1:10 αν χρησιμοποιείται οικιακή
-        χλωρίνη αρχικής συγκέντρωσης 5%, μετά από τον καθαρισμό με ουδέτερο
-        απορρυπαντικό. Για επιφάνειες που είναι πιθανόν να καταστραφούν από τη
-        χρήση υποχλωριώδους νατρίου, μπορεί να χρησιμοποιηθεί αιθανόλη
-        συγκέντρωσης 70% κατόπιν καθαρισμού με ουδέτερο απορρυπαντικό).<br>
-        &nbsp 5. Εφαρμόζεται καλός αερισμός των εργασιακών χώρων</p>
-      <button class="btn_od" onclick=mydoc("susp")>Ύποπτες επαφές εργαζόμενου κατά την εργασία</button>
-      <p id="susp" class="hide">Εργαζόμενος που ήρθε σε στενή επαφή (π.χ. εργασία σε πολύ κοντινή απόσταση,
-        μετακίνηση με το ίδιο μέσο, κοινό διάλειμμα που ήρθε σε επαφή για
-        περισσότερο από 10 λεπτά κ.λπ.) με εργαζόμενο που εμφάνισε συμπτώματα οξείας
-        λοίμωξης αναπνευστικού:<br>
-        &nbsp 1. Αποχωρεί άμεσα από την εργασία<br>
-        &nbsp 2. Παραμένει σε απομόνωση στο σπίτι του<br>
-        &nbsp 3. Ακολουθεί διαδικασία λεπτομερούς ιχνηλάτησης όλων των επαφών του στο
-        χρονικό διάστημα πριν και κατά τη διάρκεια εμφάνισης των συμπτωμάτων<br>
-        &nbsp 4. Παρακολουθεί την υγεία του για 14 ημέρες<br>
-        &nbsp &nbsp • Σε μη εκδήλωση συμπτωμάτων επιστρέφει στην εργασία του<br>
-        &nbsp &nbsp • Σε εκδήλωση συμπτωμάτων ακολουθείται το σχέδιο της<br>
-        παραγράφου 5 από την ημερομηνία έναρξης των συμπτωμάτων.<br><br>
-        Σε κρίσιμους υπηρεσιακούς τομείς με κίνδυνο διακοπής λειτουργίας τους, οι επαφές
-        των πιθανών κρουσμάτων μπορούν να απομονωθούν για 7 ημέρες αντί 14 (μετά και
-        από σύμφωνη γνώμη του ΕΟΔΥ). Με την επιστροφή του λαμβάνει υποχρεωτικά
-        μέτρα προστασίας (μάσκα γάντια) μέχρι τη συμπλήρωση 14 ημερών.
-        Η συγκεκριμένη τακτική εφαρμόζεται στα νοσοκομεία από 17/03/2020 λόγω:<br>
-        &nbsp &nbsp • αδυναμίας διακοπής λειτουργίας τους<br>
-        &nbsp &nbsp • εκδήλωσης συμπτωμάτων στις πρώτες 5 με 7 ημέρες από την επαφή στην
-        πλειοψηφία των περιπτώσεων<br>
-        Σε κάθε περίπτωση, το μέγιστο επίπεδο ασφάλειας, παραμένουν οι 14 ημέρες, ειδικά
-        εάν πρόκειται για παρατεταμένη κοντινή επαφή, χωρίς την χρήση μέσων ατομικής
-        προστασίας (γάντια, μάσκα) και χωρίς την εφαρμογή περιβαλλοντικών κανόνων
-        υγιεινής (καθαρισμός, απολύμανση επιφανειών). <br>
-        Εργαζόμενος που διαχειρίστηκε ύποπτο κρούσμα (οδηγός, νοσηλευτής, συνάδελφος)
-        και τήρησε όλα τα μέσα ατομικής προστασίας (γυαλιά, φόρμα, μάσκα, γάντια μιας
-        χρήσης) και τις οδηγίες που του έχουν δοθεί, θεωρείται χαμηλού κινδύνου για
-        εκδήλωση νόσου.<br>
-        Εργαζόμενος με μικρή διάρκεια (&lt15 λεπτά) ή και μεγάλη απόσταση επαφής (&gt2
-        μέτρα) θεωρείται χαμηλού κινδύνου για εκδήλωση νόσου.<br>
-        Οι περιβαλλοντικοί κανόνες υγιεινής μειώνουν την επικινδυνότητα μετάδοσης νόσου.
-        Τα αυστηρά μέτρα υγιεινής του προσωπικού μειώνουν περαιτέρω την
-        επικινδυνότητα.</p>
-    <!-- / main body -->
-    <script>
-      function mydoc(id){
-        var div = document.getElementById(id);
-        div.classList.toggle('hide');
-      }
-    </script>
-    <div class="clear"></div>
   </main>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left">Copyright &copy; 2020 - All Rights Reserved - <a href="#">https://www.ypakp.gr</a></p>
+    <a href="#" ><p class="fl_right">Προσωπικά Δεδομένα και Ασφάλεια</p></a>
+  </div>
+</div>
+
+<!-- ################################################################################# -->
 <a id="backtotop" href="#top" title="Πίσω στην κορυφή"><i class="fas fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../layout/scripts/collapse.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<script type = "text/javascript">
+
+var op_list = ['op1', 'op2', 'op3', 'op4'];
+var id_list = ['#odigies_metra', '#krousma', '#ergazomenoi', '#ergodotes'];
+
+</script>
+
+<script>
+
+var lock=0;
+
+function scroll(id, target){
+  $('html, body').animate({
+    scrollTop: $(id_list[target]).offset().top - 110
+  }, 500);
+}
+
+function bold(id){ 
+  element = document.getElementById(id);
+  var text = document.getElementById(id).innerText;
+  document.getElementById(id).innerHTML = text.bold();
+}
+
+function unbold(id) { 
+  element = document.getElementById(id);
+  var text = document.getElementById(id).innerText;
+  document.getElementById(id).innerHTML = text;
+}
+
+function select(id){
+  var index=0;
+  // Deactivate all elements
+  for (var i = 0; i < op_list.length; i++) {
+    //console.log("Deactivating id:" + op_list[i]);
+    unbold(op_list[i]);
+    if(op_list[i]==id){
+      index=i;
+    }
+  }
+  //console.log("Activating id:" + id);
+
+  // And activate the clicked one
+  bold(id);
+
+  return index;
+}
+
+function activate(id){
+  if(!lock){
+    console.log( id + ": locking");
+    // Lock the scrolling functions
+    lock = 1;
+    
+    // Select the option
+    var index = select(id);
+
+    // Safely Scroll to the desired point
+    scroll(id,index);
+
+    // Unlock after the scrolling animation has completed
+    setTimeout(() => { lock = 0; console.log( id + ": unlocking"); }, 500);
+  }
+}
+
+
+// For auto-select of option during scrolling 
+// Conflicts with simple select() :(
+
+window.onscroll = function() {
+  if (!lock){
+    offsetTop = this.scrollY;
+    console.log(this.scrollY);
+
+    if (offsetTop>=0 && offsetTop<764) {
+      select('op1');
+    }
+    else if(offsetTop>=764 && offsetTop<1500){
+      select('op2');
+    }
+    else if(offsetTop>=1500 && offsetTop<2300){
+      select('op3');
+    }
+    else if(offsetTop>=2300){
+      select('op4');
+    }
+  }
+}
+
+</script>
+
 </body>
 </html>

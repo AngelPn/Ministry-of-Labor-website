@@ -184,8 +184,6 @@
             </table>
             <div id="comments">
                 <div style='float: right;'>
-                    <input type='reset' name='reset' value='Εκκαθάριση'>
-                    &nbsp;
                     <input type='submit' name='submit' value='Υποβολή' style='background-color: #813DAA; color: #FFFFFF;'>
                 </div>
             </div>

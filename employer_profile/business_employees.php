@@ -141,18 +141,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <p>Μπορείτε να αλλάξετε την κατάσταση του ακόλουθου εργαζομένου με κλικ στα κατάλληλα πεδία και Υποβολή.</p>
         <?php
           // Define variables and initialize with empty values
-          $status = $period = "";
+          $status = $start_date = $end_date = "";
           $id = $_SESSION["id"];
           $_SESSION["employee_id"] = $employee_id;
 
-          $sql = "SELECT status, period FROM business_employees where business_id = '$id' and employee_id = '$employee_id'";
+          $sql = "SELECT status, start_date, end_date FROM business_employees where business_id = '$id' and employee_id = '$employee_id'";
           $result = mysqli_query($link, $sql);
 
           if (mysqli_num_rows($result) > 0) {
               $row = mysqli_fetch_assoc($result);
 
               $status = $row["status"];
-              $period = $row["period"];
+              $start_date = $row["start_date"];
+              $end_date = $row["end_date"];
           }
           else {
             echo "0 results";
@@ -201,8 +202,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </td>
                 </tr>
                 <tr>
-                    <td>Ισχύ μέχρι</td>
-                    <td><input type = 'date' name='period' id='period' value='<?php echo "$period"; ?>'></td>
+                    <td>Από</td>
+                    <td><input type = 'date' name='start_date' id='start_date' value='<?php echo "$start_date"; ?>'></td>
+                </tr>
+                <tr>
+                    <td>Μέχρι</td>
+                    <td><input type = 'date' name='end_date' id='end_date' value='<?php echo "$end_date"; ?>'></td>
                 </tr>
               </tbody>
             </table>
